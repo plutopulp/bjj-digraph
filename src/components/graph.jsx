@@ -18,6 +18,7 @@ export const Graph = () => {
   const [nodes, setNodes] = React.useState(graphData.nodes);
   const [edges, setEdges] = React.useState(graphData.edges);
   const [selected, setSelected] = React.useState({});
+  const [copiedNode, setCopiedNode] = React.useState({});
   const graphRef = React.useRef();
 
   // Get the index of a given node
@@ -63,7 +64,52 @@ export const Graph = () => {
     setNodes(newNodes);
     setEdges(newEdges);
   };
+  // Creates an edge between 2 nodes
+  const handleCreateEdge = (sourceNode, targetNode) => {
+    if (sourceNode !== targetNode) {
+      const newEdge = {
+        source: sourceNode[NODE_KEY],
+        target: targetNode[NODE_KEY],
+        type: "emptyEdge",
+      };
+      setEdges([...edges, newEdge]);
+    }
+  };
+  //
+  const handleSwapEdge = (source, target, edge) => {
+    const edgeIndex = getEdgeIndex(edge);
+    const newEdge = JSON.parse(JSON.stringify(edges[edgeIndex]));
+    newEdge.source = source[NODE_KEY];
+    newEdge.target = target[NODE_KEY];
+    setEdges([
+      ...edges.splice(0, edgeIndex),
+      newEdge,
+      ...edges.splice(edgeIndex + 1),
+    ]);
+  };
+  // Removes a given edge from edges
+  const handleDeleteEdge = (edge, newEdges) => {
+    setEdges(newEdges);
+  };
 
+  const handleCopySelected = () => {
+    if (selected.source) {
+      console.warn("Can't copy selected edges, try selecting a node instead.");
+      return;
+    }
+    const x = selected.x + 10;
+    const y = selected.y + 10;
+    setCopiedNode({ ...selected, x, y });
+  };
+  const handlePasteSelected = (node, mousePosition) => {
+    const newNode = {
+      ...node,
+      id: uuid(),
+      x: mousePosition ? mousePosition[0] : node.x,
+      y: mousePosition ? mousePosition[1] : node.y,
+    };
+    setNodes([...nodes, newNode]);
+  };
   return (
     <GraphWrapper>
       <GraphView
@@ -78,7 +124,12 @@ export const Graph = () => {
         onSelectNode={handleSelectNode}
         onSelectEdge={handleSelectEdge}
         onCreateNode={handleCreateNode}
+        onCreateEdge={handleCreateEdge}
         onDeleteNode={handleDeleteNode}
+        onDeleteEdge={handleDeleteEdge}
+        onSwapEdge={handleSwapEdge}
+        onCopySelected={handleCopySelected}
+        onPasteSelected={handlePasteSelected}
       />
     </GraphWrapper>
   );
