@@ -1,9 +1,9 @@
 import { nodeTypes } from "./nodeTypes";
-import { nodeSubTypes } from "./nodeSubTypes";
+import { nodeSubtypes } from "./nodeSubtypes";
 import { edgeTypes } from "./edgeTypes";
 
 export const graphConfig = {
   nodeTypes,
-  nodeSubTypes,
+  nodeSubtypes,
   edgeTypes,
 };

@@ -3,13 +3,13 @@ import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
 
 import { graphConfig } from "../config/graphConfig";
-import { useKeyPressed } from "../hooks/useKeyPressed";
+import { useKeyPressed, useKeysPressed } from "../hooks/useKeyPressed";
 import { GraphContext } from "../contexts/graphContext";
 import { NodePanel, EdgePanel } from "./panels";
 import { GraphOpsContext } from "../contexts/graphOpsContext";
 
 const NODE_KEY = "id";
-const { nodeTypes, nodeSubTypes, edgeTypes } = graphConfig;
+const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
 const GraphWrapper = styled.div`
   width: 100%;
@@ -39,7 +39,12 @@ export const Graph = () => {
     handlePasteSelected,
   } = React.useContext(GraphOpsContext);
   const graphRef = React.useRef();
-
+  const pressed = [
+    useKeyPressed("p"),
+    useKeyPressed("s"),
+    useKeyPressed("t"),
+    useKeyPressed("c"),
+  ];
   const getCustomStyle = (data) => {
     return (
       <foreignObject x="-77" y="-77" width="154" height="154">
@@ -47,6 +52,61 @@ export const Graph = () => {
           <span>{data.title} </span>
         </NodeContentWrapper>
       </foreignObject>
+    );
+  };
+  const renderNode = (ref, data, id, selected, hovered) => {
+    console.log(ref, data, id, selected, hovered);
+    const nodeShapeContainerClassName = GraphUtils.classNames("shape");
+    const nodeClassName = GraphUtils.classNames("node", { selected, hovered });
+    const nodeSubtypeClassName = GraphUtils.classNames("subtype-shape", {
+      selected,
+    });
+    const nodeSubtypeXlinkHref = Node.getNodeSubtypeXlinkHref(
+      data,
+      nodeSubtypes
+    );
+    const nodeTypeXlinkHref = Node.getNodeTypeXlinkHref(data, nodeTypes) || "";
+
+    // get width and height defined on def element
+    const defSvgNodeElement = nodeTypeXlinkHref
+      ? document.querySelector(`defs>${nodeTypeXlinkHref}`)
+      : null;
+    const nodeWidthAttr = defSvgNodeElement
+      ? defSvgNodeElement.getAttribute("width")
+      : 0;
+    const nodeHeightAttr = defSvgNodeElement
+      ? defSvgNodeElement.getAttribute("height")
+      : 0;
+    const width = parseInt(nodeWidthAttr, 10);
+    const height = parseInt(nodeHeightAttr, 10);
+    console.log(
+      nodeShapeContainerClassName,
+      nodeClassName,
+      nodeTypeXlinkHref,
+      width,
+      height
+    );
+    return (
+      <g className={nodeShapeContainerClassName}>
+        {!!data.subtype && (
+          <use
+            className={nodeSubtypeClassName}
+            x={-width / 2}
+            y={-height / 2}
+            width={width}
+            height={height}
+            xlinkHref={nodeSubtypeXlinkHref}
+          />
+        )}
+        <use
+          className={nodeClassName}
+          height={height}
+          width={width}
+          x={-width / 2}
+          y={-height / 2}
+          xlinkHref={nodeTypeXlinkHref}
+        />
+      </g>
     );
   };
   return (
@@ -58,7 +118,7 @@ export const Graph = () => {
         edges={edges}
         selected={selected}
         nodeTypes={nodeTypes}
-        nodeSubtypes={nodeSubTypes}
+        nodeSubtypes={nodeSubtypes}
         edgeTypes={edgeTypes}
         onSelectNode={handleSelectNode}
         onCreateNode={handleCreateNode}
@@ -69,7 +129,6 @@ export const Graph = () => {
         onDeleteEdge={handleDeleteEdge}
         onCopySelected={handleCopySelected}
         onPasteSelected={handlePasteSelected}
-        on
         renderNodeText={getCustomStyle}
       />
       {selected && !selected.source && <NodePanel node={selected} />}

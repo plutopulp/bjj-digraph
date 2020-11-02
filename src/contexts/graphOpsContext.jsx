@@ -1,9 +1,19 @@
 import React from "react";
 import uuid from "react-uuid";
+import { useKeysPressed, useKeyPressed } from "../hooks/useKeyPressed";
 
 import { GraphContext } from "./graphContext";
 
 const NODE_KEY = "id";
+// If any of the following keys are pressed onCreateNode (shift+click), we'll select the
+// appropriate node to create
+
+let hotKeys = [
+  { key: "p", pressed: false, nodeType: "position" },
+  { key: "s", pressed: false, nodeType: "submission" },
+  { key: "t", pressed: false, nodeType: "transition" },
+  { key: "c", pressed: false, nodeType: "conditional" },
+];
 
 export const GraphOpsContext = React.createContext();
 
@@ -18,6 +28,12 @@ export const GraphOpsProvider = ({ children }) => {
     copiedNode,
     setCopiedNode,
   } = React.useContext(GraphContext);
+  const pressed = [
+    useKeyPressed("p"),
+    useKeyPressed("s"),
+    useKeyPressed("t"),
+    useKeyPressed("c"),
+  ];
   // Get the index of a given node
   const getNodeIndex = (searchNode) =>
     nodes.findIndex((node) => node[NODE_KEY] === searchNode[NODE_KEY]);
@@ -42,15 +58,18 @@ export const GraphOpsProvider = ({ children }) => {
   };
   // Appends a new node to nodes
   const handleCreateNode = (x, y, event) => {
-    console.log(x, y, event);
-    const newNode = {
-      id: uuid(),
-      title: "",
-      type: "position",
-      x,
-      y,
-    };
-    setNodes([...nodes, newNode]);
+    console.log(pressed);
+    const pressedIndex = pressed.findIndex((pressed) => pressed === true);
+    if (pressedIndex !== -1) {
+      const newNode = {
+        id: uuid(),
+        title: "",
+        type: hotKeys[pressedIndex]["nodeType"],
+        x,
+        y,
+      };
+      setNodes([...nodes, newNode]);
+    }
   };
   // Removes a given node from nodes and its edges from edges
   const handleDeleteNode = (node, nodeId, nodeArray) => {
@@ -79,9 +98,9 @@ export const GraphOpsProvider = ({ children }) => {
     newEdge.source = source[NODE_KEY];
     newEdge.target = target[NODE_KEY];
     setEdges([
-      ...edges.splice(0, edgeIndex),
+      ...edges.slice(0, edgeIndex),
       newEdge,
-      ...edges.splice(edgeIndex + 1),
+      ...edges.slice(edgeIndex + 1),
     ]);
   };
   // Removes a given edge from edges
