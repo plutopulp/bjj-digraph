@@ -15,9 +15,54 @@ export const nodeTypes = {
     shapeId: "#complexCircle",
     shape: shapes.ComplexCircleShape,
   },
+  transition: {
+    typeText: "New Transition",
+    shapeId: "#skinny",
+    shape: shapes.SkinnyRectangle,
+  },
   poly: {
     typeText: "New Poly",
     shapeId: "#poly",
     shape: shapes.PolyShape,
+  },
+
+  pass: {
+    typeText: "New Poly",
+    shapeId: "#pass",
+    shape: shapes.PassShape,
+  },
+
+  choice: {
+    typeText: "New Poly",
+    shapeId: "#choice",
+    shape: shapes.ChoiceShape,
+  },
+
+  task: {
+    typeText: "New Poly",
+    shapeId: "#task",
+    shape: shapes.TaskShape,
+  },
+
+  wait: {
+    typeText: "New Poly",
+    shapeId: "#wait",
+    shape: shapes.WaitShape,
+  },
+
+  terminator: {
+    typeText: "New Poly",
+    shapeId: "#terminator",
+    shape: shapes.TerminatorShape,
+  },
+  ellipse: {
+    typeText: "New Ellipse",
+    shapeId: "#ellipse",
+    shape: shapes.Ellipse,
+  },
+  triangle: {
+    typeText: "New Hex",
+    shapeId: "#triangle",
+    shape: shapes.Triangle,
   },
 };

@@ -13,6 +13,15 @@ const GraphWrapper = styled.div`
   width: 100%;
   height: 1000px;
 `;
+const NodeContentWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.25em;
+`;
 
 export const Graph = () => {
   const [nodes, setNodes] = React.useState(graphData.nodes);
@@ -110,6 +119,15 @@ export const Graph = () => {
     };
     setNodes([...nodes, newNode]);
   };
+  const getCustomStyle = (data) => {
+    return (
+      <foreignObject x="-77" y="-77" width="154" height="154">
+        <NodeContentWrapper>
+          <span>{data.title} </span>
+        </NodeContentWrapper>
+      </foreignObject>
+    );
+  };
   return (
     <GraphWrapper>
       <GraphView
@@ -130,6 +148,8 @@ export const Graph = () => {
         onSwapEdge={handleSwapEdge}
         onCopySelected={handleCopySelected}
         onPasteSelected={handlePasteSelected}
+        on
+        renderNodeText={getCustomStyle}
       />
     </GraphWrapper>
   );
