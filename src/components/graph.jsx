@@ -2,9 +2,12 @@ import React from "react";
 import uuid from "react-uuid";
 import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
+import { Modal } from "semantic-ui-react";
 
 import { graphConfig } from "../config/graphConfig";
-import { graph as graphData } from "../fixtures/graph";
+import { useKeyPressed } from "../hooks/useKeyPressed";
+import { useToggle } from "../hooks/useToggle";
+import { GraphContext } from "../contexts/graphContext";
 
 const NODE_KEY = "id";
 const { nodeTypes, nodeSubTypes, edgeTypes } = graphConfig;
@@ -24,8 +27,8 @@ const NodeContentWrapper = styled.div`
 `;
 
 export const Graph = () => {
-  const [nodes, setNodes] = React.useState(graphData.nodes);
-  const [edges, setEdges] = React.useState(graphData.edges);
+  const { nodes, setNodes, edges, setEdges } = React.useContext(GraphContext);
+  const ctrlKey = useKeyPressed("Control");
   const [selected, setSelected] = React.useState({});
   const [copiedNode, setCopiedNode] = React.useState({});
   const graphRef = React.useRef();
@@ -151,6 +154,23 @@ export const Graph = () => {
         on
         renderNodeText={getCustomStyle}
       />
+      {selected && !selected.source && <NodePanel node={selected} />}
     </GraphWrapper>
   );
+};
+
+const NodePanel = ({ node }) => {
+  const shiftKey = useKeyPressed("Shift");
+  const [open, toggleOpen] = useToggle(false);
+  React.useEffect(() => {
+    if (shiftKey && !open) toggleOpen();
+  });
+
+  if (node) {
+    return (
+      <Modal open={open} closeIcon onClose={toggleOpen}>
+        {node.title}
+      </Modal>
+    );
+  }
 };
