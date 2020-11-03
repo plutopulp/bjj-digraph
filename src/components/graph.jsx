@@ -2,13 +2,12 @@ import React from "react";
 import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
 
-import { graphConfig } from "../config/graphConfig";
+import { graphConfig, NODE_KEY } from "../config/graphConfig";
 import { useKeyPressed, useKeysPressed } from "../hooks/useKeyPressed";
 import { GraphContext } from "../contexts/graphContext";
 import { NodePanel, EdgePanel } from "./panels";
 import { GraphOpsContext } from "../contexts/graphOpsContext";
 
-const NODE_KEY = "id";
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
 const GraphWrapper = styled.div`
@@ -39,13 +38,8 @@ export const Graph = () => {
     handlePasteSelected,
   } = React.useContext(GraphOpsContext);
   const graphRef = React.useRef();
-  const pressed = [
-    useKeyPressed("p"),
-    useKeyPressed("s"),
-    useKeyPressed("t"),
-    useKeyPressed("c"),
-  ];
-  const getCustomStyle = (data) => {
+
+  const renderNodeText = (data) => {
     return (
       <foreignObject x="-77" y="-77" width="154" height="154">
         <NodeContentWrapper>
@@ -129,7 +123,7 @@ export const Graph = () => {
         onDeleteEdge={handleDeleteEdge}
         onCopySelected={handleCopySelected}
         onPasteSelected={handlePasteSelected}
-        renderNodeText={getCustomStyle}
+        renderNodeText={renderNodeText}
       />
       {selected && !selected.source && <NodePanel node={selected} />}
       {selected && selected.source && <EdgePanel edge={selected} />}

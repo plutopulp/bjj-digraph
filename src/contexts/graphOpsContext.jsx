@@ -1,13 +1,14 @@
 import React from "react";
 import uuid from "react-uuid";
-import { useKeysPressed, useKeyPressed } from "../hooks/useKeyPressed";
 
+import { useKeysPressed, useKeyPressed } from "../hooks/useKeyPressed";
 import { GraphContext } from "./graphContext";
+import { getEdgeIndex } from "../utils/graphUtils";
 
 const NODE_KEY = "id";
+
 // If any of the following keys are pressed onCreateNode (shift+click), we'll select the
 // appropriate node to create
-
 let hotKeys = [
   { key: "p", pressed: false, nodeType: "position" },
   { key: "s", pressed: false, nodeType: "submission" },
@@ -34,31 +35,16 @@ export const GraphOpsProvider = ({ children }) => {
     useKeyPressed("t"),
     useKeyPressed("c"),
   ];
-  // Get the index of a given node
-  const getNodeIndex = (searchNode) =>
-    nodes.findIndex((node) => node[NODE_KEY] === searchNode[NODE_KEY]);
-
-  // Get the index of a given edge
-  const getEdgeIndex = (searchEdge) =>
-    edges.findIndex(
-      (edge) =>
-        edge.source === searchEdge.source && edge.target === searchEdge.target
-    );
-  // Get the node corresponding to a given NODE_KEY
-  const getNode = (nodeKey) => {
-    const searchNode = { [NODE_KEY]: nodeKey };
-    const searchIndex = getNodeIndex(searchNode);
-    return nodes[searchIndex];
-  };
   const handleSelectNode = (node) => {
     setSelected(node);
   };
+
   const handleSelectEdge = (edge) => {
     setSelected(edge);
   };
+
   // Appends a new node to nodes
   const handleCreateNode = (x, y, event) => {
-    console.log(pressed);
     const pressedIndex = pressed.findIndex((pressed) => pressed === true);
     if (pressedIndex !== -1) {
       const newNode = {
@@ -71,6 +57,7 @@ export const GraphOpsProvider = ({ children }) => {
       setNodes([...nodes, newNode]);
     }
   };
+
   // Removes a given node from nodes and its edges from edges
   const handleDeleteNode = (node, nodeId, nodeArray) => {
     const newEdges = edges.filter(
@@ -80,6 +67,7 @@ export const GraphOpsProvider = ({ children }) => {
     setNodes(newNodes);
     setEdges(newEdges);
   };
+
   // Creates an edge between 2 nodes
   const handleCreateEdge = (sourceNode, targetNode) => {
     if (sourceNode !== targetNode) {
@@ -91,9 +79,9 @@ export const GraphOpsProvider = ({ children }) => {
       setEdges([...edges, newEdge]);
     }
   };
-  //
+
   const handleSwapEdge = (source, target, edge) => {
-    const edgeIndex = getEdgeIndex(edge);
+    const edgeIndex = getEdgeIndex(edge, edges);
     const newEdge = JSON.parse(JSON.stringify(edges[edgeIndex]));
     newEdge.source = source[NODE_KEY];
     newEdge.target = target[NODE_KEY];
@@ -103,6 +91,7 @@ export const GraphOpsProvider = ({ children }) => {
       ...edges.slice(edgeIndex + 1),
     ]);
   };
+
   // Removes a given edge from edges
   const handleDeleteEdge = (edge, newEdges) => {
     setEdges(newEdges);
@@ -117,6 +106,7 @@ export const GraphOpsProvider = ({ children }) => {
     const y = selected.y + 10;
     setCopiedNode({ ...selected, x, y });
   };
+
   const handlePasteSelected = (node, mousePosition) => {
     const newNode = {
       ...node,
@@ -126,6 +116,7 @@ export const GraphOpsProvider = ({ children }) => {
     };
     setNodes([...nodes, newNode]);
   };
+
   return (
     <GraphOpsContext.Provider
       value={{

@@ -3,6 +3,7 @@ import { Modal } from "semantic-ui-react";
 
 import { useKeyPressed } from "../hooks/useKeyPressed";
 import { useToggle } from "../hooks/useToggle";
+import { NodeEditor } from "./nodeEditor";
 
 const Panel = ({ children }) => {
   const altKey = useKeyPressed("Alt");
@@ -17,6 +18,10 @@ const Panel = ({ children }) => {
   );
 };
 
-export const NodePanel = ({ node }) => <Panel>{node.title}</Panel>;
+export const NodePanel = ({ node }) => (
+  <Panel>
+    <NodeEditor node={node} />
+  </Panel>
+);
 
 export const EdgePanel = ({ edge }) => <Panel>{edge.source}</Panel>;

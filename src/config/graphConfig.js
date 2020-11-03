@@ -7,3 +7,5 @@ export const graphConfig = {
   nodeSubtypes,
   edgeTypes,
 };
+
+export const NODE_KEY = "id";
