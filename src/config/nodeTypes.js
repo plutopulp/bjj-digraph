@@ -20,10 +20,10 @@ export const nodeTypes = {
     shapeId: "#skinny",
     shape: shapes.SkinnyRectangle,
   },
-  poly: {
+  sweep: {
     typeText: "New Poly",
-    shapeId: "#poly",
-    shape: shapes.PolyShape,
+    shapeId: "#hexagon-flat",
+    shape: shapes.HexagonFlat,
   },
 
   pass: {
@@ -64,5 +64,10 @@ export const nodeTypes = {
     typeText: "New Hex",
     shapeId: "#triangle",
     shape: shapes.Triangle,
+  },
+  entry: {
+    typeText: "New Hex",
+    shapeId: "#hexagon",
+    shape: shapes.Hexagon,
   },
 };

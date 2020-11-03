@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { GraphContext } from "../contexts/graphContext";
 import { getNodeIndex } from "../utils/graphUtils";
+import { FormContainer, FormTitle } from "./styles/forms";
 
 const NodeEditorContainer = ({ node }) => {
   const { nodes, setNodes } = React.useContext(GraphContext);
@@ -35,16 +36,65 @@ const NodeEditorContainer = ({ node }) => {
 };
 
 const NodeEditor = ({ node, handleChange, handleSubmit }) => (
-  <Form onSubmit={handleSubmit}>
-    <Form.Input
-      label="Title"
-      type="text"
-      name="title"
-      value={node.title}
-      placeholder="Enter a title"
-      onChange={handleChange}
-    />
-  </Form>
+  <FormContainer>
+    <Form onSubmit={handleSubmit}>
+      <FormTitle>Edit Node</FormTitle>
+      <Form.Input
+        label="Title"
+        type="text"
+        name="title"
+        value={node.title}
+        placeholder="Enter a title"
+        onChange={handleChange}
+      />
+      <Form.TextArea
+        label="Description"
+        type="text"
+        name="description"
+        value={node.description}
+        placeholder="Enter a description"
+        onChange={handleChange}
+      />
+      <Form.TextArea
+        label="Comment"
+        type="text"
+        name="comment"
+        value={node.comment}
+        placeholder="Enter any comments"
+        onChange={handleChange}
+      />
+      <Form.Input
+        label={`Effectiveness: ${node.efficiency} `}
+        min={0}
+        max={100}
+        name="efficiency"
+        step={1}
+        type="range"
+        value={node.efficiency}
+        onChange={handleChange}
+      />
+      <Form.Input
+        label={`Priority: ${node.priority} `}
+        min={0}
+        max={100}
+        name="priority"
+        step={1}
+        type="range"
+        value={node.priority}
+        onChange={handleChange}
+      />
+      <Form.Input
+        label={`Proficiency: ${node.proficiency} `}
+        min={0}
+        max={100}
+        name="proficiency"
+        step={1}
+        type="range"
+        value={node.proficiency}
+        onChange={handleChange}
+      />
+    </Form>
+  </FormContainer>
 );
 
 export { NodeEditorContainer as NodeEditor };

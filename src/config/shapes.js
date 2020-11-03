@@ -27,9 +27,13 @@ export const SpecialShape = (
   </symbol>
 );
 
-export const PolyShape = (
-  <symbol viewBox="0 0 88 72" id="poly" width="88" height="88">
-    <path d="M 0 36 18 0 70 0 88 36 70 72 18 72Z" />
+export const HexagonFlat = (
+  <symbol viewBox="0 0 88 88" id="hexagon-flat" width="154" height="154">
+    <path
+      d="M 0 36 18 0 70 0 88 36 70 72 18 72Z"
+      transform="translate(0, 8)"
+      fill="rgba(53, 174, 240, 0.8)"
+    />
   </symbol>
 );
 
@@ -152,13 +156,30 @@ export const Ellipse = (
 );
 
 export const Triangle = (
-  <symbol viewBox="0 0 154 154" id="triangle" width="154" height="154">
-    <polygon points="75 10, 150 150, 0 150" />
+  <symbol viewBox="0 0 172 172" id="triangle" width="172" height="172">
+    <polygon
+      points="75 10, 150 150, 0 150"
+      transform="translate(154, 174) rotate(180)"
+    />
   </symbol>
 );
 
 export const Cylinder = (
   <symbol viewBox="0 0 512 512" id="cylinder">
     <path d="M425.621,38.187C414.763,1.216,272.789,0,256,0S97.237,1.216,86.379,38.187c-0.64,1.387-1.045,2.859-1.045,4.48v426.667c0,1.621,0.405,3.093,1.045,4.48C97.237,510.784,239.211,512,256,512s158.763-1.216,169.621-38.187c0.64-1.387,1.045-2.859,1.045-4.48V42.667C426.667,41.045,426.261,39.573,425.621,38.187z M256,21.333c87.723,0,137.685,13.248,148.075,21.333C393.685,50.752,343.723,64,256,64S118.315,50.752,107.925,42.667C118.315,34.581,168.277,21.333,256,21.333z M405.333,467.989c-6.101,7.851-56.448,22.677-149.333,22.677c-93.995,0-144.619-15.211-149.333-21.333V65.429C149.312,84.544,242.603,85.333,256,85.333s106.688-0.789,149.333-19.904V467.989z" />
+  </symbol>
+);
+
+export const Hexagon = (
+  <symbol
+    width="174"
+    height="200"
+    viewbox="0 0 173.20508075688772 200"
+    id="hexagon"
+  >
+    <path
+      fill="rgba(134, 250, 92, 0.8)"
+      d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50"
+    ></path>
   </symbol>
 );
