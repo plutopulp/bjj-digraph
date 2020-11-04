@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Form } from "semantic-ui-react";
 import styled from "styled-components";
 
@@ -18,7 +19,6 @@ const NodeEditorContainer = ({ node }) => {
       newNode,
       ...nodes.slice(nodeIndex + 1),
     ];
-
     setNodes(newNodes);
   };
 
@@ -33,6 +33,10 @@ const NodeEditorContainer = ({ node }) => {
       handleSubmit={handleSubmit}
     />
   );
+};
+
+NodeEditorContainer.propTypes = {
+  node: PropTypes.object.isRequired,
 };
 
 const NodeEditor = ({ node, handleChange, handleSubmit }) => (
@@ -96,5 +100,11 @@ const NodeEditor = ({ node, handleChange, handleSubmit }) => (
     </Form>
   </FormContainer>
 );
+
+NodeEditor.propTypes = {
+  node: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export { NodeEditorContainer as NodeEditor };

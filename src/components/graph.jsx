@@ -11,7 +11,7 @@ import { DropManager } from "../lib/dropManager";
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
 const GraphWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   height: 1000px;
 `;
 const NodeContentWrapper = styled.div`

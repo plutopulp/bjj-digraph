@@ -26,6 +26,14 @@ export const nodeTypes = {
     shape: shapes.HexagonFlat,
   },
 
+  entry: {
+    typeText: "New Hex",
+    shapeId: "#hexagon",
+    shape: shapes.Hexagon,
+  },
+};
+
+const extras = {
   pass: {
     typeText: "New Poly",
     shapeId: "#pass",
@@ -64,10 +72,5 @@ export const nodeTypes = {
     typeText: "New Hex",
     shapeId: "#triangle",
     shape: shapes.Triangle,
-  },
-  entry: {
-    typeText: "New Hex",
-    shapeId: "#hexagon",
-    shape: shapes.Hexagon,
   },
 };

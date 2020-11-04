@@ -29,12 +29,6 @@ export const GraphOpsProvider = ({ children }) => {
     copiedNode,
     setCopiedNode,
   } = React.useContext(GraphContext);
-  const pressed = [
-    useKeyPressed("p"),
-    useKeyPressed("s"),
-    useKeyPressed("t"),
-    useKeyPressed("c"),
-  ];
   const handleSelectNode = (node) => {
     setSelected(node);
   };
