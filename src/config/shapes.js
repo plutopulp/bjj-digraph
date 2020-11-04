@@ -12,7 +12,7 @@ export const CustomEmptyShape = (
 
 export const Circle = (
   <symbol viewBox="0 0 154 154" id="circle" key="0" width="154" height="154">
-    <circle cx="77" cy="77" r="77" fill="rgba(30, 144, 255, 0.5)"></circle>
+    <circle cx="77" cy="77" r="77" fill="rgba(173, 86, 14, 0.6)"></circle>
   </symbol>
 );
 
@@ -44,7 +44,7 @@ export const ComplexCircleShape = (
     <path
       d="M50,0a50,50,0,1,0,50,50A50,50,0,0,0,50,0Zm0,90A40,40,0,1,1,90,50,40,40,0,0,1,50,90Z"
       data-intersect-ignore="true"
-      fill="rgba(245, 51, 55, 0.8)"
+      fill="rgba(245, 51, 55, 0.7)"
     />
   </symbol>
 );
@@ -171,15 +171,11 @@ export const Cylinder = (
 );
 
 export const Hexagon = (
-  <symbol
-    width="174"
-    height="200"
-    viewbox="0 0 173.20508075688772 200"
-    id="hexagon"
-  >
+  <symbol width="174" height="200" viewbox="0 0 174 200" id="hexagon">
     <path
       fill="rgba(134, 250, 92, 0.8)"
       d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50"
+      data-intersect-ignore="true"
     ></path>
   </symbol>
 );

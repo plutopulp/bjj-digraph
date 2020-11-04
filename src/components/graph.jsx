@@ -103,6 +103,21 @@ export const Graph = () => {
       </g>
     );
   };
+  const renderNode2 = () => {
+    return (
+      <svg viewBox="0 0 20 20">
+        <foreignObject x="-12" y="0" width="20" height="20">
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: "yellow",
+            }}
+          />
+        </foreignObject>
+      </svg>
+    );
+  };
   return (
     <GraphWrapper>
       <GraphView
@@ -123,6 +138,7 @@ export const Graph = () => {
         onDeleteEdge={handleDeleteEdge}
         onCopySelected={handleCopySelected}
         onPasteSelected={handlePasteSelected}
+        renderNode={renderNode}
         renderNodeText={renderNodeText}
       />
       {selected && !selected.source && <NodePanel node={selected} />}
