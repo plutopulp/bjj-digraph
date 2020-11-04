@@ -1,4 +1,7 @@
 import React from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import "semantic-ui-css/semantic.min.css";
 import styled from "styled-components";
 
@@ -14,14 +17,16 @@ const AppWrapper = styled.div`
 
 const App = () => {
   return (
-    <AppWrapper>
-      <Palette />
-      <GraphProvider>
-        <GraphOpsProvider>
-          <Graph />{" "}
-        </GraphOpsProvider>
-      </GraphProvider>
-    </AppWrapper>
+    <DndProvider backend={HTML5Backend}>
+      <AppWrapper>
+        <GraphProvider>
+          <GraphOpsProvider>
+            <Graph />{" "}
+          </GraphOpsProvider>
+        </GraphProvider>
+        <Palette />
+      </AppWrapper>
+    </DndProvider>
   );
 };
 

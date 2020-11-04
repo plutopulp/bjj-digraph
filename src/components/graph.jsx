@@ -1,8 +1,10 @@
 import React from "react";
 import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
+import { useDrop } from "react-dnd";
 
 import { graphConfig, NODE_KEY } from "../config/graphConfig";
+import { dragTypes } from "../config/dragTypes";
 import { GraphContext } from "../contexts/graphContext";
 import { NodePanel, EdgePanel } from "./panels";
 import { GraphOpsContext } from "../contexts/graphOpsContext";
@@ -38,6 +40,21 @@ export const Graph = () => {
     handlePasteSelected,
   } = React.useContext(GraphOpsContext);
   const graphRef = React.useRef();
+
+  // To drop external nodes onto the canvas.
+  const handleNodeDrop = (event) => {
+    console.log(event);
+    const dropManager = new DropManager(graphRef, event);
+    const position = dropManager.getDropPosition();
+    if (position) handleCreateNode(position[0], position[1]);
+  };
+
+  const [{ isOver }, dropRef] = useDrop({
+    accept: dragTypes.NODE,
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
 
   const renderNodeText = (data) => {
     return (
@@ -116,15 +133,9 @@ export const Graph = () => {
     event.preventDefault();
   };
 
-  // To drop external nodes onto the canvas.
-  const handleNodeDrop = (event) => {
-    const dropManager = new DropManager(graphRef, event);
-    const position = dropManager.getDropPosition();
-    if (position) handleCreateNode(position[0], position[1]);
-  };
-
   return (
     <GraphWrapper
+      ref={dropRef}
       onDragEnter={handleOnDrag}
       onDragLeave={handleOnDrag}
       onDragOver={handleOnDrag}
