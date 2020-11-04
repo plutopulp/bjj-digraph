@@ -3,10 +3,10 @@ import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
 
 import { graphConfig, NODE_KEY } from "../config/graphConfig";
-import { useKeyPressed, useKeysPressed } from "../hooks/useKeyPressed";
 import { GraphContext } from "../contexts/graphContext";
 import { NodePanel, EdgePanel } from "./panels";
 import { GraphOpsContext } from "../contexts/graphOpsContext";
+import { DropManager } from "../lib/dropManager";
 
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
@@ -118,42 +118,9 @@ export const Graph = () => {
 
   // To drop external nodes onto the canvas.
   const handleNodeDrop = (event) => {
-    const position = getDropPosition([event.clientX, event.clientY], graphRef);
+    const dropManager = new DropManager(graphRef, event);
+    const position = dropManager.getDropPosition();
     if (position) handleCreateNode(position[0], position[1]);
-  };
-  // Calculates the absolute position for the dropped node
-  const getDropPosition = (clientPosition, graphRef) => {
-    const transform = getTransformArray(graphRef);
-    if (!transform) return;
-    const translation = getCleanedTranslation(transform);
-    if (!translation) return;
-    const scale = getCleanedScale(transform);
-    if (!scale) return;
-    return clientPosition.map(
-      (position, i) => (position - translation[i]) / scale
-    );
-  };
-  // Returns an array with translation + scale properties of zoom/pan
-  const getTransformArray = (graphRef) => {
-    const viewWrapper = graphRef.current.view;
-    const transform = viewWrapper.getAttribute("transform");
-    return transform ? transform.split(" ") : null;
-  };
-
-  // Returns the x - y translation due to panning
-  const getCleanedTranslation = (transformArray) => {
-    const parenRegExp = /\(([^)]+)\)/g;
-    const translation = parenRegExp.exec(transformArray[0]);
-    if (!translation) return;
-    const translationArray = translation[1].split(",");
-    return [Number(translationArray[0]), Number(translationArray[1])];
-  };
-
-  // Returns the scale due to zooming
-  const getCleanedScale = (transformArray) => {
-    const parenRegExp = /\(([^)]+)\)/g;
-    const scale = parenRegExp.exec(transformArray[1]);
-    return scale ? Number(scale[1]) : null;
   };
 
   return (
