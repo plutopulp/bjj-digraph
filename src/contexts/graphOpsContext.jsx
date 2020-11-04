@@ -45,17 +45,14 @@ export const GraphOpsProvider = ({ children }) => {
 
   // Appends a new node to nodes
   const handleCreateNode = (x, y, event) => {
-    const pressedIndex = pressed.findIndex((pressed) => pressed === true);
-    if (pressedIndex !== -1) {
-      const newNode = {
-        id: uuid(),
-        title: "",
-        type: hotKeys[pressedIndex]["nodeType"],
-        x,
-        y,
-      };
-      setNodes([...nodes, newNode]);
-    }
+    const newNode = {
+      id: uuid(),
+      title: "",
+      type: "position",
+      x,
+      y,
+    };
+    setNodes([...nodes, newNode]);
   };
 
   // Removes a given node from nodes and its edges from edges
