@@ -1,29 +1,57 @@
 // A class for managing external dropping of elements onto the graph canvas
 export class DropManager {
-  constructor(graphRef, dropEvent) {
-    this.graphRef = graphRef;
-    this.clientPosition = [dropEvent.clientX, dropEvent.clientY];
+  constructor(dropEvent, graphRef, wrapperRef) {
+    this.dropEvent = dropEvent; // The event triggered by onDrop
+    this.graphRef = graphRef; // Ref to the graph element
+    // Ref to the div wrapping the graph (should have identical dimensions to graph)
+    // Used in order to get the boundingRect of the graph
+    this.wrapperRef = wrapperRef;
+    this.mousePosition = [];
+    this.graphPosition = [];
     this.transform = [];
     this.translation = [];
     this.scale = null;
     this.dropPosition = [];
   }
+
   // Gets the absolute position for the dropped node
   getDropPosition() {
     this._setDropPosition();
     return this.dropPosition;
   }
+
   // Sets the position for dropping the node
   _setDropPosition() {
+    this._setMousePosition();
+    if (!this.mousePosition) return;
+    this._setGraphPosition();
+    if (!this.graphPosition) return;
     this._setTransformArray();
     if (!this.transform) return;
     this._setTranslationArray();
     if (!this.translation) return;
     this._setScale();
     if (!this.scale) return;
-    this.dropPosition = this.clientPosition.map(
-      (position, i) => (position - this.translation[i]) / this.scale
+    this.dropPosition = this.mousePosition.map(
+      (position, i) =>
+        (position - this.graphPosition[i] - this.translation[i]) / this.scale
     );
+  }
+  // Sets the mouse position of the drop event
+  _setMousePosition() {
+    this.mousePosition = this.dropEvent
+      ? [this.dropEvent.clientX, this.dropEvent.clientY]
+      : null;
+  }
+
+  // Sets the position of the graph within the viewport
+  _setGraphPosition() {
+    if (!this.wrapperRef.current) {
+      this.graphPosition = null;
+      return;
+    }
+    const boundingRect = this.wrapperRef.current.getBoundingClientRect();
+    this.graphPosition = [boundingRect.left, boundingRect.top];
   }
 
   // Gets the current translation + scale properties due to zoom/pan

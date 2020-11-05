@@ -19,12 +19,12 @@ const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <AppWrapper>
+        <Palette />
         <GraphProvider>
           <GraphOpsProvider>
             <Graph />{" "}
           </GraphOpsProvider>
         </GraphProvider>
-        <Palette />
       </AppWrapper>
     </DndProvider>
   );

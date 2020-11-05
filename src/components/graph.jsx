@@ -16,6 +16,10 @@ const GraphWrapper = styled.div`
   width: 80%;
   height: 1000px;
 `;
+const DropZone = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 const NodeContentWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -40,11 +44,12 @@ export const Graph = () => {
     handlePasteSelected,
   } = React.useContext(GraphOpsContext);
   const graphRef = React.useRef();
+  const wrapperRef = React.useRef();
 
   // To drop external nodes onto the canvas.
   const handleNodeDrop = (event) => {
     console.log(event);
-    const dropManager = new DropManager(graphRef, event);
+    const dropManager = new DropManager(event, graphRef, wrapperRef);
     const position = dropManager.getDropPosition();
     if (position) handleCreateNode(position[0], position[1]);
   };
@@ -134,36 +139,38 @@ export const Graph = () => {
   };
 
   return (
-    <GraphWrapper
-      ref={dropRef}
-      onDragEnter={handleOnDrag}
-      onDragLeave={handleOnDrag}
-      onDragOver={handleOnDrag}
-      onDrop={handleNodeDrop}
-    >
-      <GraphView
-        ref={graphRef}
-        nodeKey={NODE_KEY}
-        nodes={nodes}
-        edges={edges}
-        selected={selected}
-        nodeTypes={nodeTypes}
-        nodeSubtypes={nodeSubtypes}
-        edgeTypes={edgeTypes}
-        onSelectNode={handleSelectNode}
-        onCreateNode={handleCreateNode}
-        onDeleteNode={handleDeleteNode}
-        onSelectEdge={handleSelectEdge}
-        onCreateEdge={handleCreateEdge}
-        onSwapEdge={handleSwapEdge}
-        onDeleteEdge={handleDeleteEdge}
-        onCopySelected={handleCopySelected}
-        onPasteSelected={handlePasteSelected}
-        renderNode={renderNode}
-        renderNodeText={renderNodeText}
-      />
-      {selected && !selected.source && <NodePanel node={selected} />}
-      {selected && selected.source && <EdgePanel edge={selected} />}
+    <GraphWrapper ref={wrapperRef}>
+      <DropZone
+        ref={dropRef}
+        onDragEnter={handleOnDrag}
+        onDragLeave={handleOnDrag}
+        onDragOver={handleOnDrag}
+        onDrop={handleNodeDrop}
+      >
+        <GraphView
+          ref={graphRef}
+          nodeKey={NODE_KEY}
+          nodes={nodes}
+          edges={edges}
+          selected={selected}
+          nodeTypes={nodeTypes}
+          nodeSubtypes={nodeSubtypes}
+          edgeTypes={edgeTypes}
+          onSelectNode={handleSelectNode}
+          onCreateNode={handleCreateNode}
+          onDeleteNode={handleDeleteNode}
+          onSelectEdge={handleSelectEdge}
+          onCreateEdge={handleCreateEdge}
+          onSwapEdge={handleSwapEdge}
+          onDeleteEdge={handleDeleteEdge}
+          onCopySelected={handleCopySelected}
+          onPasteSelected={handlePasteSelected}
+          renderNode={renderNode}
+          renderNodeText={renderNodeText}
+        />
+        {selected && !selected.source && <NodePanel node={selected} />}
+        {selected && selected.source && <EdgePanel edge={selected} />}
+      </DropZone>
     </GraphWrapper>
   );
 };
