@@ -30,7 +30,10 @@ export const NodeList = () => {
 
 const Node = ({ node }) => {
   const [{ isDragging }, ref] = useDrag({
-    item: { type: dragTypes.NODE },
+    item: {
+      type: dragTypes.NODE,
+      subtype: node.name,
+    },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });
   return (

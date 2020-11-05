@@ -1,7 +1,7 @@
 import React from "react";
 import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
-import { useDrop } from "react-dnd";
+import { useDrop, useDragLayer } from "react-dnd";
 
 import { graphConfig, NODE_KEY } from "../config/graphConfig";
 import { dragTypes } from "../config/dragTypes";
@@ -46,20 +46,29 @@ export const Graph = () => {
   const graphRef = React.useRef();
   const wrapperRef = React.useRef();
 
-  // To drop external nodes onto the canvas.
-  const handleNodeDrop = (event) => {
-    console.log(event);
-    const dropManager = new DropManager(event, graphRef, wrapperRef);
-    const position = dropManager.getDropPosition();
-    if (position) handleCreateNode(position[0], position[1]);
-  };
+  React.useEffect(() => console.log(isOver, itemType, mousePosition));
 
-  const [{ isOver }, dropRef] = useDrop({
+  // To drop objects from palette onto the canvas.
+  const handleDrop = () => {
+    // Calculates the absolute position for dropping
+    const dropManager = new DropManager(
+      [mousePosition.x, mousePosition.y],
+      graphRef,
+      wrapperRef
+    );
+    const dropPosition = dropManager.getDropPosition();
+    if (dropPosition)
+      handleCreateNode(dropPosition[0], dropPosition[1], itemType.subtype);
+  };
+  const [{ isOver, itemType }, dropRef] = useDrop({
     accept: dragTypes.NODE,
+    drop: handleDrop,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
+      itemType: monitor.getItem(),
     }),
   });
+  const mousePosition = useDragLayer((monitor) => monitor.getClientOffset());
 
   const renderNodeText = (data) => {
     return (
@@ -133,20 +142,10 @@ export const Graph = () => {
       </svg>
     );
   };
-  // To make the onDrop event work
-  const handleOnDrag = (event) => {
-    event.preventDefault();
-  };
 
   return (
     <GraphWrapper ref={wrapperRef}>
-      <DropZone
-        ref={dropRef}
-        onDragEnter={handleOnDrag}
-        onDragLeave={handleOnDrag}
-        onDragOver={handleOnDrag}
-        onDrop={handleNodeDrop}
-      >
+      <DropZone ref={dropRef}>
         <GraphView
           ref={graphRef}
           nodeKey={NODE_KEY}

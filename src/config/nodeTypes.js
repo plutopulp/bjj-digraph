@@ -1,32 +1,38 @@
 import * as shapes from "./shapes";
 export const nodeTypes = {
   position: {
+    name: "position",
     typeText: "New Position",
     shapeId: "#circle",
     shape: shapes.Circle,
   },
   conditional: {
+    name: "conditional",
     typeText: "New Conditional",
     shapeId: "#special",
     shape: shapes.SpecialShape,
   },
   submission: {
+    name: "submission",
     typeText: "New Submission",
     shapeId: "#complexCircle",
     shape: shapes.ComplexCircleShape,
   },
   transition: {
+    name: "transition",
     typeText: "New Transition",
     shapeId: "#skinny",
     shape: shapes.SkinnyRectangle,
   },
   sweep: {
+    name: "sweep",
     typeText: "New Poly",
     shapeId: "#hexagon-flat",
     shape: shapes.HexagonFlat,
   },
 
   entry: {
+    name: "entry",
     typeText: "New Hex",
     shapeId: "#hexagon",
     shape: shapes.Hexagon,

@@ -38,11 +38,11 @@ export const GraphOpsProvider = ({ children }) => {
   };
 
   // Appends a new node to nodes
-  const handleCreateNode = (x, y, event) => {
+  const handleCreateNode = (x, y, type) => {
     const newNode = {
       id: uuid(),
       title: "",
-      type: "position",
+      type,
       x,
       y,
     };

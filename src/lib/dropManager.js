@@ -1,12 +1,12 @@
 // A class for managing external dropping of elements onto the graph canvas
 export class DropManager {
-  constructor(dropEvent, graphRef, wrapperRef) {
-    this.dropEvent = dropEvent; // The event triggered by onDrop
-    this.graphRef = graphRef; // Ref to the graph element
+  constructor(mousePosition, graphRef, wrapperRef) {
+    // Ref to the graph element, used to get pan-zoom properties
+    this.graphRef = graphRef;
     // Ref to the div wrapping the graph (should have identical dimensions to graph)
-    // Used in order to get the boundingRect of the graph
+    // Used to get the boundingRect of the graph
     this.wrapperRef = wrapperRef;
-    this.mousePosition = [];
+    this.mousePosition = mousePosition;
     this.graphPosition = [];
     this.transform = [];
     this.translation = [];
@@ -22,7 +22,6 @@ export class DropManager {
 
   // Sets the position for dropping the node
   _setDropPosition() {
-    this._setMousePosition();
     if (!this.mousePosition) return;
     this._setGraphPosition();
     if (!this.graphPosition) return;
