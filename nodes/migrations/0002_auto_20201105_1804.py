@@ -7,17 +7,17 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nodes', '0001_initial'),
+        ("nodes", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='node',
-            options={'verbose_name': 'Node', 'verbose_name_plural': 'Nodes'},
+            name="node",
+            options={"verbose_name": "Node", "verbose_name_plural": "Nodes"},
         ),
         migrations.AddField(
-            model_name='node',
-            name='created_at',
+            model_name="node",
+            name="created_at",
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),
     ]

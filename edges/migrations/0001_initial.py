@@ -9,21 +9,43 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('nodes', '0002_auto_20201105_1804'),
+        ("nodes", "0002_auto_20201105_1804"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Edge',
+            name="Edge",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rationale', models.TextField(default='')),
-                ('source_node', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='output_edges', to='nodes.node')),
-                ('target_node', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='input_edges', to='nodes.node')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("rationale", models.TextField(default="")),
+                (
+                    "source_node",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="output_edges",
+                        to="nodes.node",
+                    ),
+                ),
+                (
+                    "target_node",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="input_edges",
+                        to="nodes.node",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Edge',
-                'verbose_name_plural': 'Edges',
+                "verbose_name": "Edge",
+                "verbose_name_plural": "Edges",
             },
         ),
     ]
