@@ -3,7 +3,7 @@ from .models import Node
 
 
 class NodeSerializer(serializers.ModelSerializer):
-    createdAt = serializers.DateTimeField(source="created_at")
+    createdAt = serializers.DateTimeField(source="created_at", required=False)
     nodeType = serializers.CharField(source="node_type")
     description = serializers.CharField(required=False, allow_blank=True)
     comment = serializers.CharField(required=False, allow_blank=True)
