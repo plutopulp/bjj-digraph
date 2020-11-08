@@ -1,14 +1,12 @@
 import React from "react";
 import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
-import { useDrop, useDragLayer } from "react-dnd";
 
 import { graphConfig, NODE_KEY } from "../config/graphConfig";
-import { dragTypes } from "../config/dragTypes";
-import { GraphContext } from "../contexts/graphContext";
+import { GraphContext } from "../contexts/graph";
 import { NodePanel, EdgePanel } from "./panels";
-import { GraphOpsContext } from "../contexts/graphOpsContext";
-import { DropManager } from "../lib/dropManager";
+import { useNodeDrop } from "../hooks/useNodeDrop";
+import { useGraphOps } from "../hooks/useGraphOps";
 
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
@@ -42,33 +40,10 @@ export const Graph = () => {
     handleDeleteEdge,
     handleCopySelected,
     handlePasteSelected,
-  } = React.useContext(GraphOpsContext);
+  } = useGraphOps();
   const graphRef = React.useRef();
   const wrapperRef = React.useRef();
-
-  React.useEffect(() => console.log(isOver, itemType, mousePosition));
-
-  // To drop objects from palette onto the canvas.
-  const handleDrop = () => {
-    // Calculates the absolute position for dropping
-    const dropManager = new DropManager(
-      [mousePosition.x, mousePosition.y],
-      graphRef,
-      wrapperRef
-    );
-    const dropPosition = dropManager.getDropPosition();
-    if (dropPosition)
-      handleCreateNode(dropPosition[0], dropPosition[1], itemType.subtype);
-  };
-  const [{ isOver, itemType }, dropRef] = useDrop({
-    accept: dragTypes.NODE,
-    drop: handleDrop,
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-      itemType: monitor.getItem(),
-    }),
-  });
-  const mousePosition = useDragLayer((monitor) => monitor.getClientOffset());
+  const dropRef = useNodeDrop(graphRef, wrapperRef);
 
   const renderNodeText = (data) => {
     return (

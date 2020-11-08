@@ -1,4 +1,5 @@
 // A class for managing external dropping of elements onto the graph canvas
+// Single public method for getting the exact drop position
 export class DropManager {
   constructor(mousePosition, graphRef, wrapperRef) {
     // Ref to the graph element, used to get pan-zoom properties
@@ -14,13 +15,13 @@ export class DropManager {
     this.dropPosition = [];
   }
 
-  // Gets the absolute position for the dropped node
+  // Gets the absolute drop position
   getDropPosition() {
     this._setDropPosition();
     return this.dropPosition;
   }
 
-  // Sets the position for dropping the node
+  // Sets the drop position
   _setDropPosition() {
     if (!this.mousePosition) return;
     this._setGraphPosition();
@@ -35,12 +36,6 @@ export class DropManager {
       (position, i) =>
         (position - this.graphPosition[i] - this.translation[i]) / this.scale
     );
-  }
-  // Sets the mouse position of the drop event
-  _setMousePosition() {
-    this.mousePosition = this.dropEvent
-      ? [this.dropEvent.clientX, this.dropEvent.clientY]
-      : null;
   }
 
   // Sets the position of the graph within the viewport

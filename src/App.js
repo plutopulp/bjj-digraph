@@ -1,14 +1,13 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-
 import "semantic-ui-css/semantic.min.css";
 import styled from "styled-components";
 
 import { Graph } from "./components/graph";
-import { GraphProvider } from "./contexts/graphContext";
-import { GraphOpsProvider } from "./contexts/graphOpsContext";
+import { GraphProvider } from "./contexts/graph";
 import { Palette } from "./components/palette/palette";
+import { APIController } from "./components/APIController";
 
 const AppWrapper = styled.div`
   display: flex;
@@ -21,9 +20,8 @@ const App = () => {
       <AppWrapper>
         <Palette />
         <GraphProvider>
-          <GraphOpsProvider>
-            <Graph />{" "}
-          </GraphOpsProvider>
+          <APIController />
+          <Graph />{" "}
         </GraphProvider>
       </AppWrapper>
     </DndProvider>

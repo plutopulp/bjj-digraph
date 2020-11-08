@@ -7,7 +7,7 @@ export const nodes = [
     type: "position",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const nodes = [
     type: "transition",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const nodes = [
     type: "entry",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ export const nodes = [
     type: "conditional",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ export const nodes = [
     type: "submission",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ export const nodes = [
     type: "sweep",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ export const nodes = [
     type: "task",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
 
   {
@@ -78,7 +78,7 @@ export const nodes = [
     type: "choice",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 9,
@@ -88,7 +88,7 @@ export const nodes = [
     type: "pass",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 10,
@@ -98,7 +98,7 @@ export const nodes = [
     type: "wait",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 11,
@@ -108,7 +108,7 @@ export const nodes = [
     type: "terminator",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 12,
@@ -118,7 +118,7 @@ export const nodes = [
     type: "ellipse",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
   {
     id: 13,
@@ -128,6 +128,6 @@ export const nodes = [
     type: "triangle",
     description: "a description",
     proficiency: 50,
-    efficiency: 50,
+    effectiveness: 50,
   },
 ];

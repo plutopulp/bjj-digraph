@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "semantic-ui-react";
 import styled from "styled-components";
 
-import { GraphContext } from "../contexts/graphContext";
+import { GraphContext } from "../contexts/graph";
 import { getNodeIndex } from "../utils/graphUtils";
 import { FormContainer, FormTitle } from "./styles/forms";
 
@@ -68,13 +68,13 @@ const NodeEditor = ({ node, handleChange, handleSubmit }) => (
         onChange={handleChange}
       />
       <Form.Input
-        label={`Effectiveness: ${node.efficiency} `}
+        label={`Effectiveness: ${node.effectiveness} `}
         min={0}
         max={100}
-        name="efficiency"
+        name="effectiveness"
         step={1}
         type="range"
-        value={node.efficiency}
+        value={node.effectiveness}
         onChange={handleChange}
       />
       <Form.Input

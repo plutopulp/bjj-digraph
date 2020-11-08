@@ -171,7 +171,7 @@ export const Cylinder = (
 );
 
 export const Hexagon = (
-  <symbol width="174" height="200" viewbox="0 0 174 200" id="hexagon">
+  <symbol width="174" height="200" viewBox="0 0 174 200" id="hexagon">
     <path
       fill="rgba(134, 250, 92, 0.8)"
       d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50"
