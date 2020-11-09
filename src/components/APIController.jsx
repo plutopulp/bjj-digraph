@@ -1,35 +1,26 @@
 import React from "react";
-import axios from "axios";
-
-import { routes } from "../config/routes";
 import { GraphContext } from "../contexts/graph";
 
-const headers = {
-  "Content-type": "application/json",
-};
+import { useAPI } from "../hooks/useAPI";
+import { useDependencyTrigger } from "../hooks/useDependencyTrigger";
+import { useResourceTypes } from "../hooks/useResourceTypes";
 
 // A component to control all backend rest api requests
 export const APIController = () => {
-  const { nodes, setNodes, edges, setEdges } = React.useContext(GraphContext);
-  const [testNodes, setTestNodes] = React.useState([]);
+  const resourceTypes = useResourceTypes();
+  const { loadResource } = useAPI();
+  const { nodes } = React.useContext(GraphContext);
 
-  React.useEffect(() => {
-    loadNodes();
-  }, []);
-  React.useEffect(() => console.log(nodes, testNodes), [
-    testNodes,
-    testNodes.length,
+  const updatedNode = useDependencyTrigger(JSON.parse(JSON.stringify(nodes)));
+
+  React.useEffect(() => console.log(updatedNode), [
+    JSON.parse(JSON.stringify(nodes)),
   ]);
 
-  // Loads all the initial graph nodes into react state
-  const loadNodes = () => {
-    axios
-      .get(routes.api.nodes, headers)
-      .then((response) => {
-        console.log(response.data);
-        setNodes(response.data);
-      })
-      .catch((error) => console.log(error));
-  };
+  React.useEffect(() => {
+    loadResource(resourceTypes.nodes);
+    loadResource(resourceTypes.edges);
+  }, []);
+
   return null;
 };
