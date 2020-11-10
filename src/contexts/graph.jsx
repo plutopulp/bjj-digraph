@@ -6,8 +6,8 @@ export const GraphContext = React.createContext();
 
 // Context provider for all graph state quantities
 export const GraphProvider = ({ children }) => {
-  const [nodes, setNodes] = React.useState(graphData.nodes);
-  const [edges, setEdges] = React.useState(graphData.edges);
+  const [nodes, setNodes] = React.useState([]);
+  const [edges, setEdges] = React.useState([]);
   const [selected, setSelected] = React.useState({});
   const [copiedNode, setCopiedNode] = React.useState({});
 

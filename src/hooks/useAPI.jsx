@@ -32,6 +32,13 @@ export const useAPI = () => {
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
+  // Creates an instance of a resource type
+  const createResource = (type, instance) => {
+    axios
+      .post(type.endpoint, instance, headers)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
 
-  return { loadResource, updateResource, deleteResource };
+  return { loadResource, createResource, updateResource, deleteResource };
 };

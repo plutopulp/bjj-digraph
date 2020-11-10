@@ -11,7 +11,7 @@ export const useDependencyTrigger = (dependencies) => {
     if (JSON.stringify(dependency) !== JSON.stringify(previousDeps[index])) {
       return {
         ...accum,
-        dependency,
+        index,
       };
     }
     return accum;
