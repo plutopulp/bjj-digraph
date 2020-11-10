@@ -4,7 +4,7 @@ import { Form } from "semantic-ui-react";
 import styled from "styled-components";
 
 import { GraphContext } from "../contexts/graph";
-import { getNodeIndex } from "../utils/graphUtils";
+import { getNodeIndex } from "../lib/utils/graphUtils";
 import { FormContainer, FormTitle } from "./styles/forms";
 
 const NodeEditorContainer = ({ node }) => {

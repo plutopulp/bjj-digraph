@@ -1,4 +1,4 @@
-import { NODE_KEY } from "../config/graphConfig";
+import { NODE_KEY } from "../../config/graphConfig";
 
 // Get the index of a given node
 export const getNodeIndex = (searchNode, nodes) =>

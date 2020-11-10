@@ -3,7 +3,7 @@ import uuid from "react-uuid";
 import _ from "lodash";
 
 import { GraphContext } from "../contexts/graph";
-import { getEdgeIndex } from "../utils/graphUtils";
+import { getEdgeIndex } from "../lib/utils/graphUtils";
 
 import { NODE_KEY } from "../config/graphConfig";
 
