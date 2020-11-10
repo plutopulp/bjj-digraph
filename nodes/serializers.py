@@ -3,13 +3,18 @@ from .models import Node
 
 
 class NodeSerializer(serializers.ModelSerializer):
+    """ A class to serialize bjj digraph nodes """
+
+    id = serializers.UUIDField()
     createdAt = serializers.DateTimeField(source="created_at", required=False)
-    nodeType = serializers.CharField(source="node_type")
+    type = serializers.CharField(source="node_type")
     description = serializers.CharField(required=False, allow_blank=True)
     comment = serializers.CharField(required=False, allow_blank=True)
     effectiveness = serializers.IntegerField(required=False)
     priority = serializers.IntegerField(required=False)
     proficiency = serializers.IntegerField(required=False)
+    x = serializers.FloatField(source="position_x")
+    y = serializers.FloatField(source="position_y")
 
     class Meta:
         model = Node
@@ -17,12 +22,12 @@ class NodeSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "createdAt",
-            "nodeType",
+            "type",
             "description",
             "comment",
             "effectiveness",
             "priority",
             "proficiency",
-            "position_x",
-            "position_y",
+            "x",
+            "y",
         )
