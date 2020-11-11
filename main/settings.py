@@ -1,5 +1,9 @@
-from pathlib import Path
 import os
+import json
+from pathlib import Path
+from six.moves.urllib import request
+from cryptography.x509 import load_pem_x509_certificate
+from cryptography.hazmat.backends import default_backend
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd Party
     "rest_framework",
-    "rest_framework.authtoken",
+    "rest_framework_jwt",
     "corsheaders",
     # Local
     "accounts.apps.AccountsConfig",
@@ -37,6 +41,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.auth.middleware.RemoteUserMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -115,6 +120,31 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+# Authentication and Authorization
+
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-CORS_ORIGIN_WHITELIST = ("http://localhost:3000",)
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "django.contrib.auth.backends.RemoteUserBackend",
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+    ),
+}
+
+JWT_AUTH = {
+    "JWT_PAYLOAD_GET_USERNAME_HANDLER": "accounts.utils.jwt_get_username_from_payload_handler",
+    "JWT_DECODE_HANDLER": "accounts.utils.jwt_decode_token",
+    "JWT_ALGORITHM": "RS256",
+    "JWT_AUDIENCE": os.environ["API_IDENTIFIER"],
+    "JWT_ISSUER": os.environ["AUTH0_DOMAIN"],
+    "JWT_AUTH_HEADER_PREFIX": "Bearer",
+}
