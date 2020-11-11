@@ -1,5 +1,6 @@
 import React from "react";
 import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
+import { useAuth0 as useAuth } from "@auth0/auth0-react";
 import styled from "styled-components";
 
 import { graphConfig, NODE_KEY } from "../config/graphConfig";
@@ -34,6 +35,7 @@ export const Graph = () => {
     handleSelectNode,
     handleSelectEdge,
     handleCreateNode,
+    handleUpdateNode,
     handleDeleteNode,
     handleCreateEdge,
     handleSwapEdge,
@@ -44,6 +46,16 @@ export const Graph = () => {
   const graphRef = React.useRef();
   const wrapperRef = React.useRef();
   const dropRef = useNodeDrop(graphRef, wrapperRef);
+  const {
+    isLoading,
+    error,
+    isAuthenticated,
+    loginWithRedirect,
+    logout,
+    user,
+    loginWithPopup,
+  } = useAuth();
+  React.useEffect(() => console.log(user, isAuthenticated));
 
   const renderNodeText = (data) => {
     return (
@@ -121,6 +133,13 @@ export const Graph = () => {
   return (
     <GraphWrapper ref={wrapperRef}>
       <DropZone ref={dropRef}>
+        <Loading isLoading={isLoading} error={error} />
+        {!isAuthenticated && <button onClick={loginWithPopup}>Log in</button>}
+        {isAuthenticated && (
+          <button onClick={() => logout({ returnTo: window.location.origin })}>
+            Log out
+          </button>
+        )}
         <GraphView
           ref={graphRef}
           nodeKey={NODE_KEY}
@@ -131,6 +150,7 @@ export const Graph = () => {
           nodeSubtypes={nodeSubtypes}
           edgeTypes={edgeTypes}
           onSelectNode={handleSelectNode}
+          onUpdateNode={handleUpdateNode}
           onCreateNode={handleCreateNode}
           onDeleteNode={handleDeleteNode}
           onSelectEdge={handleSelectEdge}
@@ -147,4 +167,10 @@ export const Graph = () => {
       </DropZone>
     </GraphWrapper>
   );
+};
+
+const Loading = ({ isLoading, error }) => {
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Oops...{error.message}</div>;
+  return null;
 };

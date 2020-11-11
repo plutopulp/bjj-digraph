@@ -1,9 +1,9 @@
 import React from "react";
-import uuid from "react-uuid";
+import { v4 as uuid } from "uuid";
 import _ from "lodash";
 
 import { GraphContext } from "../contexts/graph";
-import { getEdgeIndex } from "../lib/utils/graphUtils";
+import { getNodeIndex, getEdgeIndex } from "../lib/utils/graphUtils";
 
 import { NODE_KEY } from "../config/graphConfig";
 
@@ -44,6 +44,11 @@ export const useGraphOps = () => {
     };
     setNodes([...nodes, newNode]);
   };
+  const handleUpdateNode = (node) => {
+    const index = getNodeIndex(node, nodes);
+    const newNode = { ...node };
+    setNodes([...nodes.slice(0, index), newNode, ...nodes.slice(index + 1)]);
+  };
 
   // Removes a given node from nodes and its connected edges from edges
   const handleDeleteNode = (node, nodeId) => {
@@ -59,6 +64,7 @@ export const useGraphOps = () => {
   const handleCreateEdge = (sourceNode, targetNode) => {
     if (sourceNode !== targetNode) {
       const newEdge = {
+        id: uuid(),
         source: sourceNode[NODE_KEY],
         target: targetNode[NODE_KEY],
         type: "emptyEdge",
@@ -109,6 +115,7 @@ export const useGraphOps = () => {
     handleSelectNode,
     handleSelectEdge,
     handleCreateNode,
+    handleUpdateNode,
     handleDeleteNode,
     handleCreateEdge,
     handleSwapEdge,

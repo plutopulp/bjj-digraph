@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { graph as graphData } from "../fixtures/graph";
 
 export const GraphContext = React.createContext();
 

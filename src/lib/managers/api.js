@@ -1,9 +1,5 @@
 import axios from "axios";
 
-const headers = {
-  "Content-type": "application/json",
-};
-
 // A class providing api request methods for an input resource type
 export class APIManager {
   constructor(resourceType) {
@@ -13,30 +9,46 @@ export class APIManager {
   }
 
   // Loads all the initial data of a resource type into state
-  read() {
+  read(token) {
     axios
-      .get(this.endpoint, headers)
+      .get(this.endpoint, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => this.setState(response.data))
       .catch((error) => console.log(error));
   }
   // Creates an instance of a resource type
-  create(instance) {
+  create(instance, token) {
     axios
-      .post(this.endpoint, instance, headers)
+      .post(this.endpoint, instance, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }
   // Updates an instance of a resource type
-  update(instance) {
+  update(instance, token) {
     axios
-      .patch(`${this.endpoint}${instance.id}/`, instance, headers)
+      .patch(`${this.endpoint}${instance.id}/`, instance, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }
   // Deletes an instance of a resource type
-  delete(instance) {
+  delete(instance, token) {
     axios
-      .delete(`${this.endpoint}${instance.id}/`, headers)
+      .delete(`${this.endpoint}${instance.id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }
