@@ -4,7 +4,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 DEBUG = True
 
@@ -22,8 +22,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd Party
     "rest_framework",
+    "rest_framework.authtoken",
     "corsheaders",
     # Local
+    "accounts.apps.AccountsConfig",
     "nodes.apps.NodesConfig",
     "edges.apps.EdgesConfig",
 ]
@@ -112,5 +114,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 CORS_ORIGIN_WHITELIST = ("http://localhost:3000",)
