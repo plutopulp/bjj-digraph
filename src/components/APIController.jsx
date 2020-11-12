@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { useResourceTypes } from "../hooks/useResourceTypes";
-import { useAPI } from "../hooks/useAPI";
+import { useAPIController } from "../hooks/useAPIController";
 
 // A component which controls which api resources are used
 const APIControllerContainer = () => {
@@ -11,8 +11,8 @@ const APIControllerContainer = () => {
 };
 const APIController = () => {
   const resourceTypes = useResourceTypes();
-  useAPI(resourceTypes.nodes);
-  useAPI(resourceTypes.edges);
+  useAPIController(resourceTypes.nodes);
+  useAPIController(resourceTypes.edges);
 
   return null;
 };

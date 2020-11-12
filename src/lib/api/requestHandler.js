@@ -1,54 +1,41 @@
 import axios from "axios";
 
-// A class providing api request methods for an input resource type
-export class APIManager {
-  constructor(resourceType) {
+// A class providing api handlers/request methods
+// for an input resource type
+export class APIRequestHandler {
+  constructor(resourceType, token) {
     this.endpoint = resourceType.endpoint; // url endpoint for resource requests
     this.setState = resourceType.setState; // react resource setState function
     this.state = resourceType.state; // react resource state
+    // Access token should be provided on instantiation
+    this.headers = { headers: { Authorization: `Bearer ${token}` } };
   }
 
   // Loads all the initial data of a resource type into state
-  read(token) {
+  read() {
     axios
-      .get(this.endpoint, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(this.endpoint, this.headers)
       .then((response) => this.setState(response.data))
       .catch((error) => console.log(error));
   }
   // Creates an instance of a resource type
-  create(instance, token) {
+  create(instance) {
     axios
-      .post(this.endpoint, instance, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(this.endpoint, instance, this.headers)
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }
   // Updates an instance of a resource type
-  update(instance, token) {
+  update(instance) {
     axios
-      .patch(`${this.endpoint}${instance.id}/`, instance, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .patch(`${this.endpoint}${instance.id}/`, instance, this.headers)
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }
   // Deletes an instance of a resource type
-  delete(instance, token) {
+  delete(instance) {
     axios
-      .delete(`${this.endpoint}${instance.id}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(`${this.endpoint}${instance.id}/`, this.headers)
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }
