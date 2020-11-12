@@ -1,10 +1,11 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
-import { Auth0Provider as AuthProvider } from "@auth0/auth0-react";
+import { Auth0Provider } from "@auth0/auth0-react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "semantic-ui-css/semantic.min.css";
 import styled from "styled-components";
 
+import Navbar from "./components/navbar/navbar";
 import Profile from "./components/auth/profile";
 import { Graph } from "./components/graph/graph";
 import { GraphProvider } from "./contexts/graph";
@@ -18,7 +19,7 @@ const AppWrapper = styled.div`
 
 const App = () => {
   return (
-    <AuthProvider
+    <Auth0Provider
       clientId="cyQujWKqQOG385QEJadhgWps1kv3HHTI"
       domain="dev-3nvlzxev.eu.auth0.com"
       redirectUri={window.location.origin}
@@ -27,6 +28,7 @@ const App = () => {
       scope="openid profile email"
     >
       <DndProvider backend={HTML5Backend}>
+        <Navbar />
         <AppWrapper>
           <Palette />
 
@@ -37,7 +39,7 @@ const App = () => {
           </GraphProvider>
         </AppWrapper>
       </DndProvider>
-    </AuthProvider>
+    </Auth0Provider>
   );
 };
 
