@@ -2,10 +2,10 @@ import React from "react";
 import _ from "lodash";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { usePrevious } from "./usePrevious";
-import { useMountedEffect } from "./useMountedEffect";
-import { getMissingObject } from "../lib/utils/arrays";
-import { APIRequestHandler } from "../lib/api/requestHandler";
+import { usePrevious } from "../utils/usePrevious";
+import { useMountedEffect } from "../effects/useMountedEffect";
+import { getMissingObject } from "../../lib/utils/arrays";
+import { APIRequestHandler } from "../../lib/api/requestHandler";
 
 // An api control hook which determines when the request methods
 // for an input resource type are triggered

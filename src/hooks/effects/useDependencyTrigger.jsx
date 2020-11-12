@@ -1,5 +1,5 @@
 import React from "react";
-import { usePrevious } from "./usePrevious";
+import { usePrevious } from "../utils/usePrevious";
 
 // A hook which returns the element of a dependency array
 // triggering a useEffect call

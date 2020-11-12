@@ -3,11 +3,10 @@ import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import { useAuth0 as useAuth } from "@auth0/auth0-react";
 import styled from "styled-components";
 
-import { graphConfig, NODE_KEY } from "../config/graphConfig";
-import { GraphContext } from "../contexts/graph";
-import { NodePanel, EdgePanel } from "./panels";
-import { useNodeDrop } from "../hooks/useNodeDrop";
-import { useGraphOps } from "../hooks/useGraphOps";
+import { graphConfig, NODE_KEY } from "../../lib/config/graph/graphConfig";
+import { GraphContext } from "../../contexts/graph";
+import { NodePanel, EdgePanel } from "../panels";
+import { useNodeDrop, useGraphOps } from "../../hooks/index";
 
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 

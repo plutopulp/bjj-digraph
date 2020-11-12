@@ -1,8 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { useResourceTypes } from "../hooks/useResourceTypes";
-import { useAPIController } from "../hooks/useAPIController";
+import { useResourceTypes, useAPIController } from "../hooks/index";
 
 // A component which controls which api resources are used
 const APIControllerContainer = () => {

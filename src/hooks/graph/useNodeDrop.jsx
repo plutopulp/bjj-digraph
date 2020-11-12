@@ -1,9 +1,9 @@
 import React from "react";
 import { useDrop, useDragLayer } from "react-dnd";
 
-import { useGraphOps } from "../hooks/useGraphOps";
-import { DropManager } from "../lib/dropManager";
-import { dragTypes } from "../config/dragTypes";
+import { useGraphOps } from "./useGraphOps";
+import { DropManager } from "../../lib/dropManager";
+import { dragTypes } from "../../lib/config/types/dragTypes";
 
 // A hook to drop nodes from the palette to the canvas
 export const useNodeDrop = (graphRef, wrapperRef) => {

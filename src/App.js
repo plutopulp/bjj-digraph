@@ -6,7 +6,7 @@ import "semantic-ui-css/semantic.min.css";
 import styled from "styled-components";
 
 import Profile from "./components/auth/profile";
-import { Graph } from "./components/graph";
+import { Graph } from "./components/graph/graph";
 import { GraphProvider } from "./contexts/graph";
 import { Palette } from "./components/palette/palette";
 import { APIController } from "./components/APIController";

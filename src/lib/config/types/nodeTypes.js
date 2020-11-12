@@ -1,4 +1,4 @@
-import * as shapes from "./shapes";
+import * as shapes from "../shapes/shapes";
 const commonProps = {
   effectiveness: 50,
   priority: 50,

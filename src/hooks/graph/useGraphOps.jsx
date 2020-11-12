@@ -2,10 +2,10 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 import _ from "lodash";
 
-import { GraphContext } from "../contexts/graph";
-import { getNodeIndex, getEdgeIndex } from "../lib/utils/graphUtils";
+import { GraphContext } from "../../contexts/graph";
+import { getNodeIndex, getEdgeIndex } from "../../lib/utils/graph";
 
-import { NODE_KEY } from "../config/graphConfig";
+import { NODE_KEY } from "../../lib/config/graph/graphConfig";
 
 // Hook for all graph operation/modification methods
 // These methods modify client nodes and edges (react states)

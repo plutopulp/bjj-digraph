@@ -1,6 +1,6 @@
 import React from "react";
-import { GraphContext } from "../contexts/graph";
-import { routes } from "../config/routes";
+import { GraphContext } from "../../contexts/graph";
+import { routes } from "../../lib/config/routes/routes";
 
 // A hook supplying all resource types for handling API calls
 export const useResourceTypes = () => {

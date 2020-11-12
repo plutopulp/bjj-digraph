@@ -1,8 +1,7 @@
 import React from "react";
 import { Modal } from "semantic-ui-react";
 
-import { useKeyPressed } from "../hooks/useKeyPressed";
-import { useToggle } from "../hooks/useToggle";
+import { useKeyPressed, useToggle } from "../hooks/index";
 import { NodeEditor } from "./nodeEditor";
 
 const Panel = ({ children }) => {

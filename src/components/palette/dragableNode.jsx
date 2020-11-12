@@ -2,7 +2,7 @@ import React from "react";
 import { useDrag } from "react-dnd";
 import styled from "styled-components";
 
-import { dragTypes } from "../../config/dragTypes";
+import { dragTypes } from "../../lib/config/types/dragTypes";
 
 const NodeWrapper = styled.div`
   margin: 1em;

@@ -2,7 +2,7 @@ import React from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
 
-import { nodeTypes } from "../../config/nodeTypes";
+import { nodeTypes } from "../../lib/config/types/nodeTypes";
 import { DragableNode } from "./dragableNode";
 
 const ListWrapper = styled.div`
