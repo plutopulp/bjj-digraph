@@ -1,12 +1,14 @@
 import uuid
 from django.db import models
 from nodes.models import Node
+from graphs.models import Graph
 
 
 class Edge(models.Model):
     """ A class to represent the edges of a bjj digraph """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    graph = models.ForeignKey(Graph, on_delete=models.CASCADE, related_name="edges")
     source_node = models.ForeignKey(
         Node, on_delete=models.CASCADE, related_name="output_edges"
     )

@@ -2,6 +2,8 @@ import uuid
 from django.db import models
 from django.utils import timezone
 
+from graphs.models import Graph
+
 NODE_TYPES = (
     ("position", "position"),
     ("submission", "submission"),
@@ -16,6 +18,7 @@ class Node(models.Model):
     """ A class to represent digraph nodes """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    graph = models.ForeignKey(Graph, on_delete=models.CASCADE, related_name="nodes")
     title = models.CharField(max_length=200)
     created_at = models.DateTimeField(default=timezone.now)
     node_type = models.CharField(choices=NODE_TYPES, default="", max_length=50)

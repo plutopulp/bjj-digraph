@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "corsheaders",
     # Local
     "accounts.apps.AccountsConfig",
+    "graphs.apps.GraphsConfig",
     "nodes.apps.NodesConfig",
     "edges.apps.EdgesConfig",
 ]

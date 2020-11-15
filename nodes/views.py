@@ -13,8 +13,6 @@ class NodeViewSet(viewsets.ModelViewSet):
     queryset = Node.objects.all()
 
     def list(self, request):
-
-        print(request.META)
         queryset = Node.objects.all()
         serializer = NodeSerializer(queryset, many=True)
         return Response(serializer.data)
