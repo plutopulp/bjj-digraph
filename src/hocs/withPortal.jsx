@@ -3,15 +3,21 @@ import styled from "styled-components";
 import { Segment, Portal } from "semantic-ui-react";
 
 const StyledSegment = styled(Segment)`
-  position: fixed;
-  top: 10%;
-  left: 20%;
-  z-index: 1000;
+  &.segment {
+    position: fixed;
+    top: 10%;
+    z-index: 1000;
+    margin: 0;
+    padding: 0.2em;
+    background: #ddd;
+    transform: translateX(20em);
+    transition: transform ease-in-out 1s;
+  }
 `;
 
 const withPortalHOC = (InnerComp) => (props) => (
   <Portal open={props.open}>
-    <StyledSegment>
+    <StyledSegment raised>
       <InnerComp {...props} />
     </StyledSegment>
   </Portal>

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Menu } from "semantic-ui-react";
+import { Menu, Message } from "semantic-ui-react";
 
 const Color = css`
   background-color: #2f303a;
@@ -13,5 +13,11 @@ export const StyledMenu = styled(Menu)`
   }
   &.ui.menu {
     ${Color}
+  }
+`;
+
+export const StyledMessage = styled(Message)`
+  &.message {
+    margin: 0;
   }
 `;

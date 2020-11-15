@@ -9,6 +9,7 @@ import Navbar from "./components/navbar/navbar";
 import Profile from "./components/auth/profile";
 import { Graph } from "./components/graph/graph";
 import { GraphProvider } from "./contexts/graph";
+import { GraphsProvider } from "./contexts/graphs";
 import { Palette } from "./components/palette/palette";
 import { APIController } from "./components/APIController";
 
@@ -28,16 +29,18 @@ const App = () => {
       scope="openid profile email"
     >
       <DndProvider backend={HTML5Backend}>
-        <Navbar />
-        <AppWrapper>
-          <Palette />
+        <GraphsProvider>
+          <Navbar />
+          <AppWrapper>
+            <Palette />
 
-          <GraphProvider>
-            <APIController />
-            <Profile />
-            <Graph />{" "}
-          </GraphProvider>
-        </AppWrapper>
+            <GraphProvider>
+              <APIController />
+              <Profile />
+              <Graph />{" "}
+            </GraphProvider>
+          </AppWrapper>
+        </GraphsProvider>
       </DndProvider>
     </Auth0Provider>
   );
