@@ -9,7 +9,8 @@ class EdgeSerializer(serializers.ModelSerializer):
     """A class to serialize bjj digraph edges. Create and update methods
     are included to handle edge's source and target nodes"""
 
-    id = serializers.UUIDField()
+    id = serializers.UUIDField(required=False)
+    graph = serializers.ReadOnlyField(source="graph.id")
     source = serializers.UUIDField(source="source_node.id")
     target = serializers.UUIDField(source="target_node.id")
     rationale = serializers.CharField(required=False, allow_blank=True)
@@ -18,6 +19,7 @@ class EdgeSerializer(serializers.ModelSerializer):
         model = Edge
         fields = (
             "id",
+            "graph",
             "source",
             "target",
             "rationale",

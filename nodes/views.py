@@ -5,24 +5,32 @@ from rest_framework.response import Response
 from .serializers import NodeSerializer
 from .models import Node
 from graphs.models import Graph
-from main.utils.permissions import IsOwnerOrReadOnly, IsGraphOwnerOrReadOnly
-from main.utils.mixins import GraphChildViewMixin
+from main.utils.views.permissions import IsOwnerOrReadOnly, IsGraphOwnerOrReadOnly
+from main.utils.views.mixins import GraphChildViewMixin, GraphChildListCreateViewMixin
 
 
-class NodeList(GraphChildViewMixin, generics.ListCreateAPIView):
+class NodeList(
+    GraphChildViewMixin, GraphChildListCreateViewMixin, generics.ListCreateAPIView
+):
     """ An API view for listing and creating bjj digraph nodes """
 
     queryset = Node.objects.all()
     serializer_class = NodeSerializer
 
+    def __init__(self, *args, **kwargs):
+        """Overwrite init to associate the model with the view
+        Doing this so that can call self.model in Mixin instead of passing
+        the class directly throughout methods"""
+        super().__init__(*args, **kwargs)
+        self.model = Node
+
     def perform_create(self, serializer):
-        """ Add the graph to the node object """
-        graph = get_object_or_404(Graph, id=self.request.data["graph"])
-        serializer.save(graph=graph)
+        """ Add the graph to the node object. """
+        self.perform_create_(serializer)
 
     def list(self, request, graph_id):
         """ Return all the nodes of a given graph """
-        return self.list_(Node, request, graph_id)
+        return self.list_(request, graph_id)
 
 
 class NodeDetail(generics.RetrieveUpdateDestroyAPIView):

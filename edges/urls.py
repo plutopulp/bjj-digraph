@@ -1,12 +1,8 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 
-from .views import EdgeViewSet
-
-
-router = routers.DefaultRouter()
-router.register("viewset", EdgeViewSet, basename="edges_viewset")
+from .views import EdgeList, EdgeDetail
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("", EdgeList.as_view()),
+    path("<uuid:edge_id>/", EdgeDetail.as_view()),
 ]
