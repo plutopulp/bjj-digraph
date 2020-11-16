@@ -6,6 +6,15 @@ import requests
 from django.contrib.auth import authenticate
 
 
+def get_token_auth_header(request):
+    """Obtains the Access Token from the Authorization Header"""
+    auth = request.META.get("HTTP_AUTHORIZATION", None)
+    parts = auth.split()
+    token = parts[1]
+
+    return token
+
+
 def strip_url(url):
     """ Retains the portion of a url which follows the first alphanumeric character to the right of a '/' """
     if not len(url):

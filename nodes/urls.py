@@ -1,12 +1,9 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 
-from .views import NodeViewSet
+from .views import NodeList, NodeDetail
 
-
-router = routers.DefaultRouter()
-router.register("viewset", NodeViewSet, basename="nodes_viewset")
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("", NodeList.as_view()),
+    path("<uuid:node_id>/", NodeDetail.as_view()),
 ]
