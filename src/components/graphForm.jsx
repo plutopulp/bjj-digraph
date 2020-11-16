@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuid } from "uuid";
 import { Button, Form } from "semantic-ui-react";
 import { GraphsContext } from "../contexts/graphs";
 import { useFormFields } from "../hooks/index";
@@ -14,7 +15,10 @@ const GraphFormContainer = () => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    await setGraphs([...graphs, { ...fields, createdAt: new Date() }]);
+    await setGraphs([
+      ...graphs,
+      { ...fields, createdAt: new Date(), id: uuid() },
+    ]);
     setFields(initialFields);
   }
 

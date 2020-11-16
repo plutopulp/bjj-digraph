@@ -12,6 +12,7 @@ const APIController = () => {
   const resourceTypes = useResourceTypes();
   useAPIController(resourceTypes.nodes);
   useAPIController(resourceTypes.edges);
+  useAPIController(resourceTypes.graphs);
 
   return null;
 };
