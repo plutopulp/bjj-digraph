@@ -19,7 +19,6 @@ const GraphFormContainer = () => {
       ...graphs,
       { ...fields, createdAt: new Date(), id: uuid() },
     ]);
-    setFields(initialFields);
   }
 
   return (

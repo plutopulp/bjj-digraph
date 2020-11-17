@@ -84,7 +84,10 @@ const Navbar = () => {
       {showGraphs && (
         <div>
           {graphs.map((graph) => (
-            <h2>{graph.title}</h2>
+            <div key={graph.id}>
+              <h2>{graph.title}</h2>
+              <h2>{graph.id}</h2>
+            </div>
           ))}
         </div>
       )}

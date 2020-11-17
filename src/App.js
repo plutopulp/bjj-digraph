@@ -9,8 +9,10 @@ import Navbar from "./components/navbar/navbar";
 import { GraphProvider } from "./contexts/graph";
 import { GraphsProvider } from "./contexts/graphs";
 import { routes } from "./lib/config/routes/routes";
-import GraphCardList from "./components/graphs/list";
+import GraphCardList from "./components/graphs/list/list";
 import GraphDetailView from "./components/graph/graphDetailView";
+import Home from "./components/home/home";
+import { APIController } from "./components/APIController";
 
 const App = () => {
   return (
@@ -21,22 +23,24 @@ const App = () => {
       audience="https://bjj-digraph-server"
       responseType="token id_token"
       scope="openid profile email"
+      useRefreshTokens={true}
     >
       <Router>
         <DndProvider backend={HTML5Backend}>
           <GraphsProvider>
-            <Navbar />
-            <Route
-              exact
-              path={routes.pages.graphs.list}
-              component={GraphCardList}
-            />
-
             <GraphProvider>
+              <Navbar />
+              <APIController />
+              <Route exact path={routes.pages.home} component={Home} />
+              <Route
+                exact
+                path={routes.pages.graphs.list}
+                component={GraphCardList}
+              />
               <Route
                 exact
                 path={routes.pages.graphs.detail(":graphId")}
-                render={(props) => <GraphDetailView {...props} />}
+                component={GraphDetailView}
               />
             </GraphProvider>
           </GraphsProvider>

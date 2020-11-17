@@ -16,6 +16,8 @@ export const GraphProvider = ({ children }) => {
   return (
     <GraphContext.Provider
       value={{
+        currentGraphId,
+        setCurrentGraphId,
         nodes,
         setNodes,
         edges,

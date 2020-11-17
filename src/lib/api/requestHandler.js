@@ -20,6 +20,7 @@ export class APIRequestHandler {
   }
   // Creates an instance of a resource type
   create(instance) {
+    console.log(this.endpoints);
     axios
       .post(this.endpoints.list, instance, this.headers)
       .then((response) => console.log(response))
