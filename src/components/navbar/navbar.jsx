@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { NavLink } from "react-router-dom";
 import { Menu, Button, Message, Icon } from "semantic-ui-react";
 
 import { StyledMenu, StyledMessage } from "./styles";
@@ -8,6 +9,7 @@ import withModalHOC from "../../hocs/withModal";
 
 import GraphForm from "../graphForm";
 import { GraphsContext } from "../../contexts/graphs";
+import { routes } from "../../lib/config/routes/routes";
 
 const LoadingMessage = () => (
   <StyledMessage
@@ -75,8 +77,10 @@ const Navbar = () => {
         </Menu.Item>
         <Menu.Item>
           {isAuthenticated && (
-            <Button as="a" inverted onClick={() => setShowGraphs(true)}>
-              My Graphs
+            <Button as="a" inverted>
+              <NavLink to={{ pathname: routes.pages.graphs.list }}>
+                My Graphs
+              </NavLink>
             </Button>
           )}
         </Menu.Item>

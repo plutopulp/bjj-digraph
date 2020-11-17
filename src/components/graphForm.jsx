@@ -5,6 +5,8 @@ import { GraphsContext } from "../contexts/graphs";
 import { useFormFields } from "../hooks/index";
 import { FormContainer, FormTitle } from "./styles/forms";
 
+const slugify = require("slugify");
+
 const initialFields = {
   title: "",
   description: "",
@@ -17,8 +19,14 @@ const GraphFormContainer = () => {
     event.preventDefault();
     await setGraphs([
       ...graphs,
-      { ...fields, createdAt: new Date(), id: uuid() },
+      {
+        ...fields,
+        createdAt: new Date(),
+        id: uuid(),
+        slug: slugify(fields.title),
+      },
     ]);
+    setFields(initialFields);
   }
 
   return (

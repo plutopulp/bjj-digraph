@@ -6,6 +6,7 @@ import { formatDistance } from "date-fns";
 
 import { useHovered } from "../../../../hooks/index";
 import { routes } from "../../../../lib/config/routes/routes";
+import { Graph } from "../../../graph/graph";
 
 const Wrapper = styled.div`
   margin: 2em;
@@ -15,6 +16,12 @@ const CardContainer = ({ id, title, createdAt, description }) => {
   return (
     <Wrapper ref={ref}>
       <Card raised={hovered}>
+        <Graph
+          width="100%"
+          height="20%"
+          showGraphControls={false}
+          readOnly={true}
+        />
         <Card.Content>
           <Card.Header>
             <NavLink to={{ pathname: routes.pages.graphs.detail(id) }}>

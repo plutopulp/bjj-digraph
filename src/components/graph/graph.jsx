@@ -10,8 +10,8 @@ import { useNodeDrop, useGraphOps } from "../../hooks/index";
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
 const GraphWrapper = styled.div`
-  width: 80%;
-  height: 1000px;
+  width: ${({ width }) => (width ? width : "80%")};
+  height: ${({ height }) => (height ? height : "1000px")};
 `;
 const DropZone = styled.div`
   width: 100%;
@@ -27,7 +27,7 @@ const NodeContentWrapper = styled.div`
   font-size: 1.25em;
 `;
 
-export const Graph = () => {
+export const Graph = ({ width, height, showGraphControls, readOnly }) => {
   const { nodes, edges, selected } = React.useContext(GraphContext);
   const {
     handleSelectNode,
@@ -119,7 +119,7 @@ export const Graph = () => {
   };
 
   return (
-    <GraphWrapper ref={wrapperRef}>
+    <GraphWrapper ref={wrapperRef} width={width} height={height}>
       <DropZone ref={dropRef}>
         <GraphView
           ref={graphRef}
@@ -130,6 +130,9 @@ export const Graph = () => {
           nodeTypes={nodeTypes}
           nodeSubtypes={nodeSubtypes}
           edgeTypes={edgeTypes}
+          showGraphControls={showGraphControls}
+          edgeHandleSize={100}
+          readOnly={readOnly ? readOnly : false}
           onSelectNode={handleSelectNode}
           onUpdateNode={handleUpdateNode}
           onCreateNode={handleCreateNode}
