@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 
 export const GraphContext = React.createContext();
 
-// Context provider for all graph state quantities
+// Context provider for all the state quantities
+// associated with the current graph the user is working on
+
 export const GraphProvider = ({ children }) => {
+  const [currentGraphId, setCurrentGraphId] = React.useState("");
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
   const [selected, setSelected] = React.useState({});

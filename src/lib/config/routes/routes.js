@@ -3,7 +3,15 @@ const serverUrl = process.env.REACT_APP_SERVER_URL;
 // list endpoints for list and create api views
 // detail endpoints for read, update and destroy api views
 
-const routes = {
+export const routes = {
+  pages: {
+    home: "",
+    about: "about/",
+    graphs: {
+      list: "/graphs/",
+      detail: (graphId) => `/graphs/${graphId}/`,
+    },
+  },
   api: {
     accounts: "",
     graphs: {
@@ -22,5 +30,3 @@ const routes = {
     },
   },
 };
-
-console.log(routes.api.nodes.detail(182, 1927));

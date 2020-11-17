@@ -12,18 +12,22 @@ export const useResourceTypes = () => {
     graphs: {
       state: graphs,
       setState: setGraphs,
-      endpoint: routes.api.graphs,
-    },
-    nodes: {
-      state: nodes,
-      setState: setNodes,
-      endpoint: routes.api.nodes,
-    },
-    edges: {
-      state: edges,
-      setState: setEdges,
-      endpoint: routes.api.edges,
+      endpoints: {
+        list: routes.api.graphs.list,
+        detail: routes.api.graphs.detail,
+      },
+      nodes: {
+        state: nodes,
+        setState: setNodes,
+        endpoint: routes.api.nodes,
+      },
+      edges: {
+        state: edges,
+        setState: setEdges,
+        endpoint: routes.api.edges,
+      },
     },
   };
+
   return resourceTypes;
 };

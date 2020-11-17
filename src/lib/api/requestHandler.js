@@ -4,7 +4,7 @@ import axios from "axios";
 // for an input resource type
 export class APIRequestHandler {
   constructor(resourceType, token) {
-    this.endpoint = resourceType.endpoint; // url endpoint for resource requests
+    this.endpoints = resourceType.endpoints; // url endpoint for resource requests
     this.setState = resourceType.setState; // react resource setState function
     this.state = resourceType.state; // react resource state
     // Access token should be provided on instantiation
@@ -14,14 +14,14 @@ export class APIRequestHandler {
   // Loads all the initial data of a resource type into state
   read() {
     axios
-      .get(this.endpoint, this.headers)
+      .get(this.endpoints.list, this.headers)
       .then((response) => this.setState(response.data))
       .catch((error) => console.log(error));
   }
   // Creates an instance of a resource type
   create(instance) {
     axios
-      .post(this.endpoint, instance, this.headers)
+      .post(this.endpoints.list, instance, this.headers)
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }
