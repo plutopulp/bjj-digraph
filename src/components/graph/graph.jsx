@@ -75,7 +75,13 @@ export const Graph = ({
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}
-        {selected && !selected.source && <NodeToolBox selected={selected} />}
+        {selected && !selected.source && (
+          <NodeToolBox
+            selected={selected}
+            graphRef={graphRef}
+            wrapperRef={wrapperRef}
+          />
+        )}
       </DropZone>
     </GraphWrapper>
   );

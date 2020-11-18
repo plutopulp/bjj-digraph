@@ -1,41 +1,60 @@
-// A class for managing viewport to graph position conversion
-// Single public method for getting the exact drop position
-class PositionConverter {
-  constructor(inputPosition, graphRef, wrapperRef) {
+// A class providing methods for getting the transform
+// state of a graph. For instance, scale and translation due to
+// zoom and pan. Also client -> graph and graph -> postion conversion
+
+class GraphTransformState {
+  constructor(graphRef, wrapperRef) {
     // Ref to the graph element, used to get pan-zoom properties
     this.graphRef = graphRef;
     // Ref to the div wrapping the graph (should have identical dimensions to graph)
     // Used to get the boundingRect of the graph
     this.wrapperRef = wrapperRef;
-    this.inputPosition = inputPosition;
     this.graphPosition = [];
     this.transform = [];
     this.translation = [];
     this.scale = null;
-    this.outputPosition = [];
   }
 
-  // Gets the absolute graph position
-  getOutputPosition() {
-    this._setOutputPosition();
-    return this.outputPosition;
-  }
-
-  // Sets the output position
-  _setOutputPosition() {
-    if (!this.inputPosition) return;
-    this._setGraphPosition();
-    if (!this.graphPosition) return;
-    this._setTransformArray();
-    if (!this.transform) return;
-    this._setTranslationArray();
-    if (!this.translation) return;
+  // Gets the graph scale/zoom
+  getScale() {
     this._setScale();
-    if (!this.scale) return;
-    this.outputPosition = this.inputPosition.map(
+    return this.scale;
+  }
+  // Gets the x/y translation due to panning
+  getTranslation() {
+    this._setTranslationArray();
+    return this.translation;
+  }
+
+  // Gets the absolute graph position from a client position
+  clientToGraph(inputPosition) {
+    if (this._initializePositionConversion());
+    return inputPosition.map(
       (position, i) =>
         (position - this.graphPosition[i] - this.translation[i]) / this.scale
     );
+  }
+  // Gets the absolute client position from a client position
+  graphToClient(inputPosition) {
+    if (this._initializePositionConversion());
+    return inputPosition.map(
+      (position, i) =>
+        this.scale * position + this.graphPosition[i] + this.translation[i]
+    );
+  }
+
+  // Initializes all quantities for position conversion
+  // return false if any step fails
+  _initializePositionConversion() {
+    this._setGraphPosition();
+    if (!this.graphPosition) return false;
+    this._setTransformArray();
+    if (!this.transform) return false;
+    this._setTranslationArray();
+    if (!this.translation) return false;
+    this._setScale();
+    if (!this.scale) return false;
+    return true;
   }
 
   // Sets the position of the graph within the viewport
@@ -76,4 +95,4 @@ class PositionConverter {
   }
 }
 
-export default PositionConverter;
+export default GraphTransformState;

@@ -2,7 +2,7 @@ import React from "react";
 import { useDrop, useDragLayer } from "react-dnd";
 
 import { useGraphOps } from "./useGraphOps";
-import PositionConverter from "../../lib/graph/positionConverter";
+import GraphTransformState from "../../lib/graph/transformState";
 import { dragTypes } from "../../lib/config/types/dragTypes";
 
 // A hook to drop nodes from the palette to the canvas
@@ -12,12 +12,11 @@ export const useNodeDrop = (graphRef, wrapperRef) => {
   // Creates a node of suitable type under the mouse cursor
   const handleDrop = () => {
     // Calculates the absolute position for dropping
-    const positionConverter = new PositionConverter(
-      [mousePosition.x, mousePosition.y],
-      graphRef,
-      wrapperRef
-    );
-    const dropPosition = positionConverter.getOutputPosition();
+    const positionConverter = new GraphTransformState(graphRef, wrapperRef);
+    const dropPosition = positionConverter.clientToGraph([
+      mousePosition.x,
+      mousePosition.y,
+    ]);
     if (dropPosition)
       handleCreateNode(dropPosition[0], dropPosition[1], itemType.subtype);
   };
