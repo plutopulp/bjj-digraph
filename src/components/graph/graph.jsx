@@ -27,8 +27,15 @@ const NodeContentWrapper = styled.div`
   font-size: 1.25em;
 `;
 
-export const Graph = ({ width, height, showGraphControls, readOnly }) => {
-  const { nodes, edges, selected } = React.useContext(GraphContext);
+export const Graph = ({
+  nodes,
+  edges,
+  selected,
+  width,
+  height,
+  showGraphControls,
+  readOnly,
+}) => {
   const {
     handleSelectNode,
     handleSelectEdge,

@@ -18,15 +18,17 @@ export const routes = {
       list: serverUrl + "graphs/",
       detail: (graphId) => `${routes.api.graphs.list}${graphId}`,
     },
-    nodes: {
-      list: (graphId) => `${routes.api.graphs.detail(graphId)}/nodes/`,
-      detail: (graphId, nodeId) =>
-        `${routes.api.nodes.list(graphId)}${nodeId}/`,
+    nodes: (graphId) => {
+      return {
+        list: `${routes.api.graphs.detail(graphId)}/nodes/`,
+        detail: (nodeId) => `${routes.api.nodes(graphId).list}${nodeId}/`,
+      };
     },
-    edges: {
-      list: (graphId) => `${routes.api.graphs.detail(graphId)}/edges/`,
-      detail: (graphId, edgeId) =>
-        `${routes.api.edges.list(graphId)}${edgeId}/`,
+    edges: (graphId) => {
+      return {
+        list: `${routes.api.graphs.detail(graphId)}/edges/`,
+        detail: (edgeId) => `${routes.api.edges(graphId).list}${edgeId}/`,
+      };
     },
   },
 };

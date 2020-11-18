@@ -16,6 +16,7 @@ const GraphCardList = () => {
           createdAt={graph.createdAt}
           description={graph.description}
           id={graph.id}
+          slug={graph.slug}
         />
       ))}
     </UICard.Group>

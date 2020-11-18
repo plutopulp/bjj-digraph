@@ -5,7 +5,9 @@ import { routes } from "../../lib/config/routes/routes";
 
 // A hook supplying all resource types for handling API calls
 export const useResourceTypes = () => {
-  const { nodes, setNodes, edges, setEdges } = React.useContext(GraphContext);
+  const { nodes, setNodes, edges, setEdges, currentGraphId } = React.useContext(
+    GraphContext
+  );
   const { graphs, setGraphs } = React.useContext(GraphsContext);
 
   const resourceTypes = {
@@ -14,18 +16,21 @@ export const useResourceTypes = () => {
       setState: setGraphs,
       endpoints: {
         list: routes.api.graphs.list,
-        detail: routes.api.graphs.detail,
+        detail: routes.api.graphs.detail(currentGraphId),
       },
-      nodes: {
-        state: nodes,
-        setState: setNodes,
-        endpoint: routes.api.nodes,
+    },
+    nodes: {
+      state: nodes,
+      setState: setNodes,
+      endpoints: {
+        list: routes.api.nodes(currentGraphId).list,
+        detail: routes.api.nodes(currentGraphId).detail,
       },
-      edges: {
-        state: edges,
-        setState: setEdges,
-        endpoint: routes.api.edges,
-      },
+    },
+    edges: {
+      state: edges,
+      setState: setEdges,
+      endpoint: routes.api.edges,
     },
   };
 

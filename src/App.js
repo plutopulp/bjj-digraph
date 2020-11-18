@@ -39,7 +39,7 @@ const App = () => {
               />
               <Route
                 exact
-                path={routes.pages.graphs.detail(":graphId")}
+                path={routes.pages.graphs.detail(":slug")}
                 component={GraphDetailView}
               />
             </GraphProvider>

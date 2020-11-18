@@ -1,4 +1,6 @@
+export { useAPI } from "./api/useAPI";
 export { useAPIController } from "./api/useAPIController";
+export { useAPIControllerTMP } from "./api/useAPIControllerTMP";
 export { useResourceTypes } from "./api/useResourceTypes";
 export { useDependencyTrigger } from "./effects/useDependencyTrigger";
 export { useMountedEffect } from "./effects/useMountedEffect";

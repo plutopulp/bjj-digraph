@@ -4,15 +4,28 @@ import { NavLink } from "react-router-dom";
 import { Card } from "semantic-ui-react";
 import { formatDistance } from "date-fns";
 
-import { useHovered } from "../../../../hooks/index";
+import { useAPI, useHovered, useMountedEffect } from "../../../../hooks/index";
 import { routes } from "../../../../lib/config/routes/routes";
 import { Graph } from "../../../graph/graph";
 
 const Wrapper = styled.div`
   margin: 2em;
 `;
-const CardContainer = ({ id, title, createdAt, description }) => {
+
+const CardContainer = ({ id, title, createdAt, description, slug }) => {
+  const { token, list } = useAPI();
   const [hovered, ref] = useHovered(false);
+  const [nodes, setNodes] = React.useState([]);
+  const [edges, setEdges] = React.useState([]);
+
+  useMountedEffect(() => {
+    list(routes.api.nodes(id).list, setNodes);
+  }, [token]);
+
+  useMountedEffect(() => {
+    list(routes.api.edges(id).list, setEdges);
+  }, [token]);
+
   return (
     <Wrapper ref={ref}>
       <Card raised={hovered}>
@@ -21,10 +34,19 @@ const CardContainer = ({ id, title, createdAt, description }) => {
           height="20%"
           showGraphControls={false}
           readOnly={true}
+          nodes={nodes}
+          setNodes={setNodes}
+          edges={edges}
+          setEdges={setEdges}
         />
         <Card.Content>
           <Card.Header>
-            <NavLink to={{ pathname: routes.pages.graphs.detail(id) }}>
+            <NavLink
+              to={{
+                pathname: routes.pages.graphs.detail(slug),
+                state: { graphId: id },
+              }}
+            >
               {title}
             </NavLink>
           </Card.Header>

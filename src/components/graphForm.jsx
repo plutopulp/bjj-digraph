@@ -23,7 +23,7 @@ const GraphFormContainer = () => {
         ...fields,
         createdAt: new Date(),
         id: uuid(),
-        slug: slugify(fields.title),
+        slug: slugify(fields.title, { remove: "_", lower: true, strict: true }),
       },
     ]);
     setFields(initialFields);
