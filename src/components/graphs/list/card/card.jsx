@@ -13,17 +13,17 @@ const Wrapper = styled.div`
 `;
 
 const CardContainer = ({ id, title, createdAt, description, slug }) => {
-  const { token, list } = useAPI();
+  const { token, read } = useAPI();
   const [hovered, ref] = useHovered(false);
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
 
   useMountedEffect(() => {
-    list(routes.api.nodes(id).list, setNodes);
+    read(routes.api.nodes(id).list, setNodes);
   }, [token]);
 
   useMountedEffect(() => {
-    list(routes.api.edges(id).list, setEdges);
+    read(routes.api.edges(id).list, setEdges);
   }, [token]);
 
   return (
@@ -31,7 +31,7 @@ const CardContainer = ({ id, title, createdAt, description, slug }) => {
       <Card raised={hovered}>
         <Graph
           width="100%"
-          height="20%"
+          height="300px"
           showGraphControls={false}
           readOnly={true}
           nodes={nodes}

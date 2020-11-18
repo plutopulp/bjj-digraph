@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { useResourceTypes, useAPIController } from "../hooks/index";
+import { routes } from "../lib/config/routes/routes";
 
 // A component which controls which api resources are used
 const APIControllerContainer = () => {
@@ -10,7 +11,11 @@ const APIControllerContainer = () => {
 };
 const APIController = () => {
   const resourceTypes = useResourceTypes();
-  useAPIController(resourceTypes.graphs);
+  useAPIController(
+    resourceTypes.graphs.state,
+    resourceTypes.graphs.setState,
+    routes.api.graphs
+  );
 
   return null;
 };

@@ -1,29 +1,29 @@
-// A class for managing external dropping of elements onto the graph canvas
+// A class for managing viewport to graph position conversion
 // Single public method for getting the exact drop position
-export class DropManager {
-  constructor(mousePosition, graphRef, wrapperRef) {
+class PositionConverter {
+  constructor(inputPosition, graphRef, wrapperRef) {
     // Ref to the graph element, used to get pan-zoom properties
     this.graphRef = graphRef;
     // Ref to the div wrapping the graph (should have identical dimensions to graph)
     // Used to get the boundingRect of the graph
     this.wrapperRef = wrapperRef;
-    this.mousePosition = mousePosition;
+    this.inputPosition = inputPosition;
     this.graphPosition = [];
     this.transform = [];
     this.translation = [];
     this.scale = null;
-    this.dropPosition = [];
+    this.outputPosition = [];
   }
 
-  // Gets the absolute drop position
-  getDropPosition() {
-    this._setDropPosition();
-    return this.dropPosition;
+  // Gets the absolute graph position
+  getOutputPosition() {
+    this._setOutputPosition();
+    return this.outputPosition;
   }
 
-  // Sets the drop position
-  _setDropPosition() {
-    if (!this.mousePosition) return;
+  // Sets the output position
+  _setOutputPosition() {
+    if (!this.inputPosition) return;
     this._setGraphPosition();
     if (!this.graphPosition) return;
     this._setTransformArray();
@@ -32,7 +32,7 @@ export class DropManager {
     if (!this.translation) return;
     this._setScale();
     if (!this.scale) return;
-    this.dropPosition = this.mousePosition.map(
+    this.outputPosition = this.inputPosition.map(
       (position, i) =>
         (position - this.graphPosition[i] - this.translation[i]) / this.scale
     );
@@ -75,3 +75,5 @@ export class DropManager {
     this.scale = scale ? Number(scale[1]) : null;
   }
 }
+
+export default PositionConverter;

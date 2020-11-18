@@ -3,9 +3,11 @@ import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
 
 import { graphConfig, NODE_KEY } from "../../lib/config/graph/graphConfig";
-import { GraphContext } from "../../contexts/graph";
 import { NodePanel, EdgePanel } from "../panels";
 import { useNodeDrop, useGraphOps } from "../../hooks/index";
+import NodeToolBox from "./nodeToolBox";
+import renderNode from "./renderNode";
+import renderNodeText from "./renderNodeText";
 
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
@@ -16,15 +18,6 @@ const GraphWrapper = styled.div`
 const DropZone = styled.div`
   width: 100%;
   height: 100%;
-`;
-const NodeContentWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 1.25em;
 `;
 
 export const Graph = ({
@@ -51,79 +44,6 @@ export const Graph = ({
   const graphRef = React.useRef();
   const wrapperRef = React.useRef();
   const dropRef = useNodeDrop(graphRef, wrapperRef);
-
-  const renderNodeText = (data) => {
-    return (
-      <foreignObject x="-77" y="-77" width="154" height="154">
-        <NodeContentWrapper>
-          <span>{data.title} </span>
-        </NodeContentWrapper>
-      </foreignObject>
-    );
-  };
-  const renderNode = (ref, data, id, selected, hovered) => {
-    const nodeShapeContainerClassName = GraphUtils.classNames("shape");
-    const nodeClassName = GraphUtils.classNames("node", { selected, hovered });
-    const nodeSubtypeClassName = GraphUtils.classNames("subtype-shape", {
-      selected,
-    });
-    const nodeSubtypeXlinkHref = Node.getNodeSubtypeXlinkHref(
-      data,
-      nodeSubtypes
-    );
-    const nodeTypeXlinkHref = Node.getNodeTypeXlinkHref(data, nodeTypes) || "";
-
-    // get width and height defined on def element
-    const defSvgNodeElement = nodeTypeXlinkHref
-      ? document.querySelector(`defs>${nodeTypeXlinkHref}`)
-      : null;
-    const nodeWidthAttr = defSvgNodeElement
-      ? defSvgNodeElement.getAttribute("width")
-      : 0;
-    const nodeHeightAttr = defSvgNodeElement
-      ? defSvgNodeElement.getAttribute("height")
-      : 0;
-    const width = parseInt(nodeWidthAttr, 10);
-    const height = parseInt(nodeHeightAttr, 10);
-
-    return (
-      <g className={nodeShapeContainerClassName}>
-        {!!data.subtype && (
-          <use
-            className={nodeSubtypeClassName}
-            x={-width / 2}
-            y={-height / 2}
-            width={width}
-            height={height}
-            xlinkHref={nodeSubtypeXlinkHref}
-          />
-        )}
-        <use
-          className={nodeClassName}
-          height={height}
-          width={width}
-          x={-width / 2}
-          y={-height / 2}
-          xlinkHref={nodeTypeXlinkHref}
-        />
-      </g>
-    );
-  };
-  const renderNode2 = () => {
-    return (
-      <svg viewBox="0 0 20 20">
-        <foreignObject x="-12" y="0" width="20" height="20">
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              background: "yellow",
-            }}
-          />
-        </foreignObject>
-      </svg>
-    );
-  };
 
   return (
     <GraphWrapper ref={wrapperRef} width={width} height={height}>
@@ -155,6 +75,7 @@ export const Graph = ({
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}
+        {selected && !selected.source && <NodeToolBox selected={selected} />}
       </DropZone>
     </GraphWrapper>
   );
