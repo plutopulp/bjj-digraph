@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
 import styled from "styled-components";
 
@@ -75,7 +76,7 @@ export const Graph = ({
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}
-        {selected && !selected.source && (
+        {!_.isEmpty(selected) && !selected.source && (
           <NodeToolBox
             selected={selected}
             graphRef={graphRef}
