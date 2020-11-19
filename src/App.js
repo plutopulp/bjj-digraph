@@ -10,7 +10,7 @@ import { GraphProvider } from "./contexts/graph";
 import { GraphsProvider } from "./contexts/graphs";
 import { routes } from "./lib/config/routes/routes";
 import GraphCardList from "./components/graphs/list/list";
-import GraphDetailView from "./components/graph/graphDetailView";
+import GraphDetailView from "./components/common/graph/graphDetailView";
 import Home from "./components/home/home";
 import { APIController } from "./components/APIController";
 

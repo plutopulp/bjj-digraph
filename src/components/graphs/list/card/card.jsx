@@ -6,7 +6,7 @@ import { formatDistance } from "date-fns";
 
 import { useAPI, useHovered, useMountedEffect } from "../../../../hooks/index";
 import { routes } from "../../../../lib/config/routes/routes";
-import { Graph } from "../../../graph/graph";
+import { Graph } from "../../../common/graph/graph";
 
 const Wrapper = styled.div`
   margin: 2em;

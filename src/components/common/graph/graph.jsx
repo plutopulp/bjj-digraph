@@ -1,11 +1,16 @@
 import React from "react";
 import _ from "lodash";
-import { GraphView, Edge, Node, GraphUtils } from "react-digraph";
+import { GraphView } from "react-digraph";
 import styled from "styled-components";
 
-import { graphConfig, NODE_KEY } from "../../lib/config/graph/graphConfig";
-import { NodePanel, EdgePanel } from "../panels";
-import { useNodeDrop, useGraphOps } from "../../hooks/index";
+import { graphConfig, NODE_KEY } from "../../../lib/config/graph/graphConfig";
+import { NodePanel, EdgePanel } from "../../panels";
+import {
+  useNodeDrop,
+  useGraphOps,
+  useScale,
+  useTranslation,
+} from "../../../hooks";
 import NodeToolBox from "./nodeToolBox";
 import renderNode from "./renderNode";
 import renderNodeText from "./renderNodeText";
@@ -45,6 +50,15 @@ export const Graph = ({
   const graphRef = React.useRef();
   const wrapperRef = React.useRef();
   const dropRef = useNodeDrop(graphRef, wrapperRef);
+  const scale = useScale(graphRef);
+  const translation = useTranslation(graphRef);
+
+  const [showToolBox, setShowToolBox] = React.useState(false);
+
+  React.useEffect(() => {
+    setShowToolBox(false);
+    setTimeout(() => setShowToolBox(true), 600);
+  }, [scale, JSON.stringify(translation)]);
 
   return (
     <GraphWrapper ref={wrapperRef} width={width} height={height}>
@@ -76,11 +90,13 @@ export const Graph = ({
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}
-        {!_.isEmpty(selected) && !selected.source && (
+        {!_.isEmpty(selected) && showToolBox && !selected.source && (
           <NodeToolBox
             selected={selected}
             graphRef={graphRef}
             wrapperRef={wrapperRef}
+            scale={scale}
+            translation={translation}
           />
         )}
       </DropZone>

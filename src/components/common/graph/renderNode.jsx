@@ -1,7 +1,7 @@
 import React from "react";
 import { Node, GraphUtils } from "react-digraph";
 
-import { graphConfig } from "../../lib/config/graph/graphConfig";
+import { graphConfig } from "../../../lib/config/graph/graphConfig";
 
 const { nodeTypes, nodeSubtypes } = graphConfig;
 
