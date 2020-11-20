@@ -58,6 +58,7 @@ export const useGraphOps = () => {
     const newNodes = nodes.filter((node) => node.id !== nodeId);
     setNodes(newNodes);
     setEdges(newEdges);
+    setSelected(null);
   };
 
   // Creates an edge between 2 nodes

@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { Form } from "semantic-ui-react";
 import styled from "styled-components";
 
-import { GraphContext } from "../contexts/graph";
-import { getNodeIndex } from "../lib/utils/graph";
-import { FormContainer, FormTitle } from "./styles/forms";
+import { GraphContext } from "../../../../contexts/graph";
+import { getNodeIndex } from "../../../../lib/utils/graph";
+import { FormContainer, FormTitle } from "../../../styles/forms";
+import withModalHOC from "../../../../hocs/withModal";
 
 const NodeEditorContainer = ({ node }) => {
   const { nodes, setNodes } = React.useContext(GraphContext);
@@ -107,4 +108,4 @@ NodeEditor.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };
 
-export { NodeEditorContainer as NodeEditor };
+export default withModalHOC(NodeEditorContainer);

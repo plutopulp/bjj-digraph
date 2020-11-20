@@ -3,14 +3,17 @@ import _ from "lodash";
 import { GraphView } from "react-digraph";
 import styled from "styled-components";
 
-import { graphConfig, NODE_KEY } from "../../../lib/config/graph/graphConfig";
-import { NodePanel, EdgePanel } from "../../panels";
+import {
+  graphConfig,
+  NODE_KEY,
+} from "../../../../lib/config/graph/graphConfig";
+import { NodePanel, EdgePanel } from "../../../panels";
 import {
   useNodeDrop,
   useGraphOps,
   useScale,
   useTranslation,
-} from "../../../hooks";
+} from "../../../../hooks";
 import NodeToolBox from "./nodeToolBox";
 import renderNode from "./renderNode";
 import renderNodeText from "./renderNodeText";
@@ -26,7 +29,7 @@ const DropZone = styled.div`
   height: 100%;
 `;
 
-export const Graph = ({
+const GraphViewContainer = ({
   nodes,
   edges,
   selected,
@@ -75,6 +78,7 @@ export const Graph = ({
           showGraphControls={showGraphControls}
           edgeHandleSize={100}
           readOnly={readOnly ? readOnly : false}
+          disableBackspace={true}
           onSelectNode={handleSelectNode}
           onUpdateNode={handleUpdateNode}
           onCreateNode={handleCreateNode}
@@ -103,3 +107,5 @@ export const Graph = ({
     </GraphWrapper>
   );
 };
+
+export default GraphViewContainer;

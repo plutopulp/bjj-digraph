@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Palette } from "../../../palette/palette";
-import { Graph } from "../graph";
+import Graph from "../graphView/graph";
 
 const Wrapper = styled.div`
   display: flex;
