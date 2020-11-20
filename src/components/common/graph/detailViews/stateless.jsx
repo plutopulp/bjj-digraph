@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Palette } from "../../palette/palette";
-import { Graph } from "./graph";
+import { Palette } from "../../../palette/palette";
+import { Graph } from "../graph";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 // Detail view container for an editable graph
 // Data is bount to graph context
 
-const StatelessGraphDetailView = ({
+const StatelessGraphView = ({
   nodes,
   edges,
   selected,
@@ -30,4 +30,4 @@ const StatelessGraphDetailView = ({
   </Wrapper>
 );
 
-export default StatelessGraphDetailView;
+export default StatelessGraphView;

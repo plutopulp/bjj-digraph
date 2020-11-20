@@ -10,7 +10,7 @@ import { GraphProvider } from "./contexts/graph";
 import { GraphsProvider } from "./contexts/graphs";
 import { routes } from "./lib/config/routes/routes";
 import GraphCardList from "./components/graphs/list/list";
-import GraphDetailView from "./components/common/graph/graphDetailView";
+import AuthenticatedGraphView from "./components/common/graph/detailViews/authenticated";
 import Home from "./components/home/home";
 import { APIController } from "./components/APIController";
 
@@ -40,7 +40,7 @@ const App = () => {
               <Route
                 exact
                 path={routes.pages.graphs.detail(":slug")}
-                component={GraphDetailView}
+                component={AuthenticatedGraphView}
               />
             </GraphProvider>
           </GraphsProvider>

@@ -1,7 +1,8 @@
 import React from "react";
+import StatefullGraphView from "../common/graph/detailViews/statefull";
 
 const Home = () => {
-  return <h1>Home</h1>;
+  return <StatefullGraphView />;
 };
 
 export default Home;

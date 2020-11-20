@@ -1,5 +1,5 @@
 import React from "react";
-import { GraphContext } from "../contexts/graph";
+import { GraphContext } from "../../contexts/graph";
 
 // A HOC which provides the node and edge context data
 const withGraphContextHOC = (InnerComp) => (props) => {
