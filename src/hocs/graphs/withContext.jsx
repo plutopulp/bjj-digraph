@@ -1,11 +1,16 @@
 import React from "react";
 import { GraphContext } from "../../contexts/graph";
 
-// A HOC which provides the node and edge context data
+// A HOC which binds the node and edge data to the context
 const withGraphContextHOC = (InnerComp) => (props) => {
-  const { nodes, setNodes, edges, setEdges, selected } = React.useContext(
-    GraphContext
-  );
+  const {
+    nodes,
+    setNodes,
+    edges,
+    setEdges,
+    selected,
+    setSelected,
+  } = React.useContext(GraphContext);
 
   // When unmounting, reset context data
   // Avoids previous mounted graph data to appear momentarily
@@ -20,10 +25,11 @@ const withGraphContextHOC = (InnerComp) => (props) => {
     <InnerComp
       {...props}
       nodes={nodes}
-      edges={edges}
       setNodes={setNodes}
+      edges={edges}
       setEdges={setEdges}
       selected={selected}
+      setSelected={setSelected}
       readOnly={false}
       showGraphControls={true}
     />

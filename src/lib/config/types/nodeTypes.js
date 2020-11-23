@@ -9,16 +9,16 @@ const commonProps = {
 export const nodeTypes = {
   position: {
     name: "position",
-    typeText: "New Position",
-    shapeId: "#circle",
-    shape: shapes.Circle,
+    typeText: "My Position",
+    shapeId: "#circle-dark",
+    shape: shapes.CircleDark,
     ...commonProps,
   },
   conditional: {
     name: "conditional",
     typeText: "New Conditional",
-    shapeId: "#special",
-    shape: shapes.SpecialShape,
+    shapeId: "#lozenge",
+    shape: shapes.Lozenge,
     ...commonProps,
   },
   submission: {
@@ -42,12 +42,40 @@ export const nodeTypes = {
     shape: shapes.HexagonFlat,
     ...commonProps,
   },
-
   entry: {
     name: "entry",
-    typeText: "New Hex",
+    typeText: "New Entry",
     shapeId: "#hexagon",
     shape: shapes.Hexagon,
+    ...commonProps,
+  },
+  guardPull: {
+    name: "guardPull",
+    typeText: "New Guard-Pull",
+    shapeId: "#poly-star",
+    shape: shapes.PolyStar,
+    ...commonProps,
+  },
+
+  takedown: {
+    name: "takedown",
+    typeText: "New Takedown",
+    shapeId: "#trial",
+    shape: shapes.trial,
+    ...commonProps,
+  },
+  test: {
+    name: "test",
+    typeText: "New Takedown",
+    shapeId: "#square",
+    shape: shapes.Square,
+    ...commonProps,
+  },
+  dummy: {
+    name: "dummy",
+    typeText: "New Takedown",
+    shapeId: "#dummy",
+    shape: shapes.Dummy,
     ...commonProps,
   },
 };

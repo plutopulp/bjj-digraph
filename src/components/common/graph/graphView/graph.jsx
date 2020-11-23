@@ -13,6 +13,7 @@ import {
   useGraphOps,
   useScale,
   useTranslation,
+  useKeyPressed,
 } from "../../../../hooks";
 import NodeToolBox from "./nodeToolBox";
 import renderNode from "./renderNode";
@@ -76,7 +77,6 @@ const GraphViewContainer = ({
           nodeSubtypes={nodeSubtypes}
           edgeTypes={edgeTypes}
           showGraphControls={showGraphControls}
-          edgeHandleSize={100}
           readOnly={readOnly ? readOnly : false}
           disableBackspace={true}
           onSelectNode={handleSelectNode}
@@ -89,8 +89,6 @@ const GraphViewContainer = ({
           onDeleteEdge={handleDeleteEdge}
           onCopySelected={handleCopySelected}
           onPasteSelected={handlePasteSelected}
-          renderNode={renderNode}
-          renderNodeText={renderNodeText}
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}

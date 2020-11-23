@@ -27,6 +27,15 @@ const renderNode = (ref, data, id, selected, hovered) => {
   const width = parseInt(nodeWidthAttr, 10);
   const height = parseInt(nodeHeightAttr, 10);
 
+  console.log(
+    data,
+    ref,
+    nodeShapeContainerClassName,
+    nodeTypeXlinkHref,
+    width,
+    height
+  );
+
   return (
     <g className={nodeShapeContainerClassName}>
       {!!data.subtype && (
@@ -46,6 +55,7 @@ const renderNode = (ref, data, id, selected, hovered) => {
         x={-width / 2}
         y={-height / 2}
         xlinkHref={nodeTypeXlinkHref}
+        color="red"
       />
     </g>
   );

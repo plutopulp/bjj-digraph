@@ -37,12 +37,32 @@ const NodeToolBox = ({
   const handleDelete = () => handleDeleteNode(selected, selected.id);
   return (
     <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
-      <Button size="mini" onClick={toggleEditor}>
-        <Popup trigger={<Icon name="edit" />} content="Edit Node" />
-      </Button>
-      <Button size="mini" onClick={handleDelete}>
-        <Popup trigger={<Icon name="delete" />} content="Delete Node" />
-      </Button>
+      <Popup
+        trigger={
+          <Button
+            size="mini"
+            onClick={toggleEditor}
+            circular
+            icon="edit"
+            color="violet"
+            inverted
+          />
+        }
+        content="Edit Node"
+      />
+      <Popup
+        trigger={
+          <Button
+            size="mini"
+            onClick={handleDelete}
+            circular
+            icon="trash"
+            color="red"
+            inverted
+          />
+        }
+        content="Delete Node"
+      />
       <NodeEditor
         open={openEditor}
         handleClose={toggleEditor}

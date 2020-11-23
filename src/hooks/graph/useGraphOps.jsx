@@ -6,6 +6,7 @@ import { GraphContext } from "../../contexts/graph";
 import { getNodeIndex, getEdgeIndex } from "../../lib/utils/graph";
 
 import { NODE_KEY } from "../../lib/config/graph/graphConfig";
+import { useKeyPressed } from "../events/useKeyPressed";
 
 // Hook for all graph operation/modification methods
 // These methods modify client nodes and edges (react states)
@@ -22,6 +23,12 @@ export const useGraphOps = () => {
     copiedNode,
     setCopiedNode,
   } = React.useContext(GraphContext);
+
+  // Will probably put this into its own hook, when other hotkeys are defined
+  const escapePressed = useKeyPressed("Escape");
+  React.useEffect(() => {
+    if (escapePressed) setSelected(null);
+  }, [escapePressed]);
 
   const handleSelectNode = (node) => {
     setSelected(node);
