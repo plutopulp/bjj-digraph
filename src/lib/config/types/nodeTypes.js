@@ -1,11 +1,16 @@
+import { take } from "lodash";
 import * as shapes from "../shapes/shapes";
-const userOpacity = 0.9;
-const oppOpacity = 0.6;
 
-const getFill = (fillArray, opacity) => {
-  const newFill = [...fillArray];
-  newFill.push(opacity);
-  return `rgba(${newFill})`;
+export const userShapeProps = {
+  opacity: 0.8,
+  stroke: "#777",
+  strokeWidth: "2",
+};
+
+export const opponentShapeProps = {
+  opacity: 0.5,
+  stroke: "#000",
+  strokeWidth: "2",
 };
 
 const commonProps = {
@@ -19,26 +24,88 @@ const commonProps = {
 const position = {
   shapeId: "#square",
   shape: shapes.Square,
-  fill: [173, 86, 14],
+  typeText: "New Position",
+  fill: `rgb(173, 86, 14)`,
+  ...commonProps,
+};
+const submission = {
+  shapeId: "#complex-circle",
+  shape: shapes.ComplexCircle,
+  typeText: "New Submission",
+  fill: `rgb(245, 51, 55)`,
+  ...commonProps,
+};
+const transition = {
+  shapeId: "#skinny-rectangle",
+  shape: shapes.SkinnyRectangle,
+  typeText: "New Transition",
+  fill: `rgb(159, 74, 224)`,
+  ...commonProps,
+};
+const entry = {
+  shapeId: "#hexagon-pointed",
+  shape: shapes.HexagonPointed,
+  typeText: "New Entry",
+  fill: `rgb(134, 250, 92)`,
+  ...commonProps,
+};
+const takedown = {
+  shapeId: "#trapezoid",
+  shape: shapes.Trapezoid,
+  typeText: "New Takedown",
+  fill: `rgb(134, 250, 222)`,
+  ...commonProps,
+};
+const sweep = {
+  shapeId: "#trapezoid-flipped",
+  shape: shapes.TrapezoidFlipped,
+  typeText: "New Sweep",
+  fill: `rgb(34, 150, 92)`,
   ...commonProps,
 };
 
+const guardPull = {
+  shapeId: "#hexagon-flat",
+  shape: shapes.HexagonFlat,
+  typeText: "New Guard-Pull",
+  fill: `rgb(124, 50, 122)`,
+  ...commonProps,
+};
 export const nodeTypes = {
   userPosition: {
     ...position,
-    fill: getFill(position.fill, userOpacity),
     subtype: "user",
     name: "userPosition",
-    typeText: "My Position",
-    textColor: "#fff",
   },
-
+  userEntry: {
+    ...entry,
+    subtype: "user",
+    name: "userEntry",
+  },
   userSubmission: {
+    ...submission,
+    subtype: "user",
     name: "userSubmission",
-    typeText: "My Submission",
-    shapeId: "#complex-circle",
-    shape: shapes.CompleCircle,
-    ...commonProps,
+  },
+  userTakedown: {
+    ...takedown,
+    subtype: "user",
+    name: "userTakedown",
+  },
+  userGuardPull: {
+    ...guardPull,
+    subtype: "user",
+    name: "userGuardPull",
+  },
+  userTransition: {
+    ...transition,
+    subtype: "user",
+    name: "userTransition",
+  },
+  userSweep: {
+    ...sweep,
+    subtype: "user",
+    name: "userSweep",
   },
   conditional: {
     name: "conditional",
@@ -47,100 +114,17 @@ export const nodeTypes = {
     shape: shapes.Lozenge,
     ...commonProps,
   },
-
-  transition: {
-    name: "transition",
-    typeText: "New Transition",
-    shapeId: "#skinny",
-    shape: shapes.SkinnyRectangle,
-    ...commonProps,
-  },
-  sweep: {
-    name: "sweep",
-    typeText: "New Poly",
-    shapeId: "#hexagon-flat",
-    shape: shapes.HexagonFlat,
-    ...commonProps,
-  },
-  entry: {
-    name: "entry",
-    typeText: "New Entry",
-    shapeId: "#hexagon",
-    shape: shapes.Hexagon,
-    ...commonProps,
-  },
-  guardPull: {
-    name: "guardPull",
-    typeText: "New Guard-Pull",
-    shapeId: "#poly-star",
-    shape: shapes.PolyStar,
-    ...commonProps,
-  },
-
-  takedown: {
-    name: "takedown",
-    typeText: "New Takedown",
-    shapeId: "#trial",
-    shape: shapes.trial,
-    ...commonProps,
-  },
-
-  dummy: {
-    name: "dummy",
-    typeText: "New Takedown",
-    shapeId: "#dummy",
-    shape: shapes.Dummy,
-    ...commonProps,
-  },
-
   oppPosition: {
     ...position,
-    fill: getFill(position.fill, oppOpacity),
     subtype: "opponent",
     name: "oppPosition",
-    typeText: "Opp. Position",
+    stroke: "black",
+    strokeWidth: "3",
     textColor: "#fff",
   },
-};
-
-const extras = {
-  pass: {
-    typeText: "New Poly",
-    shapeId: "#pass",
-    shape: shapes.PassShape,
-  },
-
-  choice: {
-    typeText: "New Poly",
-    shapeId: "#choice",
-    shape: shapes.ChoiceShape,
-  },
-
-  task: {
-    typeText: "New Poly",
-    shapeId: "#task",
-    shape: shapes.TaskShape,
-  },
-
-  wait: {
-    typeText: "New Poly",
-    shapeId: "#wait",
-    shape: shapes.WaitShape,
-  },
-
-  terminator: {
-    typeText: "New Poly",
-    shapeId: "#terminator",
-    shape: shapes.TerminatorShape,
-  },
-  ellipse: {
-    typeText: "New Ellipse",
-    shapeId: "#ellipse",
-    shape: shapes.Ellipse,
-  },
-  triangle: {
-    typeText: "New Hex",
-    shapeId: "#triangle",
-    shape: shapes.Triangle,
+  oppSweep: {
+    ...sweep,
+    subtype: "opponent",
+    name: "oppSweep",
   },
 };

@@ -3,6 +3,10 @@ import { Node, GraphUtils } from "react-digraph";
 
 import { graphConfig } from "../../../../lib/config/graph/graphConfig";
 import { getNodeSize } from "../../../../lib/utils/graph";
+import {
+  userShapeProps,
+  opponentShapeProps,
+} from "../../../../lib/config/types/nodeTypes";
 
 const { nodeTypes, nodeSubtypes } = graphConfig;
 
@@ -19,6 +23,17 @@ const renderNode = (ref, data, id, selected, hovered) => {
 
   const nodeType = nodeTypes[data.type];
   console.log(nodeType);
+  const getShapeProps = (nodeType) => {
+    const subtype = nodeType.subtype;
+    switch (subtype) {
+      case "user":
+        return userShapeProps;
+      case "opponent":
+        return opponentShapeProps;
+      default:
+        throw new Error(`Node subtype ${subtype} not recognized.`);
+    }
+  };
 
   return (
     <g>
@@ -40,6 +55,7 @@ const renderNode = (ref, data, id, selected, hovered) => {
         y={-height / 2}
         xlinkHref={nodeTypeXlinkHref}
         fill={nodeType.fill}
+        {...getShapeProps(nodeType)}
       />
     </g>
   );
