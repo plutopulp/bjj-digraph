@@ -89,6 +89,8 @@ const GraphViewContainer = ({
           onDeleteEdge={handleDeleteEdge}
           onCopySelected={handleCopySelected}
           onPasteSelected={handlePasteSelected}
+          renderNode={renderNode}
+          renderNodeText={renderNodeText}
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}

@@ -2,6 +2,7 @@ import React from "react";
 import { Node, GraphUtils } from "react-digraph";
 
 import { graphConfig } from "../../../../lib/config/graph/graphConfig";
+import { getNodeSize } from "../../../../lib/utils/graph";
 
 const { nodeTypes, nodeSubtypes } = graphConfig;
 
@@ -14,30 +15,13 @@ const renderNode = (ref, data, id, selected, hovered) => {
   const nodeSubtypeXlinkHref = Node.getNodeSubtypeXlinkHref(data, nodeSubtypes);
   const nodeTypeXlinkHref = Node.getNodeTypeXlinkHref(data, nodeTypes) || "";
 
-  // get width and height defined on def element
-  const defSvgNodeElement = nodeTypeXlinkHref
-    ? document.querySelector(`defs>${nodeTypeXlinkHref}`)
-    : null;
-  const nodeWidthAttr = defSvgNodeElement
-    ? defSvgNodeElement.getAttribute("width")
-    : 0;
-  const nodeHeightAttr = defSvgNodeElement
-    ? defSvgNodeElement.getAttribute("height")
-    : 0;
-  const width = parseInt(nodeWidthAttr, 10);
-  const height = parseInt(nodeHeightAttr, 10);
+  const { width, height } = getNodeSize(nodeTypeXlinkHref);
 
-  console.log(
-    data,
-    ref,
-    nodeShapeContainerClassName,
-    nodeTypeXlinkHref,
-    width,
-    height
-  );
+  const nodeType = nodeTypes[data.type];
+  console.log(nodeType);
 
   return (
-    <g className={nodeShapeContainerClassName}>
+    <g>
       {!!data.subtype && (
         <use
           className={nodeSubtypeClassName}
@@ -55,7 +39,7 @@ const renderNode = (ref, data, id, selected, hovered) => {
         x={-width / 2}
         y={-height / 2}
         xlinkHref={nodeTypeXlinkHref}
-        color="red"
+        fill={nodeType.fill}
       />
     </g>
   );

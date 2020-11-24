@@ -1,4 +1,13 @@
 import * as shapes from "../shapes/shapes";
+const userOpacity = 0.9;
+const oppOpacity = 0.6;
+
+const getFill = (fillArray, opacity) => {
+  const newFill = [...fillArray];
+  newFill.push(opacity);
+  return `rgba(${newFill})`;
+};
+
 const commonProps = {
   effectiveness: 50,
   priority: 50,
@@ -6,12 +15,29 @@ const commonProps = {
   comment: "",
   description: "",
 };
+
+const position = {
+  shapeId: "#square",
+  shape: shapes.Square,
+  fill: [173, 86, 14],
+  ...commonProps,
+};
+
 export const nodeTypes = {
-  position: {
-    name: "position",
+  userPosition: {
+    ...position,
+    fill: getFill(position.fill, userOpacity),
+    subtype: "user",
+    name: "userPosition",
     typeText: "My Position",
-    shapeId: "#circle-dark",
-    shape: shapes.CircleDark,
+    textColor: "#fff",
+  },
+
+  userSubmission: {
+    name: "userSubmission",
+    typeText: "My Submission",
+    shapeId: "#complex-circle",
+    shape: shapes.CompleCircle,
     ...commonProps,
   },
   conditional: {
@@ -21,13 +47,7 @@ export const nodeTypes = {
     shape: shapes.Lozenge,
     ...commonProps,
   },
-  submission: {
-    name: "submission",
-    typeText: "New Submission",
-    shapeId: "#complexCircle",
-    shape: shapes.ComplexCircleShape,
-    ...commonProps,
-  },
+
   transition: {
     name: "transition",
     typeText: "New Transition",
@@ -64,19 +84,22 @@ export const nodeTypes = {
     shape: shapes.trial,
     ...commonProps,
   },
-  test: {
-    name: "test",
-    typeText: "New Takedown",
-    shapeId: "#square",
-    shape: shapes.Square,
-    ...commonProps,
-  },
+
   dummy: {
     name: "dummy",
     typeText: "New Takedown",
     shapeId: "#dummy",
     shape: shapes.Dummy,
     ...commonProps,
+  },
+
+  oppPosition: {
+    ...position,
+    fill: getFill(position.fill, oppOpacity),
+    subtype: "opponent",
+    name: "oppPosition",
+    typeText: "Opp. Position",
+    textColor: "#fff",
   },
 };
 

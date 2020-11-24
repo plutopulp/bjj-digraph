@@ -17,3 +17,20 @@ export const getNode = (nodeKey, nodes) => {
   const searchIndex = getNodeIndex(searchNode);
   return nodes[searchIndex];
 };
+
+export const getNodeSize = (xlinkRef) => {
+  // get width and height defined on def element
+  const defSvgNodeElement = xlinkRef
+    ? document.querySelector(`defs>${xlinkRef}`)
+    : null;
+  const nodeWidthAttr = defSvgNodeElement
+    ? defSvgNodeElement.getAttribute("width")
+    : 0;
+  const nodeHeightAttr = defSvgNodeElement
+    ? defSvgNodeElement.getAttribute("height")
+    : 0;
+  const width = parseInt(nodeWidthAttr, 10);
+  const height = parseInt(nodeHeightAttr, 10);
+
+  return { width, height };
+};

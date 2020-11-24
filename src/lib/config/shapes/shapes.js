@@ -1,12 +1,24 @@
 export const Square = (
   <symbol id="square" viewBox="0 0 154 154" width="154" height="154">
-    <rect width="154" height="154" />
+    <rect width="154" height="154" rx="5" ry="5" />
+  </symbol>
+);
+
+export const CompleCircle = (
+  <symbol viewBox="0 0 100 100" id="complex-circle" width="154" height="154">
+    <circle cx="50" cy="50" r="50" fill="transparent" stroke="transparent" />
+    <circle cx="50" cy="50" r="36" fill="rgba(245, 51, 55, 0.8)" />
+    <path
+      d="M50,0a50,50,0,1,0,50,50A50,50,0,0,0,50,0Zm0,90A40,40,0,1,1,90,50,40,40,0,0,1,50,90Z"
+      data-intersect-ignore="true"
+      fill="rgba(245, 51, 55, 0.8)"
+    />
   </symbol>
 );
 
 export const CircleDark = (
   <symbol viewBox="0 0 154 154" id="circle-dark" width="154" height="154">
-    <circle cx="77" cy="77" r="77" fill="rgba(173, 86, 14, 0.8)"></circle>
+    <circle cx="77" cy="77" r="77" fill="rgba(173, 86, 14, 0.9)"></circle>
   </symbol>
 );
 
@@ -97,30 +109,9 @@ export const HexagonFlat = (
   </symbol>
 );
 
-export const ComplexCircleShape = (
-  <symbol viewBox="0 0 100 100" id="complexCircle" width="154" height="154">
-    <circle cx="50" cy="50" r="50" fill="transparent" stroke="transparent" />
-    <circle cx="50" cy="50" r="36" fill="rgba(245, 51, 55, 0.5)" />
-    <path
-      d="M50,0a50,50,0,1,0,50,50A50,50,0,0,0,50,0Zm0,90A40,40,0,1,1,90,50,40,40,0,0,1,50,90Z"
-      data-intersect-ignore="true"
-      fill="rgba(245, 51, 55, 0.7)"
-    />
-  </symbol>
-);
-
 export const SkinnyRectangle = (
   <symbol viewBox="0 0 154 77" width="154" height="77" id="skinny">
-    <rect
-      x="0"
-      y="0"
-      rx="2"
-      ry="2"
-      width="154"
-      height="77"
-      fill="rgba(159, 74, 224, 0.5)"
-      stroke="#777"
-    />
+    <rect x="0" y="0" rx="2" ry="2" width="154" height="77" stroke="#777" />
   </symbol>
 );
 
