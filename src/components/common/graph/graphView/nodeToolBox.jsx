@@ -5,6 +5,7 @@ import { GraphContext } from "../../../../contexts/graph";
 import { useGraphOps, useToggle } from "../../../../hooks";
 import { bfs } from "../../../../lib/graph/algorithms/bfs";
 import { dfs } from "../../../../lib/graph/algorithms/dfs";
+import { getConnectingPaths } from "../../../../lib/graph/algorithms/getConnectingPaths";
 import { shortestPathBFS } from "../../../../lib/graph/algorithms/shortestPathBFS";
 
 import NodeEditor from "./nodeEditor";
@@ -47,6 +48,13 @@ const NodeToolBox = ({
       "9eae6ed0-f77b-40c0-8415-4144db72118c"
     );
   const handleDFS = () => dfs(nodes, edges, selected.id);
+  const handleConnectingPaths = () =>
+    getConnectingPaths(
+      nodes,
+      edges,
+      selected.id,
+      "a6bbdbd5-c2d3-4558-82d5-72cf5b90944d"
+    );
   return (
     <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
       <Popup
@@ -105,7 +113,7 @@ const NodeToolBox = ({
         trigger={
           <Button
             size="mini"
-            onClick={handleDFS}
+            onClick={handleConnectingPaths}
             circular
             icon="find"
             color="red"
