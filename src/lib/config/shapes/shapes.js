@@ -6,24 +6,32 @@ export const Square = (
 
 export const SkinnyRectangle = (
   <symbol viewBox="0 0 154 77" width="154" height="77" id="skinny-rectangle">
-    <rect x="0" y="0" rx="2" ry="2" width="154" height="77" stroke="#777" />
+    <rect x="0" y="0" rx="2" ry="2" width="154" height="77" />
   </symbol>
 );
 
 export const ComplexCircle = (
-  <symbol viewBox="0 0 100 100" id="complex-circle" width="154" height="154">
-    <circle cx="50" cy="50" r="50" fill="transparent" stroke="transparent" />
-    <circle cx="50" cy="50" r="36" />
+  <symbol viewBox="0 0 102 102" id="complex-circle" width="154" height="154">
+    <circle
+      cx="50"
+      cy="50"
+      r="50"
+      fill="transparent"
+      stroke="transparent"
+      transform="translate(1, 1)"
+    />
+    <circle cx="50" cy="50" r="36" transform="translate(1, 1)" />
     <path
       d="M50,0a50,50,0,1,0,50,50A50,50,0,0,0,50,0Zm0,90A40,40,0,1,1,90,50,40,40,0,0,1,50,90Z"
       data-intersect-ignore="true"
+      transform="translate(1, 1)"
     />
   </symbol>
 );
 
 export const Circle = (
   <symbol viewBox="0 0 154 154" id="circle-dark" width="154" height="154">
-    <circle cx="77" cy="77" r="77"></circle>
+    <circle cx="77" cy="77" r="77" />
   </symbol>
 );
 
@@ -43,7 +51,7 @@ export const TrapezoidFlipped = (
 
 export const Hexagon = (
   <symbol id="hexagon" viewBox="0 0 154 154" height="154" width="154">
-    <path d="M 0 77 38.5 0 115.5 0 154 77 115.5 154 38.5 154Z" />
+    <path d="M 0 77 38.5 14 115.5 14 154 77 115.5 140 38.5 140Z" />
   </symbol>
 );
 export const HexagonPointed = (

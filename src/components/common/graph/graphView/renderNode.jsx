@@ -22,7 +22,6 @@ const renderNode = (ref, data, id, selected, hovered) => {
   const { width, height } = getNodeSize(nodeTypeXlinkHref);
 
   const nodeType = nodeTypes[data.type];
-  console.log(nodeType);
   const getShapeProps = (nodeType) => {
     const subtype = nodeType.subtype;
     switch (subtype) {

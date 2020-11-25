@@ -1,4 +1,3 @@
-import { take } from "lodash";
 import * as shapes from "../shapes/shapes";
 
 export const userShapeProps = {
@@ -10,6 +9,7 @@ export const userShapeProps = {
 export const opponentShapeProps = {
   opacity: 0.5,
   stroke: "#000",
+  strokeDasharray: "10, 10",
   strokeWidth: "2",
 };
 
@@ -28,6 +28,7 @@ const position = {
   fill: `rgb(173, 86, 14)`,
   ...commonProps,
 };
+
 const submission = {
   shapeId: "#complex-circle",
   shape: shapes.ComplexCircle,
@@ -65,10 +66,10 @@ const sweep = {
 };
 
 const guardPull = {
-  shapeId: "#hexagon-flat",
-  shape: shapes.HexagonFlat,
+  shapeId: "#hexagon",
+  shape: shapes.Hexagon,
   typeText: "New Guard-Pull",
-  fill: `rgb(124, 50, 122)`,
+  fill: `rgb(53, 174, 240)`,
   ...commonProps,
 };
 export const nodeTypes = {
@@ -118,9 +119,32 @@ export const nodeTypes = {
     ...position,
     subtype: "opponent",
     name: "oppPosition",
-    stroke: "black",
-    strokeWidth: "3",
-    textColor: "#fff",
+  },
+
+  oppEntry: {
+    ...entry,
+    subtype: "opponent",
+    name: "oppEntry",
+  },
+  oppSubmission: {
+    ...submission,
+    subtype: "opponent",
+    name: "oppSubmission",
+  },
+  oppTakedown: {
+    ...takedown,
+    subtype: "opponent",
+    name: "oppTakedown",
+  },
+  oppGuardPull: {
+    ...guardPull,
+    subtype: "opponent",
+    name: "oppGuardPull",
+  },
+  oppTransition: {
+    ...transition,
+    subtype: "opponent",
+    name: "oppTransition",
   },
   oppSweep: {
     ...sweep,

@@ -1,7 +1,9 @@
 import React from "react";
 import { Icon, Button, Popup } from "semantic-ui-react";
 import styled from "styled-components";
+import { GraphContext } from "../../../../contexts/graph";
 import { useGraphOps, useToggle } from "../../../../hooks";
+import { bfs } from "../../../../lib/graph/algorithms/bfs";
 
 import GraphTransformState from "../../../../lib/graph/transformState";
 import NodeEditor from "./nodeEditor";
@@ -24,9 +26,9 @@ const NodeToolBox = ({
   scale,
   translation,
 }) => {
+  const { nodes, edges } = React.useContext(GraphContext);
   const [boxPosition, setBoxPosition] = React.useState([]);
   const [openEditor, toggleEditor] = useToggle(false);
-  const transformManager = new GraphTransformState(graphRef, wrapperRef);
   const nodeElem = document.getElementById(`node-${selected.id}`);
   const { handleDeleteNode } = useGraphOps();
   React.useEffect(() => {
@@ -35,6 +37,7 @@ const NodeToolBox = ({
   }, [selected.x, selected.y, scale, translation]);
 
   const handleDelete = () => handleDeleteNode(selected, selected.id);
+  const handleBFS = () => bfs(nodes, edges, selected.id);
   return (
     <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
       <Popup
@@ -62,6 +65,19 @@ const NodeToolBox = ({
           />
         }
         content="Delete Node"
+      />
+      <Popup
+        trigger={
+          <Button
+            size="mini"
+            onClick={handleBFS}
+            circular
+            icon="find"
+            color="blue"
+            inverted
+          />
+        }
+        content="Find Node"
       />
       <NodeEditor
         open={openEditor}
