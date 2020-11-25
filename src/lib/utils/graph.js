@@ -18,6 +18,16 @@ export const getNode = (nodeKey, nodes) => {
   return nodes[searchIndex];
 };
 
+// Get the adjacent nodes of a given node in the digraph
+export const getAdjacentNodes = (nodes, edges, node) => {
+  const outwardEdges = edges.filter((edge) => edge.source === node.id);
+  const adjacentNodeIds = outwardEdges.map((edge) => edge.target);
+  const adjacentNodes = adjacentNodeIds.map((nodeId) => {
+    return nodes.find((node) => node.id === nodeId);
+  });
+  return adjacentNodes;
+};
+
 export const getNodeSize = (xlinkRef) => {
   // get width and height defined on def element
   const defSvgNodeElement = xlinkRef

@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { GraphContext } from "../../../../contexts/graph";
 import { useGraphOps, useToggle } from "../../../../hooks";
 import { bfs } from "../../../../lib/graph/algorithms/bfs";
+import { shortestPathBFS } from "../../../../lib/graph/algorithms/shortestPathBFS";
 
-import GraphTransformState from "../../../../lib/graph/transformState";
 import NodeEditor from "./nodeEditor";
 
 const Wrapper = styled.div`
@@ -38,6 +38,13 @@ const NodeToolBox = ({
 
   const handleDelete = () => handleDeleteNode(selected, selected.id);
   const handleBFS = () => bfs(nodes, edges, selected.id);
+  const handleShortestPathBFS = () =>
+    shortestPathBFS(
+      nodes,
+      edges,
+      selected.id,
+      "9eae6ed0-f77b-40c0-8415-4144db72118c"
+    );
   return (
     <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
       <Popup
@@ -74,6 +81,19 @@ const NodeToolBox = ({
             circular
             icon="find"
             color="blue"
+            inverted
+          />
+        }
+        content="Find Node"
+      />
+      <Popup
+        trigger={
+          <Button
+            size="mini"
+            onClick={handleShortestPathBFS}
+            circular
+            icon="find"
+            color="green"
             inverted
           />
         }

@@ -1,29 +1,33 @@
 import { getAdjacentNodes } from "../../utils/graph";
 
-// Basic Breadth first search traversal of a digraph
-
-export const bfs = (nodes, edges, startNodeId) => {
+// Returns the shortest path between 2 nodes in a digraph
+// as an array of nodes
+export const shortestPathBFS = (nodes, edges, startNodeId, endNodeId) => {
   // Create a deep copy of the nodes and edges
   const newNodes = JSON.parse(JSON.stringify(nodes));
   const newEdges = JSON.parse(JSON.stringify(edges));
 
-  // Find the starting node
+  // Find the start and end nodes
   const startNode = newNodes.find((node) => node.id === startNodeId);
 
   // Mark all the nodes as unvisited
   newNodes.forEach((node) => (node.visited = false));
 
-  // Create a queue of nodes to visit
+  // Queue of paths
   const queue = [];
+  // push 1st path to the queue
+  queue.push([startNode]);
 
-  startNode.visited = true;
-  queue.push(startNode);
   while (queue.length) {
-    const nextNode = queue.shift();
+    const path = queue.shift();
+    const nextNode = path[path.length - 1];
+    if (nextNode.id === endNodeId) return path;
     const adjacentNodes = getAdjacentNodes(newNodes, newEdges, nextNode);
     adjacentNodes.forEach((node) => {
       if (!node.visited) {
-        queue.push(node);
+        const newPath = [...path];
+        newPath.push(node);
+        queue.push(newPath);
         node.visited = true;
       }
     });
