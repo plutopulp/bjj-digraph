@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { GraphContext } from "../../../../contexts/graph";
 import { useGraphOps, useToggle } from "../../../../hooks";
 import { bfs } from "../../../../lib/graph/algorithms/bfs";
+import { dfs } from "../../../../lib/graph/algorithms/dfs";
 import { shortestPathBFS } from "../../../../lib/graph/algorithms/shortestPathBFS";
 
 import NodeEditor from "./nodeEditor";
@@ -45,6 +46,7 @@ const NodeToolBox = ({
       selected.id,
       "9eae6ed0-f77b-40c0-8415-4144db72118c"
     );
+  const handleDFS = () => dfs(nodes, edges, selected.id);
   return (
     <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
       <Popup
@@ -94,6 +96,19 @@ const NodeToolBox = ({
             circular
             icon="find"
             color="green"
+            inverted
+          />
+        }
+        content="Find Node"
+      />
+      <Popup
+        trigger={
+          <Button
+            size="mini"
+            onClick={handleDFS}
+            circular
+            icon="find"
+            color="red"
             inverted
           />
         }
