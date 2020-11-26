@@ -20,10 +20,12 @@ import NodeToolBox from "./nodeToolBox";
 import renderNode from "./renderNode";
 import renderNodeText from "./renderNodeText";
 import { GraphContext } from "../../../../contexts/graph";
+import ToolBox from "./graphToolBox";
 
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
 const GraphWrapper = styled.div`
+  position: relative;
   width: ${({ width }) => (width ? width : "80%")};
   height: ${({ height }) => (height ? height : "1000px")};
 `;
@@ -59,6 +61,7 @@ const GraphViewContainer = ({
   const scale = useScale(graphRef);
   const translation = useTranslation(graphRef);
   const getNodeShape = useNodeShape();
+  const { multiSelect } = React.useContext(GraphContext);
 
   const [showToolBox, setShowToolBox] = React.useState(false);
 
@@ -67,6 +70,8 @@ const GraphViewContainer = ({
     setTimeout(() => setShowToolBox(true), 600);
   }, [scale, JSON.stringify(translation)]);
 
+  React.useEffect(() => graphRef.current.renderNodes(), [multiSelect]);
+
   const handleRenderNode = (ref, node, id, selected, hovered) => {
     const nodeShape = getNodeShape(node);
     return renderNode(nodeShape);
@@ -74,6 +79,7 @@ const GraphViewContainer = ({
   return (
     <GraphWrapper ref={wrapperRef} width={width} height={height}>
       <DropZone ref={dropRef}>
+        <ToolBox />
         <GraphView
           ref={graphRef}
           nodeKey={NODE_KEY}
