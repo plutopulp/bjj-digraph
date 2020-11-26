@@ -67,9 +67,9 @@ const GraphViewContainer = ({
     setTimeout(() => setShowToolBox(true), 600);
   }, [scale, JSON.stringify(translation)]);
 
-  const handleRenderNode = (ref, data, id, selected, hovered) => {
-    const nodeShape = getNodeShape(data);
-    return renderNode(data, nodeShape);
+  const handleRenderNode = (ref, node, id, selected, hovered) => {
+    const nodeShape = getNodeShape(node);
+    return renderNode(nodeShape);
   };
   return (
     <GraphWrapper ref={wrapperRef} width={width} height={height}>
