@@ -13,7 +13,6 @@ import {
   useGraphOps,
   useScale,
   useTranslation,
-  useKeyPressed,
   useNodeShape,
 } from "../../../../hooks";
 import NodeToolBox from "./nodeToolBox";

@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Icon } from "semantic-ui-react";
+import { Button, Popup, Icon } from "semantic-ui-react";
 
 import { SettingsContext } from "../../../../contexts/settings";
+import { GraphContext } from "../../../../contexts/graph";
+import { getConnectingPaths } from "../../../../lib/graph/algorithms/getConnectingPaths";
 const Wrapper = styled.div`
   position: absolute;
   left: 0;
@@ -18,16 +20,46 @@ const Image = styled.img`
 
 const ToolBoxContainer = () => {
   const { readOnly, toggleReadOnly } = React.useContext(SettingsContext);
+  const { nodes, edges } = React.useContext(GraphContext);
+  const { multiSelect } = React.useContext(GraphContext);
 
+  const handleConnectedPaths = () => {
+    const paths = getConnectingPaths(
+      nodes,
+      edges,
+      multiSelect[0].id,
+      multiSelect[1].id
+    );
+    console.log(paths);
+  };
+  const canGetConnectingPaths = () => multiSelect.length === 2;
   return (
     <Wrapper>
       <Button.Group>
         <Button icon compact>
           <Image src="../media/icons/grid.svg" alt="Grid" />
         </Button>
-        <Button icon compact onClick={toggleReadOnly}>
-          <Icon name={readOnly ? "unlock" : "lock"} />
-        </Button>
+        <Popup
+          trigger={
+            <Button icon compact onClick={toggleReadOnly}>
+              <Icon name={readOnly ? "lock" : "unlock"} />
+            </Button>
+          }
+          content={readOnly ? "Unlock" : "Lock"}
+        />
+        <Popup
+          trigger={
+            <Button
+              icon
+              compact
+              onClick={handleConnectedPaths}
+              disabled={!canGetConnectingPaths()}
+            >
+              <Icon name="code branch" />
+            </Button>
+          }
+          content="See all connecting paths"
+        />
       </Button.Group>
     </Wrapper>
   );

@@ -8,15 +8,14 @@ const Wrapper = styled.div`
   flex-flow: row wrap;
 `;
 
-// Detail view container for an editable graph
-// Data is bount to graph context
-
+// Base detail view for a graph.
+// Does not have its own state but gets it via props
 const StatelessGraphView = ({
   nodes,
   edges,
   selected,
   readOnly,
-  showGraphControls,
+  showControls,
 }) => (
   <Wrapper>
     <Palette />
@@ -25,7 +24,7 @@ const StatelessGraphView = ({
       edges={edges}
       selected={selected}
       readOnly={readOnly}
-      showGraphControls={showGraphControls}
+      showControls={showControls}
     />
   </Wrapper>
 );
