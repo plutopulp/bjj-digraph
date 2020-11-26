@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Button, Icon } from "semantic-ui-react";
 
+import { SettingsContext } from "../../../../contexts/settings";
 const Wrapper = styled.div`
   position: absolute;
   left: 0;
@@ -16,14 +17,16 @@ const Image = styled.img`
 `;
 
 const ToolBoxContainer = () => {
+  const { readOnly, toggleReadOnly } = React.useContext(SettingsContext);
+
   return (
     <Wrapper>
       <Button.Group>
         <Button icon compact>
           <Image src="../media/icons/grid.svg" alt="Grid" />
         </Button>
-        <Button icon compact>
-          <Icon name="lock" />
+        <Button icon compact onClick={toggleReadOnly}>
+          <Icon name={readOnly ? "unlock" : "lock"} />
         </Button>
       </Button.Group>
     </Wrapper>

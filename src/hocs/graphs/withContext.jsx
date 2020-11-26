@@ -30,8 +30,6 @@ const withGraphContextHOC = (InnerComp) => (props) => {
       setEdges={setEdges}
       selected={selected}
       setSelected={setSelected}
-      readOnly={false}
-      showGraphControls={true}
     />
   );
 };

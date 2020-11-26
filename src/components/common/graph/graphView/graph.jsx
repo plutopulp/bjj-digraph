@@ -40,7 +40,7 @@ const GraphViewContainer = ({
   selected,
   width,
   height,
-  showGraphControls,
+  showControls,
   readOnly,
 }) => {
   const {
@@ -89,7 +89,7 @@ const GraphViewContainer = ({
           nodeTypes={nodeTypes}
           nodeSubtypes={nodeSubtypes}
           edgeTypes={edgeTypes}
-          showGraphControls={showGraphControls}
+          showGraphControls={showControls}
           readOnly={readOnly ? readOnly : false}
           disableBackspace={true}
           onSelectNode={handleSelectNode}

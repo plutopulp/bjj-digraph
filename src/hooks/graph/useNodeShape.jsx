@@ -8,8 +8,7 @@ import {
 } from "../../lib/config/types/nodeTypes";
 import { getNodeSize } from "../../lib/utils/graph";
 
-// A hook which returns a function giving the svg properties of a node
-
+// A hook which returns a function giving all the svg properties of a node
 export const useNodeShape = () => {
   const { multiSelect } = React.useContext(GraphContext);
 
@@ -21,7 +20,7 @@ export const useNodeShape = () => {
     const y = -height / 2;
     return { width, height, x, y };
   };
-  // Returns the base svg properties of a node of a given type and subtype
+  // Returns the base (static) svg properties of a node of a given type and subtype
   const getBaseSvgProps = (nodeType, xlinkHref) => {
     const subtype = nodeType.subtype;
     let svgProps = { fill: nodeType.fill, ...getNodeDimensions(xlinkHref) };
@@ -37,6 +36,7 @@ export const useNodeShape = () => {
     }
     return svgProps;
   };
+  // Returns the dynamic svg properties of a node due to user interaction
   const getDynamicSvgProps = (node) => {
     if (multiSelect.find((selectedNode) => selectedNode.id === node.id)) {
       return { stroke: "blue" };
