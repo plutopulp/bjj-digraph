@@ -13,6 +13,7 @@ import GraphCardList from "./components/graphs/list/list";
 import AuthenticatedGraphView from "./components/common/graph/detailViews/authenticated";
 import Home from "./components/home/home";
 import { APIController } from "./components/APIController";
+import { SettingsProvider } from "./contexts/settings";
 
 const App = () => {
   return (
@@ -29,19 +30,21 @@ const App = () => {
         <DndProvider backend={HTML5Backend}>
           <GraphsProvider>
             <GraphProvider>
-              <Navbar />
-              <APIController />
-              <Route exact path={routes.pages.home} component={Home} />
-              <Route
-                exact
-                path={routes.pages.graphs.list}
-                component={GraphCardList}
-              />
-              <Route
-                exact
-                path={routes.pages.graphs.detail(":slug")}
-                component={AuthenticatedGraphView}
-              />
+              <SettingsProvider>
+                <Navbar />
+                <APIController />
+                <Route exact path={routes.pages.home} component={Home} />
+                <Route
+                  exact
+                  path={routes.pages.graphs.list}
+                  component={GraphCardList}
+                />
+                <Route
+                  exact
+                  path={routes.pages.graphs.detail(":slug")}
+                  component={AuthenticatedGraphView}
+                />
+              </SettingsProvider>
             </GraphProvider>
           </GraphsProvider>
         </DndProvider>
