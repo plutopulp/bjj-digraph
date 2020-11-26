@@ -9,6 +9,7 @@ export { useWindowSize } from "./events/useWindowSize";
 export { useFormFields } from "./forms/useFormFields";
 export { useGraphOps } from "./graph/useGraphOps";
 export { useNodeDrop } from "./graph/useNodeDrop";
+export { useNodeShape } from "./graph/useNodeShape";
 export { useScale } from "./graph/useScale";
 export { useTranslation } from "./graph/useTranslation";
 export { usePrevious } from "./utils/usePrevious";

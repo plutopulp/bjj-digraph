@@ -14,10 +14,12 @@ import {
   useScale,
   useTranslation,
   useKeyPressed,
+  useNodeShape,
 } from "../../../../hooks";
 import NodeToolBox from "./nodeToolBox";
 import renderNode from "./renderNode";
 import renderNodeText from "./renderNodeText";
+import { GraphContext } from "../../../../contexts/graph";
 
 const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
 
@@ -56,6 +58,7 @@ const GraphViewContainer = ({
   const dropRef = useNodeDrop(graphRef, wrapperRef);
   const scale = useScale(graphRef);
   const translation = useTranslation(graphRef);
+  const getNodeShape = useNodeShape();
 
   const [showToolBox, setShowToolBox] = React.useState(false);
 
@@ -64,6 +67,10 @@ const GraphViewContainer = ({
     setTimeout(() => setShowToolBox(true), 600);
   }, [scale, JSON.stringify(translation)]);
 
+  const handleRenderNode = (ref, data, id, selected, hovered) => {
+    const nodeShape = getNodeShape(data);
+    return renderNode(data, nodeShape);
+  };
   return (
     <GraphWrapper ref={wrapperRef} width={width} height={height}>
       <DropZone ref={dropRef}>
@@ -89,7 +96,7 @@ const GraphViewContainer = ({
           onDeleteEdge={handleDeleteEdge}
           onCopySelected={handleCopySelected}
           onPasteSelected={handlePasteSelected}
-          renderNode={renderNode}
+          renderNode={handleRenderNode}
           renderNodeText={renderNodeText}
         />
         {selected && !selected.source && <NodePanel node={selected} />}

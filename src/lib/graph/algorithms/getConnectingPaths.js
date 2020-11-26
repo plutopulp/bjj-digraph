@@ -12,7 +12,7 @@ export const getConnectingPaths = (nodes, edges, startNodeId, endNodeId) => {
   newNodes.forEach((node) => {
     node.visited = false;
   });
-  // Create an array to store paths
+  // Create an array of arrays to store paths
   const path = [];
 
   const dfsRecursive = (node) => {

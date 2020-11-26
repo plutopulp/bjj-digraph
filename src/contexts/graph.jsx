@@ -11,6 +11,7 @@ export const GraphProvider = ({ children }) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
   const [selected, setSelected] = React.useState({});
+  const [multiSelect, setMultiSelect] = React.useState([]);
   const [copiedNode, setCopiedNode] = React.useState({});
 
   return (
@@ -24,6 +25,8 @@ export const GraphProvider = ({ children }) => {
         setEdges,
         selected,
         setSelected,
+        multiSelect,
+        setMultiSelect,
         copiedNode,
         setCopiedNode,
       }}

@@ -20,17 +20,31 @@ export const useGraphOps = () => {
     setEdges,
     selected,
     setSelected,
+    multiSelect,
+    setMultiSelect,
     copiedNode,
     setCopiedNode,
   } = React.useContext(GraphContext);
 
   // Will probably put this into its own hook, when other hotkeys are defined
   const escapePressed = useKeyPressed("Escape");
+  const sKeyPressed = useKeyPressed("s");
   React.useEffect(() => {
-    if (escapePressed) setSelected(null);
+    if (escapePressed) {
+      setSelected(null);
+      setMultiSelect([]);
+    }
   }, [escapePressed]);
 
   const handleSelectNode = (node) => {
+    console.log(sKeyPressed);
+    if (sKeyPressed) {
+      if (multiSelect.find((selectedNode) => selectedNode.id === node.id))
+        setMultiSelect(
+          multiSelect.filter((selectedNode) => selectedNode.id !== node.id)
+        );
+      else setMultiSelect([...multiSelect, node]);
+    }
     setSelected(node);
   };
 

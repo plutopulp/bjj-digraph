@@ -28,7 +28,7 @@ const NodeToolBox = ({
   scale,
   translation,
 }) => {
-  const { nodes, edges } = React.useContext(GraphContext);
+  const { nodes, edges, multiSelect } = React.useContext(GraphContext);
   const [boxPosition, setBoxPosition] = React.useState([]);
   const [openEditor, toggleEditor] = useToggle(false);
   const nodeElem = document.getElementById(`node-${selected.id}`);
@@ -47,7 +47,6 @@ const NodeToolBox = ({
       selected.id,
       "9eae6ed0-f77b-40c0-8415-4144db72118c"
     );
-  const handleDFS = () => dfs(nodes, edges, selected.id);
   const handleConnectingPaths = () =>
     getConnectingPaths(
       nodes,
@@ -55,6 +54,7 @@ const NodeToolBox = ({
       selected.id,
       "a6bbdbd5-c2d3-4558-82d5-72cf5b90944d"
     );
+  console.log(multiSelect);
   return (
     <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
       <Popup
