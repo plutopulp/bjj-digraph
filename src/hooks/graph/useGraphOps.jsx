@@ -22,6 +22,7 @@ export const useGraphOps = () => {
     setSelected,
     multiSelect,
     setMultiSelect,
+    setPaths,
     copiedNode,
     setCopiedNode,
   } = React.useContext(GraphContext);
@@ -33,6 +34,7 @@ export const useGraphOps = () => {
     if (escapePressed) {
       setSelected(null);
       setMultiSelect([]);
+      setPaths([]);
     }
   }, [escapePressed]);
 

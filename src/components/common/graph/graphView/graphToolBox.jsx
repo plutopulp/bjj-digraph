@@ -20,8 +20,9 @@ const Image = styled.img`
 
 const ToolBoxContainer = () => {
   const { readOnly, toggleReadOnly } = React.useContext(SettingsContext);
-  const { nodes, edges } = React.useContext(GraphContext);
-  const { multiSelect } = React.useContext(GraphContext);
+  const { nodes, edges, multiSelect, setPaths } = React.useContext(
+    GraphContext
+  );
 
   const handleConnectedPaths = () => {
     const paths = getConnectingPaths(
@@ -30,6 +31,7 @@ const ToolBoxContainer = () => {
       multiSelect[0].id,
       multiSelect[1].id
     );
+    setPaths(paths);
     console.log(paths);
   };
   const canGetConnectingPaths = () => multiSelect.length === 2;

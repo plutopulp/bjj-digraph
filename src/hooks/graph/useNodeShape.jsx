@@ -10,7 +10,7 @@ import { getNodeSize } from "../../lib/utils/graph";
 
 // A hook which returns a function giving all the svg properties of a node
 export const useNodeShape = () => {
-  const { multiSelect } = React.useContext(GraphContext);
+  const { multiSelect, paths } = React.useContext(GraphContext);
 
   // returns the svg width, height and x, y position offset
   // of the node
@@ -40,6 +40,15 @@ export const useNodeShape = () => {
   const getDynamicSvgProps = (node) => {
     if (multiSelect.find((selectedNode) => selectedNode.id === node.id)) {
       return { stroke: "blue" };
+    }
+    const pathNodes = [];
+    paths.forEach((path) => {
+      path.forEach((node) => pathNodes.push(node));
+    });
+    console.log(pathNodes);
+
+    if (pathNodes.find((pathNode) => pathNode.id === node.id)) {
+      return { strokeWidth: "20" };
     }
   };
 

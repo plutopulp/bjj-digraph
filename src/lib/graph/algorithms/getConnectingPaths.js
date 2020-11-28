@@ -12,21 +12,24 @@ export const getConnectingPaths = (nodes, edges, startNodeId, endNodeId) => {
   newNodes.forEach((node) => {
     node.visited = false;
   });
-  // Create an array of arrays to store paths
+  // Create an array to store a path of nodes
   const path = [];
+  // Create an array to store paths
+  const outputPaths = [];
 
-  const dfsRecursive = (node) => {
+  const dfs = (node) => {
     node.visited = true;
     path.push(node);
-    if (node.id === endNodeId) console.log(path.map((node) => node.title));
+    if (node.id === endNodeId) outputPaths.push(path.map((node) => node));
     else {
       const adjacentNodes = getAdjacentNodes(newNodes, newEdges, node);
       adjacentNodes.forEach((node) => {
-        if (!node.visited) dfsRecursive(node);
+        if (!node.visited) dfs(node);
       });
     }
     path.pop();
     node.visited = false;
   };
-  dfsRecursive(startNode);
+  dfs(startNode);
+  return outputPaths;
 };

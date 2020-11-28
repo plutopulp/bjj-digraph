@@ -60,7 +60,7 @@ const GraphViewContainer = ({
   const scale = useScale(graphRef);
   const translation = useTranslation(graphRef);
   const getNodeShape = useNodeShape();
-  const { multiSelect } = React.useContext(GraphContext);
+  const { multiSelect, paths } = React.useContext(GraphContext);
 
   const [showToolBox, setShowToolBox] = React.useState(false);
 
@@ -69,7 +69,7 @@ const GraphViewContainer = ({
     setTimeout(() => setShowToolBox(true), 600);
   }, [scale, JSON.stringify(translation)]);
 
-  React.useEffect(() => graphRef.current.renderNodes(), [multiSelect]);
+  React.useEffect(() => graphRef.current.renderNodes(), [multiSelect, paths]);
 
   const handleRenderNode = (ref, node, id, selected, hovered) => {
     const nodeShape = getNodeShape(node);

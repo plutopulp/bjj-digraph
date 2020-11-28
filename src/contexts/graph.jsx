@@ -11,7 +11,10 @@ export const GraphProvider = ({ children }) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
   const [selected, setSelected] = React.useState({});
+  // An array of selected nodes
   const [multiSelect, setMultiSelect] = React.useState([]);
+  // An array of paths connecting 2 nodes
+  const [paths, setPaths] = React.useState([]);
   const [copiedNode, setCopiedNode] = React.useState({});
 
   return (
@@ -27,6 +30,8 @@ export const GraphProvider = ({ children }) => {
         setSelected,
         multiSelect,
         setMultiSelect,
+        paths,
+        setPaths,
         copiedNode,
         setCopiedNode,
       }}
