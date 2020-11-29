@@ -72,6 +72,15 @@ const guardPull = {
   fill: `rgb(53, 174, 240)`,
   ...commonProps,
 };
+export const baseNodeTypes = [
+  position,
+  submission,
+  transition,
+  entry,
+  takedown,
+  sweep,
+  guardPull,
+];
 export const nodeTypes = {
   userPosition: {
     ...position,
