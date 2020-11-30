@@ -14,3 +14,4 @@ class Graph(models.Model):
     description = models.TextField(default="", blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="graphs")
+    slug = models.SlugField(max_length=200, default="")

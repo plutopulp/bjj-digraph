@@ -21,4 +21,5 @@ class GraphSerializer(serializers.ModelSerializer):
             "description",
             "createdAt",
             "owner",
+            "slug",
         )
