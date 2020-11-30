@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('graphs', '0003_graph_owner'),
+        ("graphs", "0003_graph_owner"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='graph',
-            name='slug',
-            field=models.SlugField(default='', max_length=200),
+            model_name="graph",
+            name="slug",
+            field=models.SlugField(default="", max_length=200),
         ),
     ]

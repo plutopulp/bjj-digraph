@@ -15,7 +15,7 @@ NODE_TYPES = (
 
 
 class Node(models.Model):
-    """ A class to represent digraph nodes """
+    """ A class to represent all bjj digraph nodes """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     graph = models.ForeignKey(Graph, on_delete=models.CASCADE, related_name="nodes")
@@ -36,3 +36,17 @@ class Node(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class AbstractBaseNode(models.Model):
+    """ An abstract base class for all bjj digraph nodes """
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    graph = models.ForeignKey(Graph, on_delete=models.CASCADE, related_name="nodes")
+    title = models.CharField(max_length=200)
+    created_at = models.DateTimeField(default=timezone.now)
+    position_x = models.FloatField(default=100)
+    position_y = models.FloatField(default=100)
+
+    class Meta:
+        abstract = True
