@@ -13,6 +13,7 @@ NODE_TYPES = (
     ("sweep", "sweep"),
     ("takedown", "takedown"),
     ("guardPull", "guardPull"),
+    ("guardPass", "guardPass"),
 )
 NODE_SUBTYPES = (("user", "user"), ("opponent", "opponent"))
 gameNodeValidators = [MinValueValidator(-100), MaxValueValidator(100)]
@@ -42,27 +43,27 @@ class Node(models.Model):
         return self.title
 
 
-class AbstractBaseNode(models.Model):
-    """ An abstract base class for all bjj digraph nodes """
+class BaseNode(models.Model):
+    """ A base class for all bjj digraph nodes """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     graph = models.ForeignKey(
-        Graph, on_delete=models.CASCADE, related_name="abstract_base_nodes"
+        Graph, on_delete=models.CASCADE, related_name="base_nodes"
     )
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, default="")
     created_at = models.DateTimeField(default=timezone.now)
     position_x = models.FloatField(default=100)
     position_y = models.FloatField(default=100)
 
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return self.title
 
 
-class GameNode(AbstractBaseNode):
+class GameNode(BaseNode):
     """ A class to represent bjj game-related digraph nodes """
 
-    node_type = models.CharField(choices=NODE_TYPES, default="", max_length=50)
-    node_subtype = models.CharField(
+    game_type = models.CharField(choices=NODE_TYPES, default="", max_length=50)
+    game_subtype = models.CharField(
         choices=NODE_SUBTYPES, default="user", max_length=50
     )
     description = models.TextField(default="", blank=True)
@@ -71,8 +72,16 @@ class GameNode(AbstractBaseNode):
     priority = models.IntegerField(default=0, validators=gameNodeValidators)
     proficiency = models.IntegerField(default=0, validators=gameNodeValidators)
 
+    class Meta:
+        verbose_name = "Game Node"
+        verbose_name_plural = "Game Nodes"
 
-class MetaNode(AbstractBaseNode):
+
+class MetaNode(BaseNode):
     """ A class to represent bjj digraph meta-nodes, e.g. comments, texts etc.."""
+
     description = models.TextField(default="", blank=True)
 
+    class Meta:
+        verbose_name = "Meta Node"
+        verbose_name_plural = "Meta Nodes"

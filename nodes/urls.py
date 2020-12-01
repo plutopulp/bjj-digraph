@@ -1,9 +1,12 @@
 from django.urls import path
 
-from .views import NodeList, NodeDetail
+from .views import NodeListView, NodeDetailView, GameNodeListView, GameNodeDetailView
 
 
 urlpatterns = [
-    path("", NodeList.as_view()),
-    path("<uuid:node_id>/", NodeDetail.as_view()),
+    path("", NodeListView.as_view()),
+    path("<uuid:node_id>/", NodeDetailView.as_view()),
+    path("game-nodes/", GameNodeListView.as_view()),
+    path("game-nodes/<uuid:node_id>/", GameNodeDetailView.as_view()),
+
 ]
