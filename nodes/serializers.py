@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Node,BaseNode, GameNode, MetaNode
+from .models import Node, GameNode, MetaNode
 
 
 class NodeSerializer(serializers.ModelSerializer):
@@ -8,12 +8,6 @@ class NodeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(required=False)
     graph = serializers.ReadOnlyField(source="graph.id")
     createdAt = serializers.DateTimeField(source="created_at", required=False)
-    type = serializers.CharField(source="node_type")
-    description = serializers.CharField(required=False, allow_blank=True)
-    comment = serializers.CharField(required=False, allow_blank=True)
-    effectiveness = serializers.IntegerField(required=False)
-    priority = serializers.IntegerField(required=False)
-    proficiency = serializers.IntegerField(required=False)
     x = serializers.FloatField(source="position_x", required=False)
     y = serializers.FloatField(source="position_y", required=False)
 
@@ -24,39 +18,12 @@ class NodeSerializer(serializers.ModelSerializer):
             "graph",
             "title",
             "createdAt",
-            "type",
-            "description",
-            "comment",
-            "effectiveness",
-            "priority",
-            "proficiency",
-            "x",
-            "y",
-        )
-
-class BaseNodeSerializer(serializers.ModelSerializer):
-    """ A class to serialize bjj digraph nodes """
-
-    id = serializers.UUIDField(required=False)
-    graph = serializers.ReadOnlyField(source="graph.id")
-    createdAt = serializers.DateTimeField(source="created_at", required=False)
-    x = serializers.FloatField(source="position_x", required=False)
-    y = serializers.FloatField(source="position_y", required=False)
-
-    class Meta:
-        model = BaseNode
-        fields = (
-            "id",
-            "graph",
-            "title",
-            "createdAt",
             "x",
             "y",
         )
 
 
-
-class GameNodeSerializer(BaseNodeSerializer):
+class GameNodeSerializer(NodeSerializer):
     """ A class to serialize bjj digraph game-nodes """
 
     type = serializers.CharField(source="game_type")
@@ -86,7 +53,7 @@ class GameNodeSerializer(BaseNodeSerializer):
         )
 
 
-class MetaNodeSerializer(BaseNodeSerializer):
+class MetaNodeSerializer(NodeSerializer):
     """ A class to serialize bjj digraph meta-nodes """
 
     description = serializers.CharField(required=False, allow_blank=True)

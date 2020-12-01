@@ -8,5 +8,4 @@ urlpatterns = [
     path("<uuid:node_id>/", NodeDetailView.as_view()),
     path("game-nodes/", GameNodeListView.as_view()),
     path("game-nodes/<uuid:node_id>/", GameNodeDetailView.as_view()),
-
 ]
