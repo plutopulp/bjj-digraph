@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
+from model_utils.managers import InheritanceManager
 
 from graphs.models import Graph
 
@@ -30,6 +31,8 @@ class Node(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     position_x = models.FloatField(default=100)
     position_y = models.FloatField(default=100)
+
+    objects = InheritanceManager()
 
     def __str__(self):
         return self.title
