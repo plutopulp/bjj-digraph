@@ -87,7 +87,7 @@ class NodeList(NodeAPIViewMixin, FlatMultipleModelAPIView):
     def get_querylist(self):
         querylist = [
             {
-                "queryset": formatter["model"].objects.filter(graph=self.get_graph_id()),
+                "queryset": formatter["model"].objects.of_graph(self.get_graph_id()),
                 "serializer_class": formatter["serializer_class"],
             }
             for _, formatter in formatters.items()

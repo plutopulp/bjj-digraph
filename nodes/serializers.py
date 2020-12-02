@@ -3,7 +3,7 @@ from .models import Node, GameNode, MetaNode
 
 
 class NodeSerializer(serializers.ModelSerializer):
-    """ A class to serialize bjj digraph nodes """
+    """ A class to serialize bjj digraph base-nodes """
 
     id = serializers.UUIDField(required=False)
     graph = serializers.ReadOnlyField(source="graph.id")
