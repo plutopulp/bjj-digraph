@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     # 3rd Party
     "rest_framework",
     "rest_framework_jwt",
+    "drf_multiple_model",
     "corsheaders",
     # Local
     "accounts.apps.AccountsConfig",

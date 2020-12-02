@@ -6,6 +6,8 @@ from .views import (
     GameNodeListView,
     GameNodeDetailView,
     NodeCreate,
+    NodeDetail,
+    NodeList,
 )
 
 
@@ -15,4 +17,6 @@ urlpatterns = [
     path("game-nodes/", GameNodeListView.as_view()),
     path("game-nodes/<uuid:node_id>/", GameNodeDetailView.as_view()),
     path("test/", NodeCreate.as_view()),
+    path("test/list/", NodeList.as_view()),
+    path("test/<uuid:node_id>/", NodeDetail.as_view()),
 ]
