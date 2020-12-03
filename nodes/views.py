@@ -5,18 +5,8 @@ from drf_multiple_model.views import FlatMultipleModelAPIView
 from graphs.models import Graph
 from .models import Node, GameNode, MetaNode
 from .serializers import NodeSerializer, GameNodeSerializer, MetaNodeSerializer
-from main.utils.views.generators import detail_view_generator, list_view_generator
 from main.utils.views.permissions import IsGraphOwnerOrReadOnly
 
-
-NodeDetailView = detail_view_generator(Node, NodeSerializer, "node_id")
-NodeListView = list_view_generator(Node, NodeSerializer)
-
-GameNodeDetailView = detail_view_generator(GameNode, GameNodeSerializer, "node_id")
-GameNodeListView = list_view_generator(GameNode, GameNodeSerializer)
-
-MetaNodeDetailView = detail_view_generator(MetaNode, MetaNodeSerializer, "node_id")
-MetaNodeListView = list_view_generator(MetaNode, MetaNodeSerializer)
 
 formatters = {
     "base": {"model": Node, "serializer_class": NodeSerializer, "list": False},
@@ -79,8 +69,7 @@ class NodeDetail(NodeAPIViewMixin, generics.RetrieveUpdateDestroyAPIView):
 
 
 class NodeList(NodeAPIViewMixin, FlatMultipleModelAPIView):
-    """A List API view for retrieving all nodes of a graph (multiple types).
-    """
+    """A List API view for retrieving all nodes of a graph (multiple types)."""
 
     add_model_type = False
 

@@ -2,22 +2,20 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
+from model_utils import Choices
+
 from .managers import NodeManager
-
 from graphs.models import Graph
+from main.config.node_types import NODES_CONFIG
 
-NODE_TYPES = (
-    ("position", "position"),
-    ("submission", "submission"),
-    ("entry", "entry"),
-    ("transition", "transition"),
-    ("sweep", "sweep"),
-    ("takedown", "takedown"),
-    ("guardPull", "guardPull"),
-    ("guardPass", "guardPass"),
+
+GAME_TYPE_CHOICES = (
+    (game_type, game_type) for game_type in NODES_CONFIG["game"]["types"]
 )
-NODE_SUBTYPES = (("user", "user"), ("opponent", "opponent"))
-gameNodeValidators = [MinValueValidator(-100), MaxValueValidator(100)]
+GAME_SUBTYPE_CHOICES = (
+    (game_subtype, game_subtype) for game_subtype in NODES_CONFIG["game"]["subtypes"]
+)
+GAME_NODE_VALIDATORS = [MinValueValidator(-100), MaxValueValidator(100)]
 
 
 class Node(models.Model):
@@ -41,15 +39,17 @@ class Node(models.Model):
 class GameNode(Node):
     """ A class to represent bjj game-related digraph nodes """
 
-    game_type = models.CharField(choices=NODE_TYPES, default="", max_length=50)
+    game_type = models.CharField(
+        choices=GAME_TYPE_CHOICES, default="position", max_length=50
+    )
     game_subtype = models.CharField(
-        choices=NODE_SUBTYPES, default="user", max_length=50
+        choices=GAME_SUBTYPE_CHOICES, default="user", max_length=50
     )
     description = models.TextField(default="", blank=True)
     comment = models.TextField(default="", blank=True)
-    effectiveness = models.IntegerField(default=0, validators=gameNodeValidators)
-    priority = models.IntegerField(default=0, validators=gameNodeValidators)
-    proficiency = models.IntegerField(default=0, validators=gameNodeValidators)
+    effectiveness = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
+    priority = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
+    proficiency = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
 
     class Meta:
         verbose_name = "Game Node"
