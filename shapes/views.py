@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from rest_framework import generics
 
-# Create your views here.
+
+class NodeShapeDetail(generics.RetrieveUpdateDestroyAPIView):
+    """ A detail API view for RUD operations on node shapes """
+    pass
