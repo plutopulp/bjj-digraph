@@ -6,15 +6,9 @@ from model_utils import Choices
 
 from .managers import NodeManager
 from graphs.models import Graph
-from main.config.node_types import NODES_CONFIG
+from main.config.nodes import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
 
 
-GAME_TYPE_CHOICES = (
-    (game_type, game_type) for game_type in NODES_CONFIG["game"]["types"]
-)
-GAME_SUBTYPE_CHOICES = (
-    (game_subtype, game_subtype) for game_subtype in NODES_CONFIG["game"]["subtypes"]
-)
 GAME_NODE_VALIDATORS = [MinValueValidator(-100), MaxValueValidator(100)]
 
 
@@ -59,6 +53,9 @@ class GameNode(Node):
 class MetaNode(Node):
     """ A class to represent bjj digraph meta-nodes, e.g. comments, texts etc.."""
 
+    meta_type = models.CharField(
+        choices=META_TYPE_CHOICES, default="comment", max_length=50
+    )
     description = models.TextField(default="", blank=True)
 
     class Meta:

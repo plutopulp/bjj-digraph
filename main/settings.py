@@ -25,12 +25,13 @@ INSTALLED_APPS = [
     "rest_framework_jwt",
     "drf_multiple_model",
     "corsheaders",
+    "colorfield",
     # Local
     "accounts.apps.AccountsConfig",
     "graphs.apps.GraphsConfig",
     "nodes.apps.NodesConfig",
     "edges.apps.EdgesConfig",
-    "app_settings.apps.AppSettingsConfig",
+    "shapes.apps.ShapesConfig",
 ]
 
 MIDDLEWARE = [
