@@ -1,7 +1,7 @@
-from django.urls import path 
+from django.urls import path
 
-from .views import NodeShapeDetail
+from .views import NodeShapeDetail, NodeShapeCreate
 
 urlpatterns = [
-    path("", NodeShapeDetail.as_view()),
+    path("", NodeShapeCreate.as_view()),
 ]

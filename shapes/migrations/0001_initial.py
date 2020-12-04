@@ -17,39 +17,89 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='NodeShape',
+            name="NodeShape",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('shape_id', models.CharField(default='#square', max_length=100)),
-                ('fill', colorfield.fields.ColorField(default='#DDDDDD', max_length=18)),
-                ('stroke', colorfield.fields.ColorField(default='#333333', max_length=18)),
-                ('stroke_width', models.CharField(default='2', max_length=3)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='node_shapes', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("shape_id", models.CharField(default="#square", max_length=100)),
+                (
+                    "fill",
+                    colorfield.fields.ColorField(default="#DDDDDD", max_length=18),
+                ),
+                (
+                    "stroke",
+                    colorfield.fields.ColorField(default="#333333", max_length=18),
+                ),
+                ("stroke_width", models.CharField(default="2", max_length=3)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="node_shapes",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='GameNodeShape',
+            name="GameNodeShape",
             fields=[
-                ('nodeshape_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='shapes.nodeshape')),
-                ('game_type', models.CharField(choices=[], default='position', max_length=50)),
-                ('game_subtype', models.CharField(choices=[], default='user', max_length=50)),
+                (
+                    "nodeshape_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="shapes.nodeshape",
+                    ),
+                ),
+                (
+                    "game_type",
+                    models.CharField(choices=[], default="position", max_length=50),
+                ),
+                (
+                    "game_subtype",
+                    models.CharField(choices=[], default="user", max_length=50),
+                ),
             ],
             options={
-                'verbose_name': 'Game Node Shape',
-                'verbose_name_plural': 'Game Node Shapes',
+                "verbose_name": "Game Node Shape",
+                "verbose_name_plural": "Game Node Shapes",
             },
-            bases=('shapes.nodeshape',),
+            bases=("shapes.nodeshape",),
         ),
         migrations.CreateModel(
-            name='MetaNodeShape',
+            name="MetaNodeShape",
             fields=[
-                ('nodeshape_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='shapes.nodeshape')),
-                ('meta_type', models.CharField(choices=[], default='comment', max_length=50)),
+                (
+                    "nodeshape_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="shapes.nodeshape",
+                    ),
+                ),
+                (
+                    "meta_type",
+                    models.CharField(choices=[], default="comment", max_length=50),
+                ),
             ],
             options={
-                'verbose_name': 'Meta Node Shape',
-                'verbose_name_plural': 'Meta Node Shapes',
+                "verbose_name": "Meta Node Shape",
+                "verbose_name_plural": "Meta Node Shapes",
             },
-            bases=('shapes.nodeshape',),
+            bases=("shapes.nodeshape",),
         ),
     ]

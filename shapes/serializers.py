@@ -8,8 +8,8 @@ class NodeShapeSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(required=False)
     owner = serializers.ReadOnlyField(source="owner.id")
     shapeId = serializers.CharField(source="shape_id")
-    fill = serializers.CharField(source="fill")
-    stroke = serializers.CharField(source="stroke")
+    fill = serializers.CharField()
+    stroke = serializers.CharField()
     strokeWidth = serializers.CharField(source="stroke_width")
 
     class Meta:
@@ -27,16 +27,16 @@ class NodeShapeSerializer(serializers.ModelSerializer):
 class GameNodeShapeSerializer(NodeShapeSerializer):
     """ A class to serialize game-node shapes """
 
-    type = serializers.CharField(source="game_type")
-    subtype = serializers.CharField(source="game_subtype")
+    gameType = serializers.CharField(source="game_type")
+    gameSubtype = serializers.CharField(source="game_subtype")
 
     class Meta:
-        model = GameNode
+        model = GameNodeShape
         fields = (
             "id",
             "owner",
-            "type",
-            "subtype",
+            "gameType",
+            "gameSubtype",
             "shapeId",
             "fill",
             "stroke",
@@ -47,17 +47,16 @@ class GameNodeShapeSerializer(NodeShapeSerializer):
 class MetaNodeShapeSerializer(NodeShapeSerializer):
     """ A class to serialize meta-node shapes """
 
-    type = serializers.CharField(source="meta_type")
+    metaType = serializers.CharField(source="meta_type")
 
     class Meta:
-        model = MetaNode
+        model = MetaNodeShape
         fields = (
             "id",
             "owner",
-            "type",
+            "metaType",
             "shapeId",
             "fill",
             "stroke",
             "strokeWidth",
-
         )

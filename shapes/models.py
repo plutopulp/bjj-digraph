@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 
 from colorfield.fields import ColorField
 
+from .managers import NodeShapeManager
 from main.config.nodes import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
 
 
@@ -22,6 +23,8 @@ class NodeShape(models.Model):
     fill = ColorField(default="#DDDDDD")
     stroke = ColorField(default="#333333")
     stroke_width = models.CharField(max_length=3, default="2")
+
+    objects = NodeShapeManager()
 
 
 class GameNodeShape(NodeShape):
