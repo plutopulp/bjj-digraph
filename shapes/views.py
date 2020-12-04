@@ -71,7 +71,7 @@ class NodeShapeDetail(NodeShapeAPIViewMixin, generics.RetrieveUpdateDestroyAPIVi
 
 class NodeShapeList(FlatMultipleModelAPIView):
     """ A list API view for all node shapes of a giveb user """
-    
+
     def get_querylist(self):
         querylist = [
             {
@@ -82,4 +82,3 @@ class NodeShapeList(FlatMultipleModelAPIView):
             if formatter["list"]
         ]
         return querylist
-

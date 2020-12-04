@@ -23,6 +23,24 @@ class NodeShapeSerializer(serializers.ModelSerializer):
             "strokeWidth",
         )
 
+    def validate_shape(self, data, field_names):
+        """Method for child subclasses to ensure user and specific shape type
+        are unique together. Would usually do this in the model but the unique together
+        fields are spread across multi-tables"""
+        user = self.context["request"].user
+        fields = {field_name: data[field_name] for field_name in field_names}
+        model = self.Meta.model
+        try:
+            obj = model.objects.of_user(user).get(**fields)
+        except model.DoesNotExist:
+            return data
+        if self.instance and obj.id == self.instance.id:
+            return data
+        else:
+            raise serializers.ValidationError(
+                "User already has a node shape of this type"
+            )
+
 
 class GameNodeShapeSerializer(NodeShapeSerializer):
     """ A class to serialize game-node shapes """
@@ -43,6 +61,9 @@ class GameNodeShapeSerializer(NodeShapeSerializer):
             "strokeWidth",
         )
 
+    def validate(self, data):
+        return self.validate_shape(data, field_names=["game_type", "game_subtype"])
+
 
 class MetaNodeShapeSerializer(NodeShapeSerializer):
     """ A class to serialize meta-node shapes """
@@ -60,3 +81,6 @@ class MetaNodeShapeSerializer(NodeShapeSerializer):
             "stroke",
             "strokeWidth",
         )
+
+    def validate(self, data):
+        return self.validate_shape(data, field_names=["meta_type"])
