@@ -1,9 +1,5 @@
 import os
-import json
 from pathlib import Path
-from six.moves.urllib import request
-from cryptography.x509 import load_pem_x509_certificate
-from cryptography.hazmat.backends import default_backend
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,12 +23,15 @@ INSTALLED_APPS = [
     # 3rd Party
     "rest_framework",
     "rest_framework_jwt",
+    "drf_multiple_model",
     "corsheaders",
+    "colorfield",
     # Local
     "accounts.apps.AccountsConfig",
     "graphs.apps.GraphsConfig",
     "nodes.apps.NodesConfig",
     "edges.apps.EdgesConfig",
+    "shapes.apps.ShapesConfig",
 ]
 
 MIDDLEWARE = [

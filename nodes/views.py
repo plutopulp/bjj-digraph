@@ -1,41 +1,91 @@
 from rest_framework import generics
+from django.shortcuts import get_object_or_404
+from drf_multiple_model.views import FlatMultipleModelAPIView
 
-from .serializers import NodeSerializer
-from .models import Node
+from graphs.models import Graph
+from .models import Node, GameNode, MetaNode
+from .serializers import NodeSerializer, GameNodeSerializer, MetaNodeSerializer
 from main.utils.views.permissions import IsGraphOwnerOrReadOnly
-from main.utils.views.mixins import GraphChildViewMixin, GraphChildListCreateViewMixin
 
 
-class NodeList(
-    GraphChildViewMixin, GraphChildListCreateViewMixin, generics.ListCreateAPIView
-):
-    """ An API view for listing and creating bjj digraph nodes """
-
-    queryset = Node.objects.all()
-    serializer_class = NodeSerializer
-
-    def __init__(self, *args, **kwargs):
-        """Overwrite init to associate the model with the view
-        Doing this so that can call self.model in Mixin instead of passing
-        the class directly throughout methods"""
-        super().__init__(*args, **kwargs)
-        self.model = Node
-
-    def perform_create(self, serializer):
-        """ Add the graph to the node object. """
-        self.perform_create_(serializer)
-
-    def list(self, request, graph_id):
-        """ Return all the nodes of a given graph """
-        return self.list_(request, graph_id)
+formatters = {
+    "baseNode": {"model": Node, "serializer_class": NodeSerializer, "list": False},
+    "gameNode": {
+        "model": GameNode,
+        "serializer_class": GameNodeSerializer,
+        "list": True,
+    },
+    "metaNode": {
+        "model": MetaNode,
+        "serializer_class": MetaNodeSerializer,
+        "list": True,
+    },
+}
 
 
-class NodeDetail(generics.RetrieveUpdateDestroyAPIView):
-    """ An API detail view for RUD operations on individual bjj digraph nodes """
+class NodeAPIViewMixin:
+    """A mixin for node api views with helper and selector methods for getting
+    the node queryset and model for an incoming request
+    """
 
-    queryset = Node.objects.all()
-    serializer_class = NodeSerializer
+    def get_graph_id(self):
+        """ Returns the graph id from the url """
+        graph_id = self.request.resolver_match.kwargs["graph_id"]
+        return graph_id
+
+    def get_queryset_(self):
+        """ Returns the correct queryset for the node type """
+        node_type = self.request.data["type"]
+        return formatters[node_type]["model"].objects.all()
+
+    def get_serializer_class_(self):
+        """ Returns the correct serializer class for the node type """
+        node_type = self.request.data["type"]
+        return formatters[node_type]["serializer_class"]
+
+
+class NodeCreate(NodeAPIViewMixin, generics.CreateAPIView):
+    """An API view for creating nodes of different types.
+    The node type is required in the body of the request.
+    """
+
     permission_classes = [IsGraphOwnerOrReadOnly]
 
+    def get_serializer_class(self):
+        return self.get_serializer_class_()
+
+    def perform_create(self, serializer):
+        graph_id = self.get_graph_id()
+        graph = get_object_or_404(Graph, id=graph_id)
+        serializer.save(graph=graph)
+
+
+class NodeDetail(NodeAPIViewMixin, generics.RetrieveUpdateDestroyAPIView):
+    """A detail API view for RUD operations on nodes of different types.
+    The node type is required in the body of the request.
+    """
+
+    permission_classes = [IsGraphOwnerOrReadOnly]
     lookup_field = "id"
     lookup_url_kwarg = "node_id"
+
+    def get_queryset(self):
+        return self.get_queryset_()
+
+    def get_serializer_class(self):
+        return self.get_serializer_class_()
+
+
+class NodeList(NodeAPIViewMixin, FlatMultipleModelAPIView):
+    """A List API view for retrieving all nodes of a graph (multiple types)."""
+
+    def get_querylist(self):
+        querylist = [
+            {
+                "queryset": formatter["model"].objects.of_graph(self.get_graph_id()),
+                "serializer_class": formatter["serializer_class"],
+            }
+            for _, formatter in formatters.items()
+            if formatter["list"]
+        ]
+        return querylist
