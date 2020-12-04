@@ -55,6 +55,7 @@ class GameNodeSerializer(NodeSerializer):
 
 class MetaNodeSerializer(NodeSerializer):
     """ A class to serialize bjj digraph meta-nodes """
+
     metaType = serializers.CharField(source="meta_type")
     description = serializers.CharField(required=False, allow_blank=True)
 

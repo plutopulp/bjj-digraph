@@ -10,8 +10,16 @@ from main.utils.views.permissions import IsGraphOwnerOrReadOnly
 
 formatters = {
     "baseNode": {"model": Node, "serializer_class": NodeSerializer, "list": False},
-    "gameNode": {"model": GameNode, "serializer_class": GameNodeSerializer, "list": True},
-    "metaNode": {"model": MetaNode, "serializer_class": MetaNodeSerializer, "list": True},
+    "gameNode": {
+        "model": GameNode,
+        "serializer_class": GameNodeSerializer,
+        "list": True,
+    },
+    "metaNode": {
+        "model": MetaNode,
+        "serializer_class": MetaNodeSerializer,
+        "list": True,
+    },
 }
 
 
