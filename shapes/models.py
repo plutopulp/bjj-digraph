@@ -21,6 +21,7 @@ class NodeShape(models.Model):
     )
     shape_id = models.CharField(max_length=100, default="#square")
     fill = ColorField(default="#DDDDDD")
+    opacity = models.CharField(max_length=3, default="100")
     stroke = ColorField(default="#333333")
     stroke_width = models.CharField(max_length=3, default="2")
 
