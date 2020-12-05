@@ -5,7 +5,7 @@ from drf_multiple_model.views import FlatMultipleModelAPIView
 from graphs.models import Graph
 from .models import Node, GameNode, MetaNode
 from .serializers import NodeSerializer, GameNodeSerializer, MetaNodeSerializer
-from main.utils.views.permissions import IsGraphOwnerOrReadOnly
+from utils.views.permissions import IsGraphOwnerOrReadOnly
 
 
 formatters = {

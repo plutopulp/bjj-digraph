@@ -22,7 +22,7 @@ class NodeShape(models.Model):
     shape_id = models.CharField(max_length=100, default="#square")
     fill = models.CharField(max_length=20, default="#DDDDDD")
     opacity = models.CharField(max_length=3, default="100")
-    stroke = models.CharField( max_length=20, default="#333333")
+    stroke = models.CharField(max_length=20, default="#333333")
     stroke_width = models.CharField(max_length=3, default="2")
 
     objects = NodeShapeManager()
@@ -41,8 +41,8 @@ class GameNodeShape(NodeShape):
     class Meta:
         verbose_name = "Game Node Shape"
         verbose_name_plural = "Game Node Shapes"
-        # Unique together property performed in serializer
-    
+        # Unique together validation performed in serializer
+
     def __str__(self):
         return f"{self.game_type} - {self.game_subtype}"
 
@@ -57,8 +57,7 @@ class MetaNodeShape(NodeShape):
     class Meta:
         verbose_name = "Meta Node Shape"
         verbose_name_plural = "Meta Node Shapes"
-        # Unique together property performed in serializer
-
+        # Unique together validation performed in serializer
 
     def __str__(self):
         return self.meta_type

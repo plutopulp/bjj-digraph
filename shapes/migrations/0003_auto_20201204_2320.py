@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shapes', '0002_nodeshape_opacity'),
+        ("shapes", "0002_nodeshape_opacity"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='nodeshape',
-            name='fill',
-            field=models.CharField(default='#DDDDDD', max_length=7),
+            model_name="nodeshape",
+            name="fill",
+            field=models.CharField(default="#DDDDDD", max_length=7),
         ),
         migrations.AlterField(
-            model_name='nodeshape',
-            name='stroke',
-            field=models.CharField(default='#333333', max_length=7),
+            model_name="nodeshape",
+            name="stroke",
+            field=models.CharField(default="#333333", max_length=7),
         ),
     ]

@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     "colorfield",
     # Local
     "accounts.apps.AccountsConfig",
+    "settings.apps.SettingsConfig",
+    "utils.apps.UtilsConfig",
     "graphs.apps.GraphsConfig",
     "nodes.apps.NodesConfig",
     "edges.apps.EdgesConfig",

@@ -7,7 +7,7 @@ from .serializers import (
     GameNodeShapeSerializer,
     MetaNodeShapeSerializer,
 )
-from main.utils.views.permissions import IsOwnerOrReadOnly
+from utils.views.permissions import IsOwnerOrReadOnly
 
 formatters = {
     "baseNodeShape": {
