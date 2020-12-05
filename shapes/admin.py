@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import NodeShape, GameNodeShape, MetaNodeShape
+
+admin.site.register([NodeShape, GameNodeShape, MetaNodeShape])

@@ -68,7 +68,23 @@ GUARD_PASS = {
     "stroke_width": STROKE_WIDTH,
 }
 
+TEXT = {
+    "meta_type": "text",
+    "shape_id": "#square",
+    "fill": "transparent",
+    "opacity": "0",
+    "stroke": "transparent",
+    "stroke_width": "0",
+}
 
+COMMENT = {
+    "meta_type": "comment",
+    "shape_id": "#square",
+    "fill": "#bbbbbb",
+    "opacity": USER_OPACITY,
+    "stroke": STROKE,
+    "stroke_width": STROKE_WIDTH,
+}
 
 BASE_GAME_NODE_SHAPES = [
     POSITION,
@@ -82,11 +98,14 @@ BASE_GAME_NODE_SHAPES = [
 ]
 
 USER_GAME_NODE_SHAPES = [
-    dict(node_shape, **{"game_subtype": "user"}, **{"opacity": USER_OPACITY})
+    dict(node_shape, game_subtype="user", opacity=USER_OPACITY)
     for node_shape in BASE_GAME_NODE_SHAPES
 ]
 
 OPPONENT_GAME_NODE_SHAPES = [
-    dict(node_shape, **{"game_subtype": "opponent"}, **{"opacity": OPPONENT_OPACITY})
+    dict(node_shape, game_subtype="opponent", opacity=OPPONENT_OPACITY)
     for node_shape in BASE_GAME_NODE_SHAPES
 ]
+
+GAME_NODE_SHAPES = USER_GAME_NODE_SHAPES + OPPONENT_GAME_NODE_SHAPES
+META_NODE_SHAPES = [COMMENT, TEXT]
