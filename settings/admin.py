@@ -7,6 +7,8 @@ from .models import (
     MetaNodeSettings,
 )
 
+from .forms import SiteSettingsChangeForm, NodeSettingsChangeForm
+
 
 class NoAddNoDeleteMixin:
     """ A mixin for admin classes which removes add and delete permissions """
@@ -19,15 +21,18 @@ class NoAddNoDeleteMixin:
 
 
 class SiteSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
-    pass
+    model = SiteSettings
+    form = SiteSettingsChangeForm
 
 
 class GameNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
-    pass
+    model = GameNodeSettings
+    form = NodeSettingsChangeForm
 
 
 class MetaNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
-    pass
+    model = MetaNodeSettings
+    form = NodeSettingsChangeForm
 
 
 admin.site.register(Settings)
