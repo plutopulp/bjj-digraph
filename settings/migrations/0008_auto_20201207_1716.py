@@ -8,29 +8,62 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('settings', '0007_gamenodesettings_opacity'),
+        ("settings", "0007_gamenodesettings_opacity"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='gamenodesettings',
-            options={'verbose_name': 'Game Node Settings', 'verbose_name_plural': 'Game Nodes Settings'},
+            name="gamenodesettings",
+            options={
+                "verbose_name": "Game Node Settings",
+                "verbose_name_plural": "Game Nodes Settings",
+            },
         ),
         migrations.CreateModel(
-            name='MetaNodeSettings',
+            name="MetaNodeSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('shape_id', models.CharField(default='#square', max_length=64)),
-                ('fill', colorfield.fields.ColorField(default='#ad560e', max_length=18)),
-                ('opacity', models.PositiveIntegerField(default=90)),
-                ('stroke', colorfield.fields.ColorField(default='#333333', max_length=18)),
-                ('stroke_width', models.PositiveSmallIntegerField(default=2)),
-                ('meta_type', models.CharField(choices=[('comment', 'comment'), ('text', 'text')], default='text', max_length=50, unique=True)),
-                ('nodes_settings', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='settings.nodessettings')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("shape_id", models.CharField(default="#square", max_length=64)),
+                (
+                    "fill",
+                    colorfield.fields.ColorField(default="#ad560e", max_length=18),
+                ),
+                ("opacity", models.PositiveIntegerField(default=90)),
+                (
+                    "stroke",
+                    colorfield.fields.ColorField(default="#333333", max_length=18),
+                ),
+                ("stroke_width", models.PositiveSmallIntegerField(default=2)),
+                (
+                    "meta_type",
+                    models.CharField(
+                        choices=[("comment", "comment"), ("text", "text")],
+                        default="text",
+                        max_length=50,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "nodes_settings",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="settings.nodessettings",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Meta Node Settings',
-                'verbose_name_plural': 'Meta Nodes Settings',
+                "verbose_name": "Meta Node Settings",
+                "verbose_name_plural": "Meta Nodes Settings",
             },
         ),
     ]

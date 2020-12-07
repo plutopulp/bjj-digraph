@@ -3,6 +3,12 @@ STROKE_WIDTH = 2
 USER_OPACITY = 90
 OPPONENT_OPACITY = 60
 
+COMMON_NODE_PROPS = {
+    "stroke": "#333333",
+    "stroke_width": 2,
+    "user_opacity": 90,
+    "opponent_opacity": 60,
+}
 
 POSITION = {
     "game_type": "position",
@@ -86,7 +92,7 @@ COMMENT = {
     "stroke_width": STROKE_WIDTH,
 }
 
-BASE_GAME_NODE_SETTINGS = [
+BASE_GAME_NODES_SETTINGS = [
     POSITION,
     SUBMISSION,
     TRANSITION,
@@ -97,15 +103,15 @@ BASE_GAME_NODE_SETTINGS = [
     GUARD_PASS,
 ]
 
-USER_GAME_NODE_SETTINGS = [
+USER_GAME_NODES_SETTINGS = [
     dict(node_shape, game_subtype="user", opacity=USER_OPACITY)
-    for node_shape in BASE_GAME_NODE_SETTINGS
+    for node_shape in BASE_GAME_NODES_SETTINGS
 ]
 
-OPPONENT_GAME_NODE_SETTINGS = [
+OPPONENT_GAME_NODES_SETTINGS = [
     dict(node_shape, game_subtype="opponent", opacity=OPPONENT_OPACITY)
-    for node_shape in BASE_GAME_NODE_SETTINGS
+    for node_shape in BASE_GAME_NODES_SETTINGS
 ]
 
-GAME_NODE_SETTINGS = USER_GAME_NODE_SETTINGS + OPPONENT_GAME_NODE_SETTINGS
-META_NODE_SHAPES = [COMMENT, TEXT]
+GAME_NODES_SETTINGS = USER_GAME_NODES_SETTINGS + OPPONENT_GAME_NODES_SETTINGS
+META_NODES_SETTINGS = [COMMENT, TEXT]

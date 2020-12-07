@@ -1,31 +1,34 @@
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .models import Settings, NodesSettings, GameNodeSettings, SiteSettings
-from utils.models import SingletonModel
-from .config import POSITION, GAME_NODE_SETTINGS
+from .models import (
+    Settings,
+    SiteSettings,
+    NodesSettings,
+    GameNodeSettings,
+    MetaNodeSettings,
+)
+from .config import GAME_NODES_SETTINGS, META_NODES_SETTINGS
 from graphs.models import Graph
 
-# @receiver(post_save, sender=NodeSettings)
-# def generate_settings(sender, instance, created, **kwargs):
-#    obj, created = GameNodeSettings.objects.update_or_create(game_type="position", game_subtype="user", defaults=POSITION)
-#    instance.position = obj
-#    print(instance.position)
-#
 
-
-def create_settings_module(ModuleModel, settings_instance):
-    settings_module = ModuleModel.objects.create()
+def create_settings_module(SettingsModel, settings_instance):
+    settings_module = SettingsModel.objects.create()
     settings_module.settings = settings_instance
     settings_module.save()
 
 
-def create_game_node_settings():
-    pass
+def create_nodes_settings(NodeSettingsModel, default_settings, settings_instance):
+    for node_setting in default_settings:
+        NodeSettingsModel.objects.create(
+            **node_setting, nodes_settings=settings_instance
+        ).save()
 
 
 @receiver(post_save, sender=Settings)
 def create_sub_settings(sender, instance, created, **kwargs):
+    """Generate all sub settings when the top-most Settings instance
+    is created"""
     if created:
         create_settings_module(SiteSettings, instance)
         create_settings_module(NodesSettings, instance)
@@ -33,8 +36,8 @@ def create_sub_settings(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=NodesSettings)
 def create_node_settings(sender, instance, created, **kwargs):
+    """Generate all individual node settings when NodesSettings instance
+    is created"""
     if created:
-        for node_setting in GAME_NODE_SETTINGS:
-            GameNodeSettings.objects.create(
-                **node_setting, nodes_settings=instance
-            ).save()
+        create_nodes_settings(GameNodeSettings, GAME_NODES_SETTINGS, instance)
+        create_nodes_settings(MetaNodeSettings, META_NODES_SETTINGS, instance)

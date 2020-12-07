@@ -72,6 +72,7 @@ class BaseNodeSettings(models.Model):
 
 class GameNodeSettings(BaseNodeSettings):
     """ A class to represent a game node's settings """
+
     game_type = models.CharField(
         choices=GAME_TYPE_CHOICES, default="position", max_length=50
     )
@@ -93,6 +94,7 @@ class GameNodeSettings(BaseNodeSettings):
 
 class MetaNodeSettings(BaseNodeSettings):
     """ A class to represent a meta node's settings """
+
     meta_type = models.CharField(
         choices=META_TYPE_CHOICES, default="text", max_length=50, unique=True
     )

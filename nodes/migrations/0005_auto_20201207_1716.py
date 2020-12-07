@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nodes', '0004_auto_20201205_0622'),
+        ("nodes", "0004_auto_20201205_0622"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='metanode',
-            name='meta_type',
-            field=models.CharField(choices=[], default='comment', max_length=50),
+            model_name="metanode",
+            name="meta_type",
+            field=models.CharField(choices=[], default="comment", max_length=50),
         ),
     ]
