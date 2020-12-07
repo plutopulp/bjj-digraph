@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.db.utils import ProgrammingError
 
-from .models import SiteSettings, NodeSettings
+from .models import Settings, SiteSettings, NodesSettings, GameNodeSettings
 
 
 class SettingsAdminMixin:
-    """ A mixing for settings admin classes """
+    """ A mixin for settings admin classes """
 
     def initialize(self, AdminClass, SettingsModel, *args, **kwargs):
         """ When Admin is instantiated load and save site settings """
@@ -14,20 +14,29 @@ class SettingsAdminMixin:
         try:
             SettingsModel.load().save()
         except ProgrammingError:
-            pass
+            print("Programming error")
 
-    # Disable adding new SiteSettings
     def has_add_permission(self, *args, **kwargs):
-        return False
+        return True
 
-    # Disable deleting SiteSettings
     def has_delete_permission(self, *args, **kwargs):
-        return False
+        return True
 
 
-class SiteSettingsAdmin(SettingsAdminMixin, admin.ModelAdmin):
+class SettingsAdmin(SettingsAdminMixin, admin.ModelAdmin):
     def __init__(self, *args, **kwargs):
-        self.initialize(SiteSettingsAdmin, SiteSettings, *args, **kwargs)
+        self.initialize(SettingsAdmin, Settings, *args, **kwargs)
 
 
-admin.site.register(SiteSettings, SiteSettingsAdmin)
+class GameNodeSettingsAdmin(admin.ModelAdmin):
+    def has_add_permission(self, *args, **kwargs):
+        return True
+
+    def has_delete_permission(self, *args, **kwargs):
+        return True
+
+
+admin.site.register(Settings, SettingsAdmin)
+admin.site.register(SiteSettings)
+admin.site.register(NodesSettings)
+admin.site.register(GameNodeSettings, GameNodeSettingsAdmin)

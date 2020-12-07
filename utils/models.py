@@ -8,9 +8,9 @@ class SingletonModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        """ Delete any previously existing instances (there shouldn't be any) """
+        """ Delete any previously existing instances """
         self.__class__.objects.exclude(id=self.id).delete()
-        super().save(*args, **kwargs)
+        super(SingletonModel, self).save(*args, **kwargs)
 
     @classmethod
     def load(cls):
