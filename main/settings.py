@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # Local
     "accounts.apps.AccountsConfig",
     "settings.apps.SettingsConfig",
+    "user_settings.apps.UserSettingsConfig",
     "utils.apps.UtilsConfig",
     "graphs.apps.GraphsConfig",
     "nodes.apps.NodesConfig",

@@ -1,17 +1,14 @@
 from django.db import models
 from colorfield.fields import ColorField
-from utils.models import SingletonModel
-from main.config.nodes import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
 
-STROKE = "#333333"
-STROKE_WIDTH = 2
-USER_OPACITY = 90
-OPPONENT_OPACITY = 60
+from utils.models import SingletonModel
+from .nodes.type_choices import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
+from .nodes.base_settings import COMMON_NODE_PROPS
 
 
 class Settings(SingletonModel):
     """Top-most parent settings model whose instantiation triggers
-    the creation of all sub settings modules through post save signals"""
+    the creation of all sub settings modules through post save signal """
 
     class Meta:
         verbose_name = "Settings"
@@ -38,40 +35,26 @@ class SiteSettings(SingletonModel):
         return "Site Configuration"
 
 
-class NodesSettings(SingletonModel):
-    """A parent settings model whose instantiation triggers
-    the creation of all child node settings through post save signals"""
-
-    settings = models.OneToOneField(
-        Settings, on_delete=models.CASCADE, blank=True, null=True
-    )
-
-    class Meta:
-        verbose_name = "Nodes Settings"
-        verbose_name_plural = "Nodes Settings"
-
-    def __str__(self):
-        return "Nodes Configuration"
-
-
-class BaseNodeSettings(models.Model):
+class AbstractBaseNodeSettings(models.Model):
     """ An abstract base model to for node settings """
 
-    nodes_settings = models.ForeignKey(
-        NodesSettings, on_delete=models.CASCADE, blank=True, null=True
-    )
     shape_id = models.CharField(max_length=64, default="#square")
     fill = ColorField(default="#ad560e")
-    opacity = models.PositiveIntegerField(default=USER_OPACITY)
-    stroke = ColorField(default=STROKE)
-    stroke_width = models.PositiveSmallIntegerField(default=STROKE_WIDTH)
+    opacity = models.PositiveIntegerField(default=COMMON_NODE_PROPS["user_opacity"])
+    stroke = ColorField(default=COMMON_NODE_PROPS["stroke"])
+    stroke_width = models.PositiveSmallIntegerField(default=COMMON_NODE_PROPS["stroke_width"])
 
     class Meta:
         abstract = True
 
 
-class GameNodeSettings(BaseNodeSettings):
+class GameNodeSettings(AbstractBaseNodeSettings):
     """ A class to represent a game node's settings """
+    # settings field not included in AbstractBaseNodeSettings as latter is
+    # used in user_settings models which don't require a settings field
+    settings = models.ForeignKey(
+        Settings, on_delete=models.CASCADE, blank=True, null=True
+    )
 
     game_type = models.CharField(
         choices=GAME_TYPE_CHOICES, default="position", max_length=50
@@ -83,20 +66,24 @@ class GameNodeSettings(BaseNodeSettings):
     class Meta:
         verbose_name = "Game Node Settings"
         verbose_name_plural = "Game Nodes Settings"
-        unique_together = (
-            "game_type",
-            "game_subtype",
-        )
+       # unique_together = (
+       #     "game_type",
+       #     "game_subtype",
+       # )
 
     def __str__(self):
         return f"{self.game_type} - {self.game_subtype}"
 
 
-class MetaNodeSettings(BaseNodeSettings):
+class MetaNodeSettings(AbstractBaseNodeSettings):
     """ A class to represent a meta node's settings """
-
+    # settings field not included in BaseNodeSettings as latter is
+    # used in user_settings models which don't require a settings field
+    settings = models.ForeignKey(
+        Settings, on_delete=models.CASCADE, blank=True, null=True
+    )
     meta_type = models.CharField(
-        choices=META_TYPE_CHOICES, default="text", max_length=50, unique=True
+        choices=META_TYPE_CHOICES, default="text", max_length=50, #unique=True
     )
 
     class Meta:
