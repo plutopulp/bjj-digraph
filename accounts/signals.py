@@ -10,6 +10,7 @@ User = get_user_model()
 
 excluded_fields = ("id",)
 
+
 def create_single_node_settings(base_settings_obj, UserSettingsModel, user_instance):
     """ Creates a user node settings object with base settings field values """
     base_settings_dict = model_to_dict(base_settings_obj)
@@ -25,12 +26,12 @@ def create_nodes_settings(BaseSettingsModel, UserSettingsModel, user_instance):
     base_settings_qs = BaseSettingsModel.objects.all()
     for settings in base_settings_qs:
         create_single_node_settings(settings, UserSettingsModel, user_instance)
-        
+
 
 @receiver(post_save, sender=User)
 def create_user_settings(sender, instance, created, **kwargs):
-    """ When a user is created, generate all settings model instances 
-    which store the user's config/preferences """
+    """When a user is created, generate all settings model instances
+    which store the user's config/preferences"""
     if created:
         create_nodes_settings(GameNodeSettings, UserGameNodeSettings, instance)
         create_nodes_settings(MetaNodeSettings, UserMetaNodeSettings, instance)

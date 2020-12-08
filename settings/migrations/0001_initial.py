@@ -10,68 +10,165 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Settings',
+            name="Settings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Settings',
-                'verbose_name_plural': 'Settings',
+                "verbose_name": "Settings",
+                "verbose_name_plural": "Settings",
             },
         ),
         migrations.CreateModel(
-            name='SiteSettings',
+            name="SiteSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(default='BJJ digraph', max_length=256)),
-                ('site_url', models.URLField(default='', max_length=256)),
-                ('settings', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='settings.settings')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(default="BJJ digraph", max_length=256)),
+                ("site_url", models.URLField(default="", max_length=256)),
+                (
+                    "settings",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="settings.settings",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Site Settings',
-                'verbose_name_plural': 'Site Settings',
+                "verbose_name": "Site Settings",
+                "verbose_name_plural": "Site Settings",
             },
         ),
         migrations.CreateModel(
-            name='MetaNodeSettings',
+            name="MetaNodeSettings",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('shape_id', models.CharField(default='#square', max_length=64)),
-                ('fill', colorfield.fields.ColorField(default='#ad560e', max_length=18)),
-                ('opacity', models.PositiveIntegerField(default=90)),
-                ('stroke', colorfield.fields.ColorField(default='#333333', max_length=18)),
-                ('stroke_width', models.PositiveSmallIntegerField(default=2)),
-                ('meta_type', models.CharField(choices=[('comment', 'comment'), ('text', 'text')], default='text', max_length=50)),
-                ('settings', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='settings.settings')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("shape_id", models.CharField(default="#square", max_length=64)),
+                (
+                    "fill",
+                    colorfield.fields.ColorField(default="#ad560e", max_length=18),
+                ),
+                ("opacity", models.PositiveIntegerField(default=90)),
+                (
+                    "stroke",
+                    colorfield.fields.ColorField(default="#333333", max_length=18),
+                ),
+                ("stroke_width", models.PositiveSmallIntegerField(default=2)),
+                (
+                    "meta_type",
+                    models.CharField(
+                        choices=[("comment", "comment"), ("text", "text")],
+                        default="text",
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "settings",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="settings.settings",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Meta Node Settings',
-                'verbose_name_plural': 'Meta Nodes Settings',
-                'unique_together': {('settings', 'meta_type')},
+                "verbose_name": "Meta Node Settings",
+                "verbose_name_plural": "Meta Nodes Settings",
+                "unique_together": {("settings", "meta_type")},
             },
         ),
         migrations.CreateModel(
-            name='GameNodeSettings',
+            name="GameNodeSettings",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('shape_id', models.CharField(default='#square', max_length=64)),
-                ('fill', colorfield.fields.ColorField(default='#ad560e', max_length=18)),
-                ('opacity', models.PositiveIntegerField(default=90)),
-                ('stroke', colorfield.fields.ColorField(default='#333333', max_length=18)),
-                ('stroke_width', models.PositiveSmallIntegerField(default=2)),
-                ('game_type', models.CharField(choices=[('position', 'position'), ('submission', 'submission'), ('entry', 'entry'), ('transition', 'transition'), ('sweep', 'sweep'), ('takedown', 'takedown'), ('guardPull', 'guardPull'), ('guardPass', 'guardPass')], default='position', max_length=50)),
-                ('game_subtype', models.CharField(choices=[('user', 'user'), ('opponent', 'opponent')], default='user', max_length=50)),
-                ('settings', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='settings.settings')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("shape_id", models.CharField(default="#square", max_length=64)),
+                (
+                    "fill",
+                    colorfield.fields.ColorField(default="#ad560e", max_length=18),
+                ),
+                ("opacity", models.PositiveIntegerField(default=90)),
+                (
+                    "stroke",
+                    colorfield.fields.ColorField(default="#333333", max_length=18),
+                ),
+                ("stroke_width", models.PositiveSmallIntegerField(default=2)),
+                (
+                    "game_type",
+                    models.CharField(
+                        choices=[
+                            ("position", "position"),
+                            ("submission", "submission"),
+                            ("entry", "entry"),
+                            ("transition", "transition"),
+                            ("sweep", "sweep"),
+                            ("takedown", "takedown"),
+                            ("guardPull", "guardPull"),
+                            ("guardPass", "guardPass"),
+                        ],
+                        default="position",
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "game_subtype",
+                    models.CharField(
+                        choices=[("user", "user"), ("opponent", "opponent")],
+                        default="user",
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "settings",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="settings.settings",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Game Node Settings',
-                'verbose_name_plural': 'Game Nodes Settings',
-                'unique_together': {('settings', 'game_type', 'game_subtype')},
+                "verbose_name": "Game Node Settings",
+                "verbose_name_plural": "Game Nodes Settings",
+                "unique_together": {("settings", "game_type", "game_subtype")},
             },
         ),
     ]

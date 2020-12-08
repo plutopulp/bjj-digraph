@@ -11,31 +11,59 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('user_settings', '0001_initial'),
+        ("user_settings", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='usergamenodesettings',
-            name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='game_nodes_settings', to=settings.AUTH_USER_MODEL),
+            model_name="usergamenodesettings",
+            name="owner",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="game_nodes_settings",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.CreateModel(
-            name='UserMetaNodeSettings',
+            name="UserMetaNodeSettings",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('shape_id', models.CharField(default='#square', max_length=64)),
-                ('fill', colorfield.fields.ColorField(default='#ad560e', max_length=18)),
-                ('opacity', models.PositiveIntegerField(default=90)),
-                ('stroke', colorfield.fields.ColorField(default='#333333', max_length=18)),
-                ('stroke_width', models.PositiveSmallIntegerField(default=2)),
-                ('meta_type', models.CharField(choices=[], default='comment', max_length=50)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='meta_nodes_settings', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("shape_id", models.CharField(default="#square", max_length=64)),
+                (
+                    "fill",
+                    colorfield.fields.ColorField(default="#ad560e", max_length=18),
+                ),
+                ("opacity", models.PositiveIntegerField(default=90)),
+                (
+                    "stroke",
+                    colorfield.fields.ColorField(default="#333333", max_length=18),
+                ),
+                ("stroke_width", models.PositiveSmallIntegerField(default=2)),
+                (
+                    "meta_type",
+                    models.CharField(choices=[], default="comment", max_length=50),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="meta_nodes_settings",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'User Meta Node Settings',
-                'verbose_name_plural': 'User Meta Nodes Settings',
-                'unique_together': {('owner', 'meta_type')},
+                "verbose_name": "User Meta Node Settings",
+                "verbose_name_plural": "User Meta Nodes Settings",
+                "unique_together": {("owner", "meta_type")},
             },
         ),
     ]

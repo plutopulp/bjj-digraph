@@ -1,4 +1,4 @@
-import uuid 
+import uuid
 
 from django.db import models
 from colorfield.fields import ColorField
@@ -43,6 +43,7 @@ class SiteSettings(SingletonModel):
 
 class AbstractBaseNodeSettings(models.Model):
     """ An abstract base class to moel a node's settings """
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shape_id = models.CharField(max_length=64, default="#square")
     fill = ColorField(default="#ad560e")

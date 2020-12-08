@@ -17,22 +17,49 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='UserGameNodeSettings',
+            name="UserGameNodeSettings",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('shape_id', models.CharField(default='#square', max_length=64)),
-                ('fill', colorfield.fields.ColorField(default='#ad560e', max_length=18)),
-                ('opacity', models.PositiveIntegerField(default=90)),
-                ('stroke', colorfield.fields.ColorField(default='#333333', max_length=18)),
-                ('stroke_width', models.PositiveSmallIntegerField(default=2)),
-                ('game_type', models.CharField(choices=[], default='position', max_length=50)),
-                ('game_subtype', models.CharField(choices=[], default='user', max_length=50)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='game_node_settings', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("shape_id", models.CharField(default="#square", max_length=64)),
+                (
+                    "fill",
+                    colorfield.fields.ColorField(default="#ad560e", max_length=18),
+                ),
+                ("opacity", models.PositiveIntegerField(default=90)),
+                (
+                    "stroke",
+                    colorfield.fields.ColorField(default="#333333", max_length=18),
+                ),
+                ("stroke_width", models.PositiveSmallIntegerField(default=2)),
+                (
+                    "game_type",
+                    models.CharField(choices=[], default="position", max_length=50),
+                ),
+                (
+                    "game_subtype",
+                    models.CharField(choices=[], default="user", max_length=50),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="game_node_settings",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'User Game Node Settings',
-                'verbose_name_plural': 'User Game Nodes Settings',
-                'unique_together': {('owner', 'game_type', 'game_subtype')},
+                "verbose_name": "User Game Node Settings",
+                "verbose_name_plural": "User Game Nodes Settings",
+                "unique_together": {("owner", "game_type", "game_subtype")},
             },
         ),
     ]

@@ -24,7 +24,7 @@ class BaseNodeSettingsSerializer(serializers.ModelSerializer):
         )
 
     def validate_shape(self, data, field_names):
-        """Method for child subclasses to ensure user and specific shape type
+        """Method for child serializer subclasses to ensure user and specific shape type
         are unique together. Would usually do this in the model but the unique together
         fields are spread across multi-tables"""
         user = self.context["request"].user
@@ -50,7 +50,7 @@ class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
     gameSubtype = serializers.CharField(source="game_subtype")
 
     class Meta:
-        model = GameNodeShape
+        model = UserGameNodeSettings
         fields = (
             "id",
             "owner",
@@ -63,8 +63,8 @@ class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
             "strokeWidth",
         )
 
-#    def validate(self, data):
-#        return self.validate_shape(data, field_names=["game_type", "game_subtype"])
+    def validate(self, data):
+        return self.validate_shape(data, field_names=["game_type", "game_subtype"])
 
 
 class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
@@ -74,7 +74,7 @@ class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
     metaType = serializers.CharField(source="meta_type")
 
     class Meta:
-        model = MetaNodeShape
+        model = UserMetaNodeSettings
         fields = (
             "id",
             "owner",
@@ -86,5 +86,5 @@ class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
             "strokeWidth",
         )
 
-#    def validate(self, data):
-#        return self.validate_shape(data, field_names=["meta_type"])
+    def validate(self, data):
+        return self.validate_shape(data, field_names=["meta_type"])

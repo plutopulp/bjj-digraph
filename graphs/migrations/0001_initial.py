@@ -17,14 +17,29 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Graph',
+            name="Graph",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=200)),
-                ('description', models.TextField(blank=True, default='')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('slug', models.SlugField(default='', max_length=200)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='graphs', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("description", models.TextField(blank=True, default="")),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("slug", models.SlugField(default="", max_length=200)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="graphs",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
