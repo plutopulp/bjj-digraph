@@ -21,7 +21,8 @@ class UserGameNodeSettings(AbstractBaseNodeSettings):
     class Meta:
         verbose_name = "User Game Node Settings"
         verbose_name_plural = "User Game Nodes Settings"
-        unique_together = ("owner", "game_type", "game_subtype")
+        # todo: unique_together owner and game_types
+        # issue with duplicate key violation
 
     def __str__(self):
         return f"User: {self.owner.username} Type: {self.game_type} Subtype: {self.game_subtype}"
@@ -37,7 +38,6 @@ class UserMetaNodeSettings(AbstractBaseNodeSettings):
     class Meta:
         verbose_name = "User Meta Node Settings"
         verbose_name_plural = "User Meta Nodes Settings"
-        unique_together = ("owner", "meta_type")
 
     def __str__(self):
         return f"User: {self.owner.username} Type: {self.meta_type}"
