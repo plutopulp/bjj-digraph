@@ -42,7 +42,7 @@ class BaseNodeSettingsSerializer(serializers.ModelSerializer):
             )
 
 
-class GameNodeShapeSerializer(BaseNodeSettingsSerializer):
+class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
     """ A class to serialize a user's game-node settings """
 
     owner = serializers.ReadOnlyField(source="owner.id")
