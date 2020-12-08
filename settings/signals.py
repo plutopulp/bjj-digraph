@@ -16,8 +16,10 @@ def create_nodes_settings(NodeSettingsModel, default_settings, settings_instance
             **node_setting, settings=settings_instance
         ).save()
 
+
 def create_site_settings(settings_instance):
     SiteSettings.objects.create(settings=settings_instance).save()
+
 
 @receiver(post_save, sender=Settings)
 def create_sub_settings(sender, instance, created, **kwargs):

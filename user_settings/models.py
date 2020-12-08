@@ -1,39 +1,43 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-#from main.config.nodes import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
-from settings.models import GameNodeSettings
+from settings.models import AbstractBaseNodeSettings
+from settings.nodes.type_choices import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
 
 
 User = get_user_model()
 
 
-class UserGameNodeSettings(GameNodeSettings):
+class UserGameNodeSettings(AbstractBaseNodeSettings):
     """ A class to represent a user's game-node config/settings """
-
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="game_node_settings")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="game_nodes_settings")
+    game_type = models.CharField(
+        choices=GAME_TYPE_CHOICES, default="position", max_length=50
+    )
+    game_subtype = models.CharField(
+        choices=GAME_SUBTYPE_CHOICES, default="user", max_length=50
+    )
 
     class Meta:
         verbose_name = "User Game Node Settings"
         verbose_name_plural = "User Game Nodes Settings"
-    #    # Unique together validation performed in serializer
+        unique_together = ("owner", "game_type", "game_subtype")
 
-    #def __str__(self):
-    #    return f"{self.game_type} - {self.game_subtype}"
+    def __str__(self):
+        return f"User: {self.owner.username} Type: {self.game_type} Subtype: {self.game_subtype}"
 
 
-#class MetaNodeShape(NodeShape):
-#    """ A class to represent the svg user config/settings of a meta-type node """
-#
-#    meta_type = models.CharField(
-#        choices=META_TYPE_CHOICES, default="comment", max_length=50
-#    )
-#
-#    class Meta:
-#        verbose_name = "Meta Node Shape"
-#        verbose_name_plural = "Meta Node Shapes"
-#        # Unique together validation performed in serializer
-#
-#    def __str__(self):
-#        return self.meta_type
-#
+class UserMetaNodeSettings(AbstractBaseNodeSettings):
+    """ A class to represent a user's meta-node config/settings """
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="meta_nodes_settings")
+    meta_type = models.CharField(
+        choices=META_TYPE_CHOICES, default="comment", max_length=50
+    )
+
+    class Meta:
+        verbose_name = "User Meta Node Settings"
+        verbose_name_plural = "User Meta Nodes Settings"
+        unique_together = ("owner", "meta_type")
+
+    def __str__(self):
+        return f"User: {self.owner.username} Type: {self.meta_type}"

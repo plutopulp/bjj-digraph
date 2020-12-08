@@ -104,7 +104,11 @@ USER_GAME_NODES_SETTINGS = [
 ]
 
 OPPONENT_GAME_NODES_SETTINGS = [
-    dict(node_shape, game_subtype="opponent", opacity=COMMON_NODE_PROPS["opponent_opacity"])
+    dict(
+        node_shape,
+        game_subtype="opponent",
+        opacity=COMMON_NODE_PROPS["opponent_opacity"],
+    )
     for node_shape in BASE_GAME_NODES_SETTINGS
 ]
 
