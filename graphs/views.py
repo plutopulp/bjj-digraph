@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from .serializers import GraphSerializer
 from .models import Graph
-from main.utils.views.permissions import IsOwnerOrReadOnly
+from utils.views.permissions import IsOwnerOrReadOnly
 
 
 class GraphList(generics.ListCreateAPIView):

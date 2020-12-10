@@ -13,7 +13,7 @@ GAME_NODE_VALIDATORS = [MinValueValidator(-100), MaxValueValidator(100)]
 
 
 class Node(models.Model):
-    """ A base class for all bjj digraph nodes """
+    """ A base class to model all bjj digraph nodes """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     graph = models.ForeignKey(

@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+from graphs.models import Graph
 from rest_framework import permissions
 
 
@@ -18,6 +20,14 @@ class IsGraphOwnerOrReadOnly(permissions.BasePermission):
     """
     Object-level permission to only allow owners of a graph to edit its' objects.
     """
+
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        else:
+            graph_id = request.resolver_match.kwargs["graph_id"]
+            graph = get_object_or_404(Graph, id=graph_id)
+            return graph.owner == request.user
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:

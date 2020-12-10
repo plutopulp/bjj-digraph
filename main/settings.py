@@ -28,10 +28,12 @@ INSTALLED_APPS = [
     "colorfield",
     # Local
     "accounts.apps.AccountsConfig",
+    "settings.apps.SettingsConfig",
+    "user_settings.apps.UserSettingsConfig",
+    "utils.apps.UtilsConfig",
     "graphs.apps.GraphsConfig",
     "nodes.apps.NodesConfig",
     "edges.apps.EdgesConfig",
-    "shapes.apps.ShapesConfig",
 ]
 
 MIDDLEWARE = [

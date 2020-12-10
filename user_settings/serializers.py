@@ -1,30 +1,30 @@
 from rest_framework import serializers
-from .models import NodeShape, GameNodeShape, MetaNodeShape
+from settings.models import AbstractBaseNodeSettings
+from .models import UserGameNodeSettings, UserMetaNodeSettings
 
 
-class NodeShapeSerializer(serializers.ModelSerializer):
-    """ A class to serialize node shapes """
+class BaseNodeSettingsSerializer(serializers.ModelSerializer):
+    """ A class to serialize node settings """
 
     id = serializers.UUIDField(required=False)
-    owner = serializers.ReadOnlyField(source="owner.id")
     shapeId = serializers.CharField(source="shape_id")
     fill = serializers.CharField()
     stroke = serializers.CharField()
     strokeWidth = serializers.CharField(source="stroke_width")
 
     class Meta:
-        model = NodeShape
+        model = AbstractBaseNodeSettings
         fields = (
             "id",
-            "owner",
             "shapeId",
             "fill",
+            "opacity",
             "stroke",
             "strokeWidth",
         )
 
     def validate_shape(self, data, field_names):
-        """Method for child subclasses to ensure user and specific shape type
+        """Method for child serializer subclasses to ensure user and specific shape type
         are unique together. Would usually do this in the model but the unique together
         fields are spread across multi-tables"""
         user = self.context["request"].user
@@ -42,14 +42,15 @@ class NodeShapeSerializer(serializers.ModelSerializer):
             )
 
 
-class GameNodeShapeSerializer(NodeShapeSerializer):
-    """ A class to serialize game-node shapes """
+class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
+    """ A class to serialize a user's game-node settings """
 
+    owner = serializers.ReadOnlyField(source="owner.id")
     gameType = serializers.CharField(source="game_type")
     gameSubtype = serializers.CharField(source="game_subtype")
 
     class Meta:
-        model = GameNodeShape
+        model = UserGameNodeSettings
         fields = (
             "id",
             "owner",
@@ -57,6 +58,7 @@ class GameNodeShapeSerializer(NodeShapeSerializer):
             "gameSubtype",
             "shapeId",
             "fill",
+            "opacity",
             "stroke",
             "strokeWidth",
         )
@@ -65,19 +67,21 @@ class GameNodeShapeSerializer(NodeShapeSerializer):
         return self.validate_shape(data, field_names=["game_type", "game_subtype"])
 
 
-class MetaNodeShapeSerializer(NodeShapeSerializer):
-    """ A class to serialize meta-node shapes """
+class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
+    """ A class to serialize a user's meta-node settings """
 
+    owner = serializers.ReadOnlyField(source="owner.id")
     metaType = serializers.CharField(source="meta_type")
 
     class Meta:
-        model = MetaNodeShape
+        model = UserMetaNodeSettings
         fields = (
             "id",
             "owner",
             "metaType",
             "shapeId",
             "fill",
+            "opacity",
             "stroke",
             "strokeWidth",
         )
