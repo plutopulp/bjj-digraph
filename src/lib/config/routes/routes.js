@@ -8,12 +8,33 @@ export const routes = {
     home: "/",
     about: "/about/",
     graphs: {
-      list: "/graphs/",
-      detail: (graphId) => `/graphs/${graphId}/`,
+      base: "/graphs/",
+      get list() {
+        return routes.pages.graphs.base;
+      },
+      detail: (graphId) => `${routes.pages.graphs.base}${graphId}/`,
     },
   },
   api: {
     accounts: "",
+    settings: {
+      base: serverUrl + "settings/",
+      get site() {
+        return routes.api.settings.base + "site/";
+      },
+      get nodes() {
+        return routes.api.settings.base + "nodes/";
+      },
+    },
+    userSettings: {
+      nodes: {
+        base: serverUrl + "user-settings/nodes/",
+        get list() {
+          return routes.api.userSettings.nodes.base + "list/";
+        },
+        detail: (nodeId) => `${routes.api.userSettings.nodes.base}${nodeId}/`,
+      },
+    },
     graphs: {
       list: serverUrl + "graphs/",
       detail: (graphId) => `${routes.api.graphs.list}${graphId}`,
