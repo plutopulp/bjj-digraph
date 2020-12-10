@@ -1,5 +1,21 @@
 from rest_framework import serializers
-from .models import AbstractBaseNodeSettings, GameNodeSettings, MetaNodeSettings
+from .models import (
+    SiteSettings,
+    AbstractBaseNodeSettings,
+    GameNodeSettings,
+    MetaNodeSettings,
+)
+
+
+class SiteSettingsSerializer(serializers.ModelSerializer):
+    """ A class to serialize general site settings """
+
+    class Meta:
+        model = SiteSettings
+        fields = (
+            "title",
+            "site_url",
+        )
 
 
 class BaseNodeSettingsSerializer(serializers.ModelSerializer):
