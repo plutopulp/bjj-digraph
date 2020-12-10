@@ -28,17 +28,19 @@ class NodeAPIViewMixin:
     the node queryset and model for an incoming request
     """
 
+    permission_classes = [IsGraphOwnerOrReadOnly]
+
     def get_graph_id(self):
         """ Returns the graph id from the url """
         graph_id = self.request.resolver_match.kwargs["graph_id"]
         return graph_id
 
-    def get_queryset_(self):
+    def get_queryset(self):
         """ Returns the correct queryset for the node type """
         node_type = self.request.data["type"]
         return formatters[node_type]["model"].objects.all()
 
-    def get_serializer_class_(self):
+    def get_serializer_class(self):
         """ Returns the correct serializer class for the node type """
         node_type = self.request.data["type"]
         return formatters[node_type]["serializer_class"]
@@ -48,11 +50,6 @@ class NodeCreate(NodeAPIViewMixin, generics.CreateAPIView):
     """An API view for creating nodes of different types.
     The node type is required in the body of the request.
     """
-
-    permission_classes = [IsGraphOwnerOrReadOnly]
-
-    def get_serializer_class(self):
-        return self.get_serializer_class_()
 
     def perform_create(self, serializer):
         graph_id = self.get_graph_id()
@@ -65,15 +62,8 @@ class NodeDetail(NodeAPIViewMixin, generics.RetrieveUpdateDestroyAPIView):
     The node type is required in the body of the request.
     """
 
-    permission_classes = [IsGraphOwnerOrReadOnly]
     lookup_field = "id"
     lookup_url_kwarg = "node_id"
-
-    def get_queryset(self):
-        return self.get_queryset_()
-
-    def get_serializer_class(self):
-        return self.get_serializer_class_()
 
 
 class NodeList(NodeAPIViewMixin, FlatMultipleModelAPIView):

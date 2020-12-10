@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "graphs.apps.GraphsConfig",
     "nodes.apps.NodesConfig",
     "edges.apps.EdgesConfig",
-    "shapes.apps.ShapesConfig",
 ]
 
 MIDDLEWARE = [

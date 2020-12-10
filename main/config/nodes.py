@@ -1,3 +1,4 @@
+
 NODES_CONFIG = {
     "game": {
         "types": (
