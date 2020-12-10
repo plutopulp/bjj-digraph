@@ -15,6 +15,7 @@ User = get_user_model()
 
 class AbstractBaseUserNodeSettings(AbstractBaseNodeSettings):
     """ An abstract base class to model user node settings """
+
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
