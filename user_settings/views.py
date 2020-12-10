@@ -3,24 +3,24 @@ from rest_framework import generics
 from drf_multiple_model.views import FlatMultipleModelAPIView
 
 from .models import UserGameNodeSettings, UserMetaNodeSettings
-from .serializers import GameNodeSettingsSerializer, MetaNodeSettingsSerializer
+from .serializers import UserGameNodeSettingsSerializer, UserMetaNodeSettingsSerializer
 from utils.views.permissions import IsOwnerOrReadOnly
 
 formatters = {
     "gameNode": {
         "model": UserGameNodeSettings,
-        "serializer_class": GameNodeSettingsSerializer,
+        "serializer_class": UserGameNodeSettingsSerializer,
         "list": True,
     },
     "metaNode": {
         "model": UserMetaNodeSettings,
-        "serializer_class": MetaNodeSettingsSerializer,
+        "serializer_class": UserMetaNodeSettingsSerializer,
         "list": True,
     },
 }
 
 
-class NodeSettingsAPIViewMixin:
+class UserNodeSettingsAPIViewMixin:
     """A mixin for node settings api views with helper and selector methods for getting
     the node settings queryset and model for an incoming request
     """
@@ -37,15 +37,15 @@ class NodeSettingsAPIViewMixin:
         return formatters[node_type]["serializer_class"]
 
 
-class NodeSettingsCreate(NodeSettingsAPIViewMixin, generics.CreateAPIView):
+class UserNodeSettingsCreate(UserNodeSettingsAPIViewMixin, generics.CreateAPIView):
     """ An API view for creating node settings """
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
-class NodeSettingsDetail(
-    NodeSettingsAPIViewMixin, generics.RetrieveUpdateDestroyAPIView
+class UserNodeSettingsDetail(
+    UserNodeSettingsAPIViewMixin, generics.RetrieveUpdateDestroyAPIView
 ):
     """ A detail API view for RUD operations on node settings """
 
@@ -54,7 +54,7 @@ class NodeSettingsDetail(
     lookup_url_kwarg = "node_settings_id"
 
 
-class NodeSettingsList(FlatMultipleModelAPIView):
+class UserNodeSettingsList(FlatMultipleModelAPIView):
     """ A list API view for all node settings of a given user """
 
     def get_querylist(self):

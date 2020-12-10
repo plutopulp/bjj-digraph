@@ -22,7 +22,7 @@ class BaseNodeSettingsSerializer(serializers.ModelSerializer):
             "strokeWidth",
         )
 
-  
+
 class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
     """ A class to serialize a game-node settings """
 

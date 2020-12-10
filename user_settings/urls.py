@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .views import NodeSettingsCreate, NodeSettingsDetail, NodeSettingsList
+from .views import UserNodeSettingsCreate, UserNodeSettingsDetail, UserNodeSettingsList
 
 
 urlpatterns = [
-    path("", NodeSettingsCreate.as_view()),
-    path("<uuid:node_settings_id>/", NodeSettingsDetail.as_view()),
-    path("list/", NodeSettingsList.as_view()),
+    path("", UserNodeSettingsCreate.as_view()),
+    path("<uuid:node_settings_id>/", UserNodeSettingsDetail.as_view()),
+    path("list/", UserNodeSettingsList.as_view()),
 ]
