@@ -30,7 +30,7 @@ class SiteSettings(SingletonModel):
     settings = models.OneToOneField(
         Settings, on_delete=models.CASCADE, blank=True, null=True
     )
-    name = models.CharField(max_length=256, default="BJJ digraph")
+    title = models.CharField(max_length=256, default="BJJ digraph")
     site_url = models.URLField(max_length=256, default="")
 
     class Meta:
