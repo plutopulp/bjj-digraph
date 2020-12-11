@@ -82,13 +82,13 @@ export const HexagonFlat = (
 );
 
 export const EmptyEdgeShape = (
-  <symbol viewBox="0 0 50 50" id="emptyEdge">
+  <symbol viewBox="0 0 50 50" id="empty-edge">
     <circle cx="25" cy="25" r="8" fill="currentColor" />
   </symbol>
 );
 
 export const SpecialEdgeShape = (
-  <symbol viewBox="0 0 50 50" id="specialEdge">
+  <symbol viewBox="0 0 50 50" id="special-edge">
     <rect
       transform="rotate(45)"
       x="27.5"
@@ -99,6 +99,7 @@ export const SpecialEdgeShape = (
     />
   </symbol>
 );
+
 export const ChoiceShape = (
   <symbol viewBox="0 0 100 100" id="choice" width="100" height="100">
     <rect transform="translate(50, 5) rotate(45)" width="65" height="65" />
@@ -142,13 +143,39 @@ export const Hexagons = (
   </symbol>
 );
 export const EmptyNodeShape = (
-  <symbol viewBox="0 0 154 154" width="154" height="154" id="emptyNode">
+  <symbol viewBox="0 0 154 154" width="154" height="154" id="empty-node">
     <circle cx="77" cy="77" r="76" />
   </symbol>
 );
 
 export const CustomEmptyShape = (
-  <symbol viewBox="0 0 100 100" id="customEmpty">
+  <symbol viewBox="0 0 100 100" id="custom-empty">
     <circle cx="50" cy="50" r="45" />
   </symbol>
 );
+
+export const shapes = [
+  Square,
+  SkinnyRectangle,
+  ComplexCircle,
+  Circle,
+  Trapezoid,
+  TrapezoidFlipped,
+  Hexagon,
+  HexagonPointed,
+  Lozenge,
+  HexagonFlat,
+  EmptyEdgeShape,
+  SpecialEdgeShape,
+  ChoiceShape,
+  TerminatorShape,
+  Ellipse,
+  Triangle,
+  Hexagons,
+  EmptyNodeShape,
+  CustomEmptyShape,
+];
+
+export const getShape = (shapeId) => {
+  return shapes.find((shape) => shape.props.id === shapeId);
+};

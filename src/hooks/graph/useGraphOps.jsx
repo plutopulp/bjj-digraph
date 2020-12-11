@@ -39,7 +39,7 @@ export const useGraphOps = () => {
   }, [escapePressed]);
 
   const handleSelectNode = (node) => {
-    console.log(sKeyPressed);
+    console.log(node);
     if (sKeyPressed) {
       if (multiSelect.find((selectedNode) => selectedNode.id === node.id))
         setMultiSelect(
