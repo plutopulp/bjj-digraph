@@ -11,13 +11,11 @@ formatters = {
     "gameNode": {
         "model": GameNodeSettings,
         "serializer_class": GameNodeSettingsSerializer,
-        "label": "gameNode",
         "list": True,
     },
     "metaNode": {
         "model": MetaNodeSettings,
         "serializer_class": MetaNodeSettingsSerializer,
-        "label": "metaNode",
         "list": True,
     },
 }
@@ -31,6 +29,7 @@ class SiteSettingsRetrieve(generics.RetrieveAPIView):
     """ A retrieve API view for the general site settings """
 
     permission_classes = [permissions.AllowAny]
+    authentication_classes = []
     serializer_class = SiteSettingsSerializer
 
     def get_object(self):
@@ -41,13 +40,14 @@ class NodeSettingsList(FlatMultipleModelAPIView):
     """ A list API view for all base node settings """
 
     permission_classes = [permissions.AllowAny]
+    authentication_classes = []
+    add_model_type = False
 
     def get_querylist(self):
         querylist = [
             {
                 "queryset": formatter["model"].objects.all(),
                 "serializer_class": formatter["serializer_class"],
-                "label": formatter["label"],
             }
             for _, formatter in formatters.items()
             if formatter["list"]

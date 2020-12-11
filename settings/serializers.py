@@ -42,36 +42,37 @@ class BaseNodeSettingsSerializer(serializers.ModelSerializer):
 class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
     """ A class to serialize a game-node settings """
 
-    gameType = serializers.CharField(source="game_type")
-    gameSubtype = serializers.CharField(source="game_subtype")
+    nodeType = serializers.SerializerMethodField()
 
     class Meta:
         model = GameNodeSettings
-        fields = (
-            "id",
-            "gameType",
-            "gameSubtype",
-            "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
-        )
+        fields = ("nodeType",) + BaseNodeSettingsSerializer.Meta.fields
+
+    def get_nodeType(self, obj):
+        return f"game-{obj.game_type}-{obj.game_subtype}"
+
+    def update(self, instance, validated_data):
+        node_type = validated_data.pop("nodeType")
+        type_list = node_type.split("-")
+        instance.game_type = type_list[1]
+        instance.game_subtype = type_list[2]
+        instance.save()
 
 
 class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
     """ A class to serialize a meta-node settings """
 
-    metaType = serializers.CharField(source="meta_type")
+    nodeType = serializers.SerializerMethodField()
 
     class Meta:
         model = MetaNodeSettings
-        fields = (
-            "id",
-            "metaType",
-            "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
-        )
+        fields = ("nodeType",) + BaseNodeSettingsSerializer.Meta.fields
+
+    def get_nodeType(self, obj):
+        return f"meta-{obj.meta_type}"
+
+    def update(self, instance, validated_data):
+        node_type = validated_data.pop("nodeType")
+        type_list = node_type.split("-")
+        instance.meta_type = type_list[1]
+        instance.save()
