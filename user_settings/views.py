@@ -7,12 +7,12 @@ from .serializers import UserGameNodeSettingsSerializer, UserMetaNodeSettingsSer
 from utils.views.permissions import IsOwnerOrReadOnly
 
 formatters = {
-    "gameNode": {
+    "game": {
         "model": UserGameNodeSettings,
         "serializer_class": UserGameNodeSettingsSerializer,
         "list": True,
     },
-    "metaNode": {
+    "meta": {
         "model": UserMetaNodeSettings,
         "serializer_class": UserMetaNodeSettingsSerializer,
         "list": True,
@@ -56,6 +56,8 @@ class UserNodeSettingsDetail(
 
 class UserNodeSettingsList(FlatMultipleModelAPIView):
     """ A list API view for all node settings of a given user """
+
+    add_model_type = False
 
     def get_querylist(self):
         querylist = [

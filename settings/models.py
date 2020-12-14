@@ -46,9 +46,11 @@ class AbstractBaseNodeSettings(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shape_id = models.CharField(max_length=64, default="#square")
+    type_text = models.CharField(max_length=64, default="")
     fill = ColorField(default="#ad560e")
-    opacity = models.PositiveIntegerField(default=COMMON_NODE_PROPS["user_opacity"])
+    fill_opacity = models.FloatField(default=1.0)
     stroke = ColorField(default=COMMON_NODE_PROPS["stroke"])
+    stroke_opacity = models.FloatField(default=1.0)
     stroke_width = models.PositiveSmallIntegerField(
         default=COMMON_NODE_PROPS["stroke_width"]
     )
