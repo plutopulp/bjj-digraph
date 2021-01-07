@@ -4,7 +4,7 @@ from .views import UserNodeSettingsCreate, UserNodeSettingsDetail, UserNodeSetti
 
 
 urlpatterns = [
-    path("", UserNodeSettingsCreate.as_view()),
-    path("<uuid:node_settings_id>/", UserNodeSettingsDetail.as_view()),
-    path("list/", UserNodeSettingsList.as_view()),
+    path("nodes/", UserNodeSettingsCreate.as_view()),
+    path("nodes/<uuid:node_settings_id>/", UserNodeSettingsDetail.as_view()),
+    path("nodes/list/", UserNodeSettingsList.as_view()),
 ]

@@ -7,7 +7,8 @@ COMMON_NODE_PROPS = {
 
 POSITION = {
     "game_type": "position",
-    "shape_id": "#square",
+    "shape_id": "square",
+    "type_text": "New Position",
     "fill": "#ad560e",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -15,7 +16,8 @@ POSITION = {
 
 SUBMISSION = {
     "game_type": "submission",
-    "shape_id": "#complex-circle",
+    "shape_id": "complex-circle",
+    "type_text": "New Submission",
     "fill": "#f53337",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -23,7 +25,8 @@ SUBMISSION = {
 
 TRANSITION = {
     "game_type": "transition",
-    "shape_id": "#skinny-rectangle",
+    "shape_id": "skinny-rectangle",
+    "type_text": "New Transition",
     "fill": "#9f4ae0",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -31,7 +34,8 @@ TRANSITION = {
 
 ENTRY = {
     "game_type": "entry",
-    "shape_id": "#hexagon-pointed",
+    "shape_id": "hexagon-pointed",
+    "type_text": "New Entry",
     "fill": "#86fa5c",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -39,7 +43,8 @@ ENTRY = {
 
 TAKEDOWN = {
     "game_type": "takedown",
-    "shape_id": "#trapezoid",
+    "shape_id": "trapezoid",
+    "type_text": "New Takedown",
     "fill": "#86fade",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -47,7 +52,8 @@ TAKEDOWN = {
 
 SWEEP = {
     "game_type": "sweep",
-    "shape_id": "#trapezoid-flipped",
+    "shape_id": "trapezoid-flipped",
+    "type_text": "New Sweep",
     "fill": "#bd1eba",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -55,7 +61,8 @@ SWEEP = {
 
 GUARD_PULL = {
     "game_type": "guardPull",
-    "shape_id": "#hexagon",
+    "shape_id": "hexagon",
+    "type_text": "New Guard-Pull",
     "fill": "#35aef0",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -63,7 +70,8 @@ GUARD_PULL = {
 
 GUARD_PASS = {
     "game_type": "guardPass",
-    "shape_id": "#hexagon",
+    "shape_id": "hexagon",
+    "type_text": "New Guard-Pass",
     "fill": "#c2b010",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
@@ -71,7 +79,8 @@ GUARD_PASS = {
 
 TEXT = {
     "meta_type": "text",
-    "shape_id": "#square",
+    "shape_id": "square",
+    "type_text": "New Text",
     "fill": "transparent",
     "opacity": "0",
     "stroke": "transparent",
@@ -80,7 +89,8 @@ TEXT = {
 
 COMMENT = {
     "meta_type": "comment",
-    "shape_id": "#square",
+    "shape_id": "square",
+    "type_text": "New Comment",
     "fill": "#bbbbbb",
     "opacity": COMMON_NODE_PROPS["user_opacity"],
     "stroke": COMMON_NODE_PROPS["stroke"],

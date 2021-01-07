@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from colorfield.fields import ColorField
 
 from utils.models import SingletonModel
@@ -11,6 +12,8 @@ from .nodes.type_choices import (
 )
 from .nodes.base_settings import COMMON_NODE_PROPS
 
+NODE_TYPE_CHOICES = (("game", "game"), ("meta", "meta"))
+NODE_SUBTYPE_CHOICES = list(GAME_TYPE_CHOICES) + list(GAME_SUBTYPE_CHOICES) + list(META_TYPE_CHOICES)
 
 class Settings(SingletonModel):
     """Top-most parent settings model whose instantiation triggers
@@ -46,9 +49,11 @@ class AbstractBaseNodeSettings(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shape_id = models.CharField(max_length=64, default="#square")
+    type_text = models.CharField(max_length=64, default="")
     fill = ColorField(default="#ad560e")
-    opacity = models.PositiveIntegerField(default=COMMON_NODE_PROPS["user_opacity"])
+    fill_opacity = models.FloatField(default=1.0)
     stroke = ColorField(default=COMMON_NODE_PROPS["stroke"])
+    stroke_opacity = models.FloatField(default=1.0)
     stroke_width = models.PositiveSmallIntegerField(
         default=COMMON_NODE_PROPS["stroke_width"]
     )
@@ -56,6 +61,16 @@ class AbstractBaseNodeSettings(models.Model):
     class Meta:
         abstract = True
 
+class NodeSettings(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    node_type = models.CharField(max_length=16, default="", choices=NODE_TYPE_CHOICES)
+    node_subtype = ArrayField(models.CharField(max_length=32, default="", choices=NODE_SUBTYPE_CHOICES), size=3, default=list)
+
+    class Meta:
+        unique_together = ("node_type", "node_subtype")
+
+    def __str__(self):
+        return f"{self.node_type}-{self.node_subtype}"
 
 class GameNodeSettings(AbstractBaseNodeSettings):
     """ A class to represent a game node's settings """

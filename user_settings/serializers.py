@@ -1,7 +1,10 @@
 from rest_framework import serializers
+
 from settings.models import AbstractBaseNodeSettings
 from settings.serializers import BaseNodeSettingsSerializer
 from .models import UserGameNodeSettings, UserMetaNodeSettings
+from utils.serializers import ReadWriteSerializerMethodField
+from utils.strings import camelcase_to_underscore
 
 
 class BaseUserNodeSettingsSerializer(BaseNodeSettingsSerializer):
@@ -13,18 +16,28 @@ class BaseUserNodeSettingsSerializer(BaseNodeSettingsSerializer):
         model = AbstractBaseNodeSettings
         fields = (
             "id",
+            "nodeType",
             "owner",
             "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
+            "svgProps",
         )
 
-    def validate_shape(self, data, field_names):
-        """Method for child serializer subclasses to ensure user and specific shape type
-        are unique together. Would usually do this in the model but the unique together
-        fields are spread across models"""
+    def update(self, instance, validated_data):
+        """ Possible update fields are svgProps and shapeId """
+
+        instance.shape_id = validated_data["shape_id"]
+        for svg_key, svg_value in validated_data["svgProps"].items():
+            setattr(instance, camelcase_to_underscore(svg_key), svg_value)
+        instance.save()
+        return instance
+
+    def validate_subtypes(self, data, field_names):
+        """Validate method for child serializer subclasses to ensure user and
+        specific subtypes are unique together.
+        Would usually do this directly in the model but the unique together
+        fields are spread across models. Currently not implemented as only shape and svg
+        fields are updated, but may be useful in future for updating node types."""
+
         user = self.context["request"].user
         fields = {field_name: data[field_name] for field_name in field_names}
         model = self.Meta.model
@@ -43,44 +56,24 @@ class BaseUserNodeSettingsSerializer(BaseNodeSettingsSerializer):
 class UserGameNodeSettingsSerializer(BaseUserNodeSettingsSerializer):
     """ A class to serialize a user's game-node settings """
 
-    gameType = serializers.CharField(source="game_type")
-    gameSubtype = serializers.CharField(source="game_subtype")
+    nodeType = ReadWriteSerializerMethodField()
 
     class Meta:
         model = UserGameNodeSettings
-        fields = (
-            "id",
-            "owner",
-            "gameType",
-            "gameSubtype",
-            "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
-        )
+        fields = BaseUserNodeSettingsSerializer.Meta.fields
 
-    def validate(self, data):
-        return self.validate_shape(data, field_names=["game_type", "game_subtype"])
+    def get_nodeType(self, obj):
+        return {"type": "game", "subtype": (obj.game_type, obj.game_subtype)}
 
 
 class UserMetaNodeSettingsSerializer(BaseUserNodeSettingsSerializer):
     """ A class to serialize a user's meta-node settings """
 
-    metaType = serializers.CharField(source="meta_type")
+    nodeType = ReadWriteSerializerMethodField()
 
     class Meta:
         model = UserMetaNodeSettings
-        fields = (
-            "id",
-            "owner",
-            "metaType",
-            "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
-        )
+        fields = BaseUserNodeSettingsSerializer.Meta.fields
 
-    def validate(self, data):
-        return self.validate_shape(data, field_names=["meta_type"])
+    def get_nodeType(self, obj):
+        return {"type": "meta", "subtype": (obj.meta_type,)}

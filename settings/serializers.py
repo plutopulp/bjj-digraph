@@ -1,10 +1,12 @@
 from rest_framework import serializers
+
 from .models import (
     SiteSettings,
     AbstractBaseNodeSettings,
     GameNodeSettings,
     MetaNodeSettings,
 )
+from utils.serializers import ReadWriteSerializerMethodField
 
 
 class SiteSettingsSerializer(serializers.ModelSerializer):
@@ -19,59 +21,51 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
 
 
 class BaseNodeSettingsSerializer(serializers.ModelSerializer):
-    """ A class to serialize node settings """
+    """ A base class to serialize node settings """
 
     id = serializers.UUIDField(required=False)
     shapeId = serializers.CharField(source="shape_id")
-    fill = serializers.CharField()
-    stroke = serializers.CharField()
-    strokeWidth = serializers.CharField(source="stroke_width")
+    typeText = serializers.CharField(source="type_text")
+    svgProps = ReadWriteSerializerMethodField()
+    # Child serializers should define their own method
+    nodeType = ReadWriteSerializerMethodField()
 
     class Meta:
         model = AbstractBaseNodeSettings
         fields = (
             "id",
+            "nodeType",
             "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
+            "typeText",
+            "svgProps",
         )
+
+    def get_svgProps(self, obj):
+        return {
+            "fill": obj.fill,
+            "fillOpacity": obj.fill_opacity,
+            "stroke": obj.stroke,
+            "strokeOpacity": obj.stroke_opacity,
+            "strokeWidth": obj.stroke_width,
+        }
 
 
 class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
     """ A class to serialize a game-node settings """
 
-    gameType = serializers.CharField(source="game_type")
-    gameSubtype = serializers.CharField(source="game_subtype")
-
     class Meta:
         model = GameNodeSettings
-        fields = (
-            "id",
-            "gameType",
-            "gameSubtype",
-            "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
-        )
+        fields = BaseNodeSettingsSerializer.Meta.fields
 
-
+    def get_nodeType(self, obj):
+        return {"type": "game", "subtype": (obj.game_type, obj.game_subtype)}
+    
 class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
     """ A class to serialize a meta-node settings """
 
-    metaType = serializers.CharField(source="meta_type")
-
     class Meta:
         model = MetaNodeSettings
-        fields = (
-            "id",
-            "metaType",
-            "shapeId",
-            "fill",
-            "opacity",
-            "stroke",
-            "strokeWidth",
-        )
+        fields = BaseNodeSettingsSerializer.Meta.fields
+
+    def get_nodeType(self, obj):
+        return {"type": "meta", "subtype": (obj.meta_type,)}
