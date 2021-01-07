@@ -4,10 +4,11 @@ from django.dispatch import receiver
 from .models import (
     Settings,
     SiteSettings,
+    DefaultNodeSettings,
     GameNodeSettings,
     MetaNodeSettings,
 )
-from .nodes.base_settings import GAME_NODES_SETTINGS, META_NODES_SETTINGS
+from .nodes.base_settings import SCORE_NODES_SETTINGS, META_NODES_SETTINGS
 
 
 def create_nodes_settings(NodeSettingsModel, default_settings, settings_instance):

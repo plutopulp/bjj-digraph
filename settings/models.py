@@ -5,6 +5,8 @@ from django.contrib.postgres.fields import ArrayField
 from colorfield.fields import ColorField
 
 from utils.models import SingletonModel
+
+from main.config.node_types import NODE_TYPES
 from .nodes.type_choices import (
     GAME_TYPE_CHOICES,
     GAME_SUBTYPE_CHOICES,
@@ -12,17 +14,6 @@ from .nodes.type_choices import (
 )
 from .nodes.base_settings import COMMON_NODE_PROPS
 
-NODE_TYPE_CHOICES = (("game", "game"), ("meta", "meta"))
-NODE_SUBTYPE_CHOICES = list(GAME_TYPE_CHOICES) + list(GAME_SUBTYPE_CHOICES) + list(META_TYPE_CHOICES)
-
-META_TYPES = ("comment", "text")
-SCORE_TYPES = ("entry", "position", "guardpass", "guardpull", "submission", "takedown", "sweep", "transition")
-SCORE_SUBTYPES = ("user", "opponent")
-
-META_NODE_TYPES = ((f"meta-{t}", f"meta-{t}") for t in META_TYPES)
-SCORE_NODE_TYPES = ((f"score-{t}-{s}", f"score-{t}-{s}") for t in SCORE_TYPES for s in SCORE_SUBTYPES)
-
-NODE_TYPES = list(SCORE_NODE_TYPES) + list(META_NODE_TYPES)
 
 class Settings(SingletonModel):
     """Top-most parent settings model whose instantiation triggers
