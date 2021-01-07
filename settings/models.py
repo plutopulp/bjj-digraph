@@ -15,6 +15,15 @@ from .nodes.base_settings import COMMON_NODE_PROPS
 NODE_TYPE_CHOICES = (("game", "game"), ("meta", "meta"))
 NODE_SUBTYPE_CHOICES = list(GAME_TYPE_CHOICES) + list(GAME_SUBTYPE_CHOICES) + list(META_TYPE_CHOICES)
 
+META_TYPES = ("comment", "text")
+SCORE_TYPES = ("entry", "position", "guardpass", "guardpull", "submission", "takedown", "sweep", "transition")
+SCORE_SUBTYPES = ("user", "opponent")
+
+META_NODE_TYPES = ((f"meta-{t}", f"meta-{t}") for t in META_TYPES)
+SCORE_NODE_TYPES = ((f"score-{t}-{s}", f"score-{t}-{s}") for t in SCORE_TYPES for s in SCORE_SUBTYPES)
+
+NODE_TYPES = list(SCORE_NODE_TYPES) + list(META_NODE_TYPES)
+
 class Settings(SingletonModel):
     """Top-most parent settings model whose instantiation triggers
     the creation of all sub settings modules through post save signal"""
@@ -45,9 +54,10 @@ class SiteSettings(SingletonModel):
 
 
 class AbstractBaseNodeSettings(models.Model):
-    """ An abstract base class to moel a node's settings """
+    """ An abstract base class to model the svg properties of a node """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    node_type = models.CharField(max_length=128, default="", choices=NODE_TYPES)
     shape_id = models.CharField(max_length=64, default="#square")
     type_text = models.CharField(max_length=64, default="")
     fill = ColorField(default="#ad560e")
@@ -61,16 +71,18 @@ class AbstractBaseNodeSettings(models.Model):
     class Meta:
         abstract = True
 
-class NodeSettings(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    node_type = models.CharField(max_length=16, default="", choices=NODE_TYPE_CHOICES)
-    node_subtype = ArrayField(models.CharField(max_length=32, default="", choices=NODE_SUBTYPE_CHOICES), size=3, default=list)
+    def __str__(self):
+        return self.node_type
+
+class DefaultNodeSettings(AbstractBaseNodeSettings):
+    """ A class to model the default settings of a node """
+    settings = models.ForeignKey(
+        Settings, on_delete=models.CASCADE, blank=True, null=True
+    )
 
     class Meta:
-        unique_together = ("node_type", "node_subtype")
+        verbose_name = "Default Node Settings"
 
-    def __str__(self):
-        return f"{self.node_type}-{self.node_subtype}"
 
 class GameNodeSettings(AbstractBaseNodeSettings):
     """ A class to represent a game node's settings """

@@ -92,12 +92,12 @@ COMMENT = {
     "shape_id": "square",
     "type_text": "New Comment",
     "fill": "#bbbbbb",
-    "opacity": COMMON_NODE_PROPS["user_opacity"],
+    "fill_opacity": COMMON_NODE_PROPS["user_opacity"],
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
 }
 
-BASE_GAME_NODES_SETTINGS = [
+BASE_SCORE_NODES_SETTINGS = [
     POSITION,
     SUBMISSION,
     TRANSITION,
@@ -108,19 +108,19 @@ BASE_GAME_NODES_SETTINGS = [
     GUARD_PASS,
 ]
 
-USER_GAME_NODES_SETTINGS = [
-    dict(node_shape, game_subtype="user", opacity=COMMON_NODE_PROPS["user_opacity"])
-    for node_shape in BASE_GAME_NODES_SETTINGS
+USER_SCORE_NODES_SETTINGS = [
+    dict(node_shape, game_subtype="user", fill_opacity=COMMON_NODE_PROPS["user_opacity"])
+    for node_shape in BASE_SCORE_NODES_SETTINGS
 ]
 
-OPPONENT_GAME_NODES_SETTINGS = [
+OPPONENT_SCORE_NODES_SETTINGS = [
     dict(
         node_shape,
         game_subtype="opponent",
-        opacity=COMMON_NODE_PROPS["opponent_opacity"],
+        fill_opacity=COMMON_NODE_PROPS["opponent_opacity"],
     )
-    for node_shape in BASE_GAME_NODES_SETTINGS
+    for node_shape in BASE_SCORE_NODES_SETTINGS
 ]
 
-GAME_NODES_SETTINGS = USER_GAME_NODES_SETTINGS + OPPONENT_GAME_NODES_SETTINGS
+SCORE_NODES_SETTINGS = USER_SCORE_NODES_SETTINGS + OPPONENT_SCORE_NODES_SETTINGS
 META_NODES_SETTINGS = [COMMENT, TEXT]
