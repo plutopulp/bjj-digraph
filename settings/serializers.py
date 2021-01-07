@@ -28,7 +28,7 @@ class BaseNodeSettingsSerializer(serializers.ModelSerializer):
     typeText = serializers.CharField(source="type_text")
     svgProps = ReadWriteSerializerMethodField()
     # Child serializers should define their own method
-    nodeType = serializers.SerializerMethodField()
+    nodeType = ReadWriteSerializerMethodField()
 
     class Meta:
         model = AbstractBaseNodeSettings
@@ -58,16 +58,8 @@ class GameNodeSettingsSerializer(BaseNodeSettingsSerializer):
         fields = BaseNodeSettingsSerializer.Meta.fields
 
     def get_nodeType(self, obj):
-        return f"game-{obj.game_type}-{obj.game_subtype}"
-
-    def update(self, instance, validated_data):
-        node_type = validated_data.pop("nodeType")
-        type_list = node_type.split("-")
-        instance.game_type = type_list[1]
-        instance.game_subtype = type_list[2]
-        instance.save()
-
-
+        return {"type": "game", "subtype": (obj.game_type, obj.game_subtype)}
+    
 class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
     """ A class to serialize a meta-node settings """
 
@@ -76,10 +68,4 @@ class MetaNodeSettingsSerializer(BaseNodeSettingsSerializer):
         fields = BaseNodeSettingsSerializer.Meta.fields
 
     def get_nodeType(self, obj):
-        return f"meta-{obj.meta_type}"
-
-    def update(self, instance, validated_data):
-        node_type = validated_data.pop("nodeType")
-        type_list = node_type.split("-")
-        instance.meta_type = type_list[1]
-        instance.save()
+        return {"type": "meta", "subtype": (obj.meta_type,)}

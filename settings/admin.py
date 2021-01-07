@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import (
     Settings,
     SiteSettings,
+    NodeSettings,
     GameNodeSettings,
     MetaNodeSettings,
 )
@@ -36,6 +37,7 @@ class MetaNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
 
 
 admin.site.register(Settings)
+admin.site.register(NodeSettings)
 admin.site.register(SiteSettings, SiteSettingsAdmin)
 admin.site.register(GameNodeSettings, GameNodeSettingsAdmin)
 admin.site.register(MetaNodeSettings, MetaNodeSettingsAdmin)
