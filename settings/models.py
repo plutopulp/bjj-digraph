@@ -12,7 +12,7 @@ from .nodes.type_choices import (
     GAME_SUBTYPE_CHOICES,
     META_TYPE_CHOICES,
 )
-from .nodes.base_settings import COMMON_NODE_PROPS
+from .nodes.default import COMMON_NODE_PROPS
 
 
 class Settings(SingletonModel):
