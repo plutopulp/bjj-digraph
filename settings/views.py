@@ -1,21 +1,15 @@
 from rest_framework import generics, permissions
 from drf_multiple_model.views import FlatMultipleModelAPIView
-from .models import SiteSettings, GameNodeSettings, MetaNodeSettings
+from .models import SiteSettings, DefaultNodeSettings
 from .serializers import (
     SiteSettingsSerializer,
-    GameNodeSettingsSerializer,
-    MetaNodeSettingsSerializer,
+    NodeSettingsSerializer
 )
 
 formatters = {
-    "gameNode": {
-        "model": GameNodeSettings,
-        "serializer_class": GameNodeSettingsSerializer,
-        "list": True,
-    },
-    "metaNode": {
-        "model": MetaNodeSettings,
-        "serializer_class": MetaNodeSettingsSerializer,
+    "all": {
+        "model": DefaultNodeSettings,
+        "serializer_class": NodeSettingsSerializer,
         "list": True,
     },
 }
@@ -37,7 +31,7 @@ class SiteSettingsRetrieve(generics.RetrieveAPIView):
 
 
 class NodeSettingsList(FlatMultipleModelAPIView):
-    """ A list API view for all base node settings """
+    """ A list API view for all default node settings """
 
     permission_classes = [permissions.AllowAny]
     authentication_classes = []

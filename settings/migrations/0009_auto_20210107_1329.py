@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('settings', '0008_auto_20201214_2207'),
+        ("settings", "0008_auto_20201214_2207"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='nodesettings',
+            name="nodesettings",
             unique_together=set(),
         ),
         migrations.RemoveField(
-            model_name='nodesettings',
-            name='node_subtype',
+            model_name="nodesettings",
+            name="node_subtype",
         ),
     ]

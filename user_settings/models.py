@@ -8,9 +8,24 @@ from settings.nodes.type_choices import (
     GAME_SUBTYPE_CHOICES,
     META_TYPE_CHOICES,
 )
+from main.config.node_types import NODE_TYPES
 
 
 User = get_user_model()
+
+
+class UserNodeSettings(AbstractBaseNodeSettings):
+    """ A class to model a the svg node settings of a given user """
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    node_type = models.CharField(max_length=128, default="", choices=NODE_TYPES)
+
+    objects = NodeSettingsManager()
+
+    class Meta:
+        verbose_name = "User Node Settings"
+        verbose_name_plural = "User Nodes Settings"
+        unique_together = ("owner", "node_type",)
 
 
 class AbstractBaseUserNodeSettings(AbstractBaseNodeSettings):

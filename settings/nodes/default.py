@@ -107,10 +107,16 @@ SCORE_NODE_SETTINGS = [
     dict(v, node_type=f"score-{k}-user", fill_opacity=COMMON_NODE_PROPS["user_opacity"])
     for k, v in BASE_SCORE_NODE_SETTINGS.items()
 ] + [
-    dict(v, node_type=f"score-{k}-opponent", fill_opacity=COMMON_NODE_PROPS["opponent_opacity"])
+    dict(
+        v,
+        node_type=f"score-{k}-opponent",
+        fill_opacity=COMMON_NODE_PROPS["opponent_opacity"],
+    )
     for k, v in BASE_SCORE_NODE_SETTINGS.items()
 ]
 
-META_NODE_SETTINGS = [dict(v, node_type=f"meta-{k}") for k, v in BASE_META_NODE_SETTINGS.items()]
+META_NODE_SETTINGS = [
+    dict(v, node_type=f"meta-{k}") for k, v in BASE_META_NODE_SETTINGS.items()
+]
 
 DEFAULT_NODE_SETTINGS = SCORE_NODE_SETTINGS + META_NODE_SETTINGS

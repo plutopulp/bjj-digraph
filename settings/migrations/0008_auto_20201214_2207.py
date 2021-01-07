@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('settings', '0007_auto_20201214_2205'),
+        ("settings", "0007_auto_20201214_2205"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='nodesettings',
-            unique_together={('node_type', 'node_subtype')},
+            name="nodesettings",
+            unique_together={("node_type", "node_subtype")},
         ),
     ]

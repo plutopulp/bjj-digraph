@@ -64,14 +64,15 @@ class AbstractBaseNodeSettings(models.Model):
     def __str__(self):
         return self.node_type
 
+
 class DefaultNodeSettings(AbstractBaseNodeSettings):
-    """ A class to model the default settings of a node. When a user is registered,
+    """A class to model the default settings of a node. When a user is registered,
     user node settings models are instantiated through post save signals which are
-    initialised as copied instances of this default model. """
+    initialised as copied instances of this default model."""
 
     # settings field not included in AbstractBaseNodeSettings as latter is
     # used in user_settings models. node_type included here for unique_together
-    # constraint 
+    # constraint
     node_type = models.CharField(max_length=128, default="", choices=NODE_TYPES)
     settings = models.ForeignKey(
         Settings, on_delete=models.CASCADE, blank=True, null=True

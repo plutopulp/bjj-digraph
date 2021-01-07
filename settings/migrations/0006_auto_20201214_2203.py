@@ -8,30 +8,61 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('settings', '0005_auto_20201214_1826'),
+        ("settings", "0005_auto_20201214_1826"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='NodeSettings',
+            name="NodeSettings",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('node_type', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(choices=[('position', 'position'), ('submission', 'submission'), ('entry', 'entry'), ('transition', 'transition'), ('sweep', 'sweep'), ('takedown', 'takedown'), ('guardPull', 'guardPull'), ('guardPass', 'guardPass'), ('user', 'user'), ('opponent', 'opponent'), ('comment', 'comment'), ('text', 'text')], default='', max_length=32), size=3)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "node_type",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.CharField(
+                            choices=[
+                                ("position", "position"),
+                                ("submission", "submission"),
+                                ("entry", "entry"),
+                                ("transition", "transition"),
+                                ("sweep", "sweep"),
+                                ("takedown", "takedown"),
+                                ("guardPull", "guardPull"),
+                                ("guardPass", "guardPass"),
+                                ("user", "user"),
+                                ("opponent", "opponent"),
+                                ("comment", "comment"),
+                                ("text", "text"),
+                            ],
+                            default="",
+                            max_length=32,
+                        ),
+                        size=3,
+                    ),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='gamenodesettings',
-            name='game_subtype',
-            field=models.CharField(choices=[], default='user', max_length=50),
+            model_name="gamenodesettings",
+            name="game_subtype",
+            field=models.CharField(choices=[], default="user", max_length=50),
         ),
         migrations.AlterField(
-            model_name='gamenodesettings',
-            name='game_type',
-            field=models.CharField(choices=[], default='position', max_length=50),
+            model_name="gamenodesettings",
+            name="game_type",
+            field=models.CharField(choices=[], default="position", max_length=50),
         ),
         migrations.AlterField(
-            model_name='metanodesettings',
-            name='meta_type',
-            field=models.CharField(choices=[], default='text', max_length=50),
+            model_name="metanodesettings",
+            name="meta_type",
+            field=models.CharField(choices=[], default="text", max_length=50),
         ),
     ]
