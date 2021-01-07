@@ -48,7 +48,6 @@ class AbstractBaseNodeSettings(models.Model):
     """ An abstract base class to model the svg properties of a node """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    node_type = models.CharField(max_length=128, default="", choices=NODE_TYPES)
     shape_id = models.CharField(max_length=64, default="#square")
     type_text = models.CharField(max_length=64, default="")
     fill = ColorField(default="#ad560e")
@@ -66,62 +65,19 @@ class AbstractBaseNodeSettings(models.Model):
         return self.node_type
 
 class DefaultNodeSettings(AbstractBaseNodeSettings):
-    """ A class to model the default settings of a node """
+    """ A class to model the default settings of a node. When a user is registered,
+    user node settings models are instantiated through post save signals which are
+    initialised as copied instances of this default model. """
+
+    # settings field not included in AbstractBaseNodeSettings as latter is
+    # used in user_settings models. node_type included here for unique_together
+    # constraint 
+    node_type = models.CharField(max_length=128, default="", choices=NODE_TYPES)
     settings = models.ForeignKey(
         Settings, on_delete=models.CASCADE, blank=True, null=True
     )
 
     class Meta:
         verbose_name = "Default Node Settings"
-
-
-class GameNodeSettings(AbstractBaseNodeSettings):
-    """ A class to represent a game node's settings """
-
-    # settings field not included in AbstractBaseNodeSettings as latter is
-    # used in user_settings models which don't require a settings field
-    settings = models.ForeignKey(
-        Settings, on_delete=models.CASCADE, blank=True, null=True
-    )
-
-    game_type = models.CharField(
-        choices=GAME_TYPE_CHOICES, default="position", max_length=50
-    )
-    game_subtype = models.CharField(
-        choices=GAME_SUBTYPE_CHOICES, default="user", max_length=50
-    )
-
-    class Meta:
-        verbose_name = "Game Node Settings"
-        verbose_name_plural = "Game Nodes Settings"
-        unique_together = (
-            "settings",
-            "game_type",
-            "game_subtype",
-        )
-
-    def __str__(self):
-        return f"{self.game_type} - {self.game_subtype}"
-
-
-class MetaNodeSettings(AbstractBaseNodeSettings):
-    """ A class to represent a meta node's settings """
-
-    # settings field not included in BaseNodeSettings as latter is
-    # used in user_settings models which don't require a settings field
-    settings = models.ForeignKey(
-        Settings, on_delete=models.CASCADE, blank=True, null=True
-    )
-    meta_type = models.CharField(
-        choices=META_TYPE_CHOICES,
-        default="text",
-        max_length=50,
-    )
-
-    class Meta:
-        verbose_name = "Meta Node Settings"
-        verbose_name_plural = "Meta Nodes Settings"
-        unique_together = ("settings", "meta_type")
-
-    def __str__(self):
-        return self.meta_type
+        verbose_name_plural = "Default Nodes Settings"
+        unique_together = ("settings", "node_type")

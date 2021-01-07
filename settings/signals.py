@@ -5,8 +5,6 @@ from .models import (
     Settings,
     SiteSettings,
     DefaultNodeSettings,
-    GameNodeSettings,
-    MetaNodeSettings,
 )
 from .nodes.default import DEFAULT_NODE_SETTINGS
 

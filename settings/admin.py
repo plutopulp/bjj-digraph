@@ -4,8 +4,6 @@ from .models import (
     Settings,
     SiteSettings,
     DefaultNodeSettings,
-    GameNodeSettings,
-    MetaNodeSettings,
 )
 
 from .forms import SiteSettingsChangeForm, NodeSettingsChangeForm
@@ -26,18 +24,11 @@ class SiteSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
     form = SiteSettingsChangeForm
 
 
-class GameNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
-    model = GameNodeSettings
-    form = NodeSettingsChangeForm
-
-
-class MetaNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
-    model = MetaNodeSettings
+class DefaultNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
+    model = DefaultNodeSettings
     form = NodeSettingsChangeForm
 
 
 admin.site.register(Settings)
-admin.site.register(DefaultNodeSettings)
+admin.site.register(DefaultNodeSettings, DefaultNodeSettingsAdmin)
 admin.site.register(SiteSettings, SiteSettingsAdmin)
-admin.site.register(GameNodeSettings, GameNodeSettingsAdmin)
-admin.site.register(MetaNodeSettings, MetaNodeSettingsAdmin)

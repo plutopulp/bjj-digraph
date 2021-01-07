@@ -3,17 +3,17 @@ from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 from django.forms.models import model_to_dict
 
-from settings.models import GameNodeSettings, MetaNodeSettings
+from settings.models import DefaultNodeSettings
 from user_settings.models import UserGameNodeSettings, UserMetaNodeSettings
 
 User = get_user_model()
 
-excluded_fields = ("id",)
 
 
 def create_single_node_settings(base_settings_obj, UserSettingsModel, user_instance):
     """ Creates a user node settings object with base settings field values """
     base_settings_dict = model_to_dict(base_settings_obj)
+    excluded_fields = ("id",)
     user_node_settings = UserSettingsModel.objects.create(owner=user_instance)
     for key, value in base_settings_dict.items():
         if key not in excluded_fields:
@@ -33,5 +33,4 @@ def create_user_settings(sender, instance, created, **kwargs):
     """When a user is created, generate all settings model instances
     which store the user's config/preferences"""
     if created:
-        create_nodes_settings(GameNodeSettings, UserGameNodeSettings, instance)
-        create_nodes_settings(MetaNodeSettings, UserMetaNodeSettings, instance)
+        create_nodes_settings(DefaultNodeSettings, UserMetaNodeSettings, instance)
