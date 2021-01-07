@@ -1,16 +1,13 @@
 import React from "react";
 import { Node } from "react-digraph";
 import { GraphContext } from "../../contexts/graph";
-import {
-  nodeTypes,
-  opponentShapeProps,
-  userShapeProps,
-} from "../../lib/config/types/nodeTypes";
+import { NodeTypesContext } from "../../contexts/nodeTypes";
 import { getNodeSize } from "../../lib/utils/graph";
 
 // A hook which returns a function giving all the svg properties of a node
 export const useNodeShape = () => {
   const { multiSelect, paths } = React.useContext(GraphContext);
+  const { nodeTypes } = React.useContext(NodeTypesContext);
 
   // returns the svg width, height and x, y position offset
   // of the node
@@ -20,20 +17,13 @@ export const useNodeShape = () => {
     const y = -height / 2;
     return { width, height, x, y };
   };
-  // Returns the base (static) svg properties of a node of a given type and subtype
+  // Returns the base (static) svg properties of a node of a given type
   const getBaseSvgProps = (nodeType, xlinkHref) => {
-    const subtype = nodeType.subtype;
-    let svgProps = { fill: nodeType.fill, ...getNodeDimensions(xlinkHref) };
-    switch (subtype) {
-      case "user":
-        svgProps = { ...svgProps, ...userShapeProps };
-        break;
-      case "opponent":
-        svgProps = { ...svgProps, ...opponentShapeProps };
-        break;
-      default:
-        throw new Error(`Node subtype ${subtype} not recognized.`);
-    }
+    let svgProps = {
+      ...nodeType.svgProps,
+      ...getNodeDimensions(xlinkHref),
+    };
+
     return svgProps;
   };
   // Returns the dynamic svg properties of a node due to user interaction
@@ -45,7 +35,6 @@ export const useNodeShape = () => {
     paths.forEach((path) => {
       path.forEach((node) => pathNodes.push(node));
     });
-    console.log(pathNodes);
 
     if (pathNodes.find((pathNode) => pathNode.id === node.id)) {
       return { strokeWidth: "20" };

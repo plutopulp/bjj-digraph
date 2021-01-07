@@ -21,11 +21,12 @@ export const useNodeDrop = (graphRef, wrapperRef) => {
     ]);
     if (dropPosition)
       handleCreateNode(dropPosition[0], dropPosition[1], itemType.subtype);
+    console.log(itemType);
   };
 
   const handleCanDrop = () => {
     if (!readOnly) return true;
-    // else trigger a msg to user to unlock graph
+    // todo: else trigger a msg to user to unlock graph
   };
 
   const [{ itemType }, dropRef] = useDrop({

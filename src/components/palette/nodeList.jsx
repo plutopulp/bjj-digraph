@@ -1,8 +1,8 @@
 import React from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
+import { NodeTypesContext } from "../../contexts/nodeTypes";
 
-import { nodeTypes } from "../../lib/config/types/nodeTypes";
 import { DragableNode } from "./dragableNode";
 
 const ListWrapper = styled.div`
@@ -13,10 +13,11 @@ const ListWrapper = styled.div`
 `;
 
 export const NodeList = () => {
+  const { nodeTypes } = React.useContext(NodeTypesContext);
   return (
     <ListWrapper>
-      {Object.values(nodeTypes).map((node) => (
-        <DragableNode key={uuid()} node={node} />
+      {Object.values(nodeTypes).map((nodeType) => (
+        <DragableNode key={uuid()} nodeType={nodeType} />
       ))}
     </ListWrapper>
   );

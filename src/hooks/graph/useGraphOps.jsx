@@ -1,6 +1,5 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
-import _ from "lodash";
 
 import { GraphContext } from "../../contexts/graph";
 import { getNodeIndex, getEdgeIndex } from "../../lib/utils/graph";
@@ -61,7 +60,6 @@ export const useGraphOps = () => {
       id: uuid(),
       title: nodeType.typeText,
       type: nodeType.name,
-      ..._.omit(nodeType, ["name", "typeText", "shapeId", "shape"]),
       x,
       y,
     };

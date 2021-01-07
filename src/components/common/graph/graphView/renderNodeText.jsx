@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Node } from "react-digraph";
 
-import { nodeTypes } from "../../../../lib/config/types/nodeTypes";
 import { getNodeSize } from "../../../../lib/utils/graph";
 
 const NodeContentWrapper = styled.div`
@@ -18,7 +17,7 @@ const NodeContentWrapper = styled.div`
   padding: 1em;
 `;
 
-const renderNodeText = (data) => {
+const renderNodeText = (data, nodeTypes) => {
   const xlinkHref = Node.getNodeTypeXlinkHref(data, nodeTypes) || "";
   const { width, height } = getNodeSize(xlinkHref);
   return (

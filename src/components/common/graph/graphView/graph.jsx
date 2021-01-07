@@ -20,8 +20,9 @@ import renderNode from "./renderNode";
 import renderNodeText from "./renderNodeText";
 import { GraphContext } from "../../../../contexts/graph";
 import ToolBox from "./graphToolBox";
+import { NodeTypesContext } from "../../../../contexts/nodeTypes";
 
-const { nodeTypes, nodeSubtypes, edgeTypes } = graphConfig;
+const { nodeSubtypes, edgeTypes } = graphConfig;
 
 const GraphWrapper = styled.div`
   position: relative;
@@ -61,6 +62,7 @@ const GraphViewContainer = ({
   const translation = useTranslation(graphRef);
   const getNodeShape = useNodeShape();
   const { multiSelect, paths } = React.useContext(GraphContext);
+  const { nodeTypes } = React.useContext(NodeTypesContext);
 
   const [showToolBox, setShowToolBox] = React.useState(false);
 
@@ -102,7 +104,7 @@ const GraphViewContainer = ({
           onCopySelected={handleCopySelected}
           onPasteSelected={handlePasteSelected}
           renderNode={handleRenderNode}
-          renderNodeText={renderNodeText}
+          renderNodeText={(data) => renderNodeText(data, nodeTypes)}
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}
