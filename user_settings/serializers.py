@@ -1,19 +1,19 @@
 from rest_framework import serializers
 
 from settings.models import AbstractBaseNodeSettings
-from settings.serializers import BaseNodeSettingsSerializer
-from .models import UserGameNodeSettings, UserMetaNodeSettings
+from settings.serializers import NodeSettingsSerializer
+from .models import UserGameNodeSettings, UserMetaNodeSettings, UserNodeSettings
 from utils.serializers import ReadWriteSerializerMethodField
 from utils.strings import camelcase_to_underscore
 
 
-class BaseUserNodeSettingsSerializer(BaseNodeSettingsSerializer):
+class UserNodeSettingsSerializer(NodeSettingsSerializer):
     """ A base class to serialize user node settings """
 
     owner = serializers.ReadOnlyField(source="owner.id")
 
     class Meta:
-        model = AbstractBaseNodeSettings
+        model = UserNodeSettings
         fields = (
             "id",
             "nodeType",
@@ -51,29 +51,3 @@ class BaseUserNodeSettingsSerializer(BaseNodeSettingsSerializer):
             raise serializers.ValidationError(
                 "User already has a node shape of this type"
             )
-
-
-class UserGameNodeSettingsSerializer(BaseUserNodeSettingsSerializer):
-    """ A class to serialize a user's game-node settings """
-
-    nodeType = ReadWriteSerializerMethodField()
-
-    class Meta:
-        model = UserGameNodeSettings
-        fields = BaseUserNodeSettingsSerializer.Meta.fields
-
-    def get_nodeType(self, obj):
-        return {"type": "game", "subtype": (obj.game_type, obj.game_subtype)}
-
-
-class UserMetaNodeSettingsSerializer(BaseUserNodeSettingsSerializer):
-    """ A class to serialize a user's meta-node settings """
-
-    nodeType = ReadWriteSerializerMethodField()
-
-    class Meta:
-        model = UserMetaNodeSettings
-        fields = BaseUserNodeSettingsSerializer.Meta.fields
-
-    def get_nodeType(self, obj):
-        return {"type": "meta", "subtype": (obj.meta_type,)}
