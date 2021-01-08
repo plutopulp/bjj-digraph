@@ -45,7 +45,9 @@ class SiteSettings(SingletonModel):
 
 
 class AbstractBaseNodeSettings(models.Model):
-    """ An abstract base class to model the svg properties of a node """
+    """ An abstract base class to model the svg properties of a node. 
+    Parent class currently used to model default node settings (below) and
+    user node settings. """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shape_id = models.CharField(max_length=64, default="#square")

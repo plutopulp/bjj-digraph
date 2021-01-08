@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from settings.serializers import NodeSettingsSerializer
+from settings.serializers import DefaultNodeSettingsSerializer
 from .models import UserNodeSettings
 from utils.strings import camelcase_to_underscore
 
 
-class UserNodeSettingsSerializer(NodeSettingsSerializer):
+class UserNodeSettingsSerializer(DefaultNodeSettingsSerializer):
     """ A base class to serialize user node settings """
 
     owner = serializers.ReadOnlyField(source="owner.id")

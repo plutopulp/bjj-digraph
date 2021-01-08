@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import (
     SiteSettings,
-    AbstractBaseNodeSettings,
+    DefaultNodeSettings
 )
 from utils.serializers import ReadWriteSerializerMethodField
 
@@ -18,7 +18,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
         )
 
 
-class NodeSettingsSerializer(serializers.ModelSerializer):
+class DefaultNodeSettingsSerializer(serializers.ModelSerializer):
     """ A class to serialize node settings """
 
     id = serializers.UUIDField(required=False)
@@ -28,7 +28,7 @@ class NodeSettingsSerializer(serializers.ModelSerializer):
     svgProps = ReadWriteSerializerMethodField()
 
     class Meta:
-        model = AbstractBaseNodeSettings
+        model = DefaultNodeSettings
         fields = (
             "id",
             "nodeType",

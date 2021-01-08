@@ -2,23 +2,19 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from drf_multiple_model.views import FlatMultipleModelAPIView
 
-from .models import UserGameNodeSettings, UserMetaNodeSettings
-from .serializers import UserGameNodeSettingsSerializer, UserMetaNodeSettingsSerializer
+from .models import UserNodeSettings
+from .serializers import UserNodeSettingsSerializer
 from utils.views.permissions import IsOwnerOrReadOnly
 
-formatters = {
-    "game": {
-        "model": UserGameNodeSettings,
-        "serializer_class": UserGameNodeSettingsSerializer,
-        "list": True,
-    },
-    "meta": {
-        "model": UserMetaNodeSettings,
-        "serializer_class": UserMetaNodeSettingsSerializer,
-        "list": True,
-    },
-}
 
+formatters = {
+    "all": {
+        "model": UserNodeSettings,
+        "serializer_class": UserNodeSettingsSerializer,
+        "list": True,
+    },
+    
+}
 
 class UserNodeSettingsAPIViewMixin:
     """A mixin for node settings api views with helper and selector methods for getting

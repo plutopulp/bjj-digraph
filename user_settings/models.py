@@ -25,7 +25,10 @@ class UserNodeSettings(AbstractBaseNodeSettings):
     class Meta:
         verbose_name = "User Node Settings"
         verbose_name_plural = "User Nodes Settings"
-        unique_together = ("owner", "node_type",)
+        unique_together = (
+            "owner",
+            "node_type",
+        )
 
 
 class AbstractBaseUserNodeSettings(AbstractBaseNodeSettings):
