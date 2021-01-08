@@ -6,7 +6,6 @@ from .serializers import UserNodeSettingsSerializer
 from utils.views.permissions import IsOwnerOrReadOnly
 
 
-
 class UserNodeSettingsAPIViewMixin:
     """ A mixin for node user settings api views. """
 
@@ -14,7 +13,7 @@ class UserNodeSettingsAPIViewMixin:
         """ Returns the node settings queryset owned by the user """
         user = self.request.user
         return UserNodeSettings.objects.of_user(user)
-    
+
     def get_serializer_class(self):
         return UserNodeSettingsSerializer
 
@@ -30,6 +29,7 @@ class UserNodeSettingsDetail(
 
 
 class UserNodeSettingsList(UserNodeSettingsAPIViewMixin, generics.ListAPIView):
-    """ A list API view for all node settings of a given user. 
-    The mixins do all the work """
+    """A list API view for all node settings of a given user.
+    The mixins do all the work"""
+
     pass

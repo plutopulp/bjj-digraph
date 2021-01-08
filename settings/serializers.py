@@ -1,9 +1,6 @@
 from rest_framework import serializers
 
-from .models import (
-    SiteSettings,
-    DefaultNodeSettings
-)
+from .models import SiteSettings, DefaultNodeSettings
 from utils.serializers import ReadWriteSerializerMethodField
 
 

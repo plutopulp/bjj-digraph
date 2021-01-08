@@ -6,22 +6,22 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('settings', '0015_auto_20210107_1446'),
+        ("settings", "0015_auto_20210107_1446"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='metanodesettings',
+            name="metanodesettings",
             unique_together=None,
         ),
         migrations.RemoveField(
-            model_name='metanodesettings',
-            name='settings',
+            model_name="metanodesettings",
+            name="settings",
         ),
         migrations.DeleteModel(
-            name='GameNodeSettings',
+            name="GameNodeSettings",
         ),
         migrations.DeleteModel(
-            name='MetaNodeSettings',
+            name="MetaNodeSettings",
         ),
     ]

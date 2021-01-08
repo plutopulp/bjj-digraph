@@ -1,23 +1,17 @@
 import uuid
 
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 from colorfield.fields import ColorField
 
 from utils.models import SingletonModel
 
 from main.config.node_types import NODE_TYPES
-from .nodes.type_choices import (
-    GAME_TYPE_CHOICES,
-    GAME_SUBTYPE_CHOICES,
-    META_TYPE_CHOICES,
-)
 from .nodes.default import COMMON_NODE_PROPS
 
 
 class Settings(SingletonModel):
     """Top-most parent settings model whose instantiation triggers
-    the creation of all sub settings modules through post save signal"""
+    the creation of all sub default settings modules through post save signal"""
 
     class Meta:
         verbose_name = "Settings"
@@ -45,9 +39,9 @@ class SiteSettings(SingletonModel):
 
 
 class AbstractBaseNodeSettings(models.Model):
-    """ An abstract base class to model the svg properties of a node. 
-    Parent class currently used to model default node settings (below) and
-    user node settings. """
+    """An abstract base class to model the svg properties of a node.
+    Currently used to model default node settings (below) and
+    user node settings."""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     shape_id = models.CharField(max_length=64, default="#square")

@@ -7,6 +7,7 @@ from model_utils import Choices
 from .managers import NodeManager
 from graphs.models import Graph
 from main.config.nodes import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
+from main.config.node_types import NODE_TYPES
 
 
 GAME_NODE_VALIDATORS = [MinValueValidator(-100), MaxValueValidator(100)]
@@ -16,6 +17,9 @@ class Node(models.Model):
     """ A base class to model all bjj digraph nodes """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    node_type = models.CharField(
+        choices=NODE_TYPES, default="score-position-user", max_length=128
+    )
     graph = models.ForeignKey(
         Graph, on_delete=models.CASCADE, related_name="base_nodes"
     )
@@ -30,15 +34,9 @@ class Node(models.Model):
         return self.title
 
 
-class GameNode(Node):
-    """ A class to represent bjj game-related digraph nodes """
+class ScoreNode(Node):
+    """ A class to represent bjj score/game-related digraph nodes """
 
-    game_type = models.CharField(
-        choices=GAME_TYPE_CHOICES, default="position", max_length=50
-    )
-    game_subtype = models.CharField(
-        choices=GAME_SUBTYPE_CHOICES, default="user", max_length=50
-    )
     description = models.TextField(default="", blank=True)
     comment = models.TextField(default="", blank=True)
     effectiveness = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
@@ -46,16 +44,13 @@ class GameNode(Node):
     proficiency = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
 
     class Meta:
-        verbose_name = "Game Node"
-        verbose_name_plural = "Game Nodes"
+        verbose_name = "Score Node"
+        verbose_name_plural = "Score Nodes"
 
 
 class MetaNode(Node):
     """ A class to represent bjj digraph meta-nodes, e.g. comments, texts etc.."""
 
-    meta_type = models.CharField(
-        choices=META_TYPE_CHOICES, default="comment", max_length=50
-    )
     description = models.TextField(default="", blank=True)
 
     class Meta:

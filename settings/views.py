@@ -7,6 +7,7 @@ from .serializers import SiteSettingsSerializer, DefaultNodeSettingsSerializer
 # in the django admin. The views here simply provide setting detail/lists for
 # the client.
 
+
 class SiteSettingsRetrieve(generics.RetrieveAPIView):
     """ A retrieve API view for the general site settings """
 
