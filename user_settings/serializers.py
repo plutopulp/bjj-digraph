@@ -1,9 +1,7 @@
 from rest_framework import serializers
 
-from settings.models import AbstractBaseNodeSettings
 from settings.serializers import NodeSettingsSerializer
-from .models import UserGameNodeSettings, UserMetaNodeSettings, UserNodeSettings
-from utils.serializers import ReadWriteSerializerMethodField
+from .models import UserNodeSettings
 from utils.strings import camelcase_to_underscore
 
 
