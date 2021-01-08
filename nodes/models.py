@@ -2,11 +2,9 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
-from model_utils import Choices
 
 from .managers import NodeManager
 from graphs.models import Graph
-from main.config.nodes import GAME_TYPE_CHOICES, GAME_SUBTYPE_CHOICES, META_TYPE_CHOICES
 from main.config.node_types import NODE_TYPES
 
 
