@@ -53,17 +53,6 @@ class NodeAPIViewMixin:
         return formatters[node_type]["serializer_class"]
 
 
-class NodeCreate(NodeAPIViewMixin, generics.CreateAPIView):
-    """An API view for creating nodes of different types.
-    The node type is required in the body of the request.
-    """
-
-    def perform_create(self, serializer):
-        graph_id = self.get_graph_id()
-        graph = get_object_or_404(Graph, id=graph_id)
-        serializer.save(graph=graph)
-
-
 class NodeDetail(NodeAPIViewMixin, generics.RetrieveUpdateDestroyAPIView):
     """A detail API view for RUD operations on nodes of different types.
     The node type is required in the body of the request.
@@ -73,8 +62,16 @@ class NodeDetail(NodeAPIViewMixin, generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = "node_id"
 
 
-class NodeList(NodeAPIViewMixin, FlatMultipleModelAPIView):
-    """A List API view for retrieving all nodes of a graph (multiple types)."""
+class NodeList(NodeAPIViewMixin, generics.CreateAPIView, FlatMultipleModelAPIView):
+    """A List + Create API view for retrieving all nodes of a graph (multiple types)
+    and creating any node type instance """
+
+    add_model_type = False
+    
+    def perform_create(self, serializer):
+        graph_id = self.get_graph_id()
+        graph = get_object_or_404(Graph, id=graph_id)
+        serializer.save(graph=graph)
 
     def get_querylist(self):
         querylist = [
