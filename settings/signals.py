@@ -4,10 +4,9 @@ from django.dispatch import receiver
 from .models import (
     Settings,
     SiteSettings,
-    GameNodeSettings,
-    MetaNodeSettings,
+    DefaultNodeSettings,
 )
-from .nodes.base_settings import GAME_NODES_SETTINGS, META_NODES_SETTINGS
+from .nodes.default import DEFAULT_NODE_SETTINGS
 
 
 def create_nodes_settings(NodeSettingsModel, default_settings, settings_instance):
@@ -27,5 +26,4 @@ def create_sub_settings(sender, instance, created, **kwargs):
     is created"""
     if created:
         create_site_settings(instance)
-        create_nodes_settings(GameNodeSettings, GAME_NODES_SETTINGS, instance)
-        create_nodes_settings(MetaNodeSettings, META_NODES_SETTINGS, instance)
+        create_nodes_settings(DefaultNodeSettings, DEFAULT_NODE_SETTINGS, instance)

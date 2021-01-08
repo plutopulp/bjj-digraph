@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import GameNodeSettings
+from .models import DefaultNodeSettings
 
 
 class NodeSettingsChangeForm(forms.ModelForm):

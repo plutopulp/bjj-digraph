@@ -6,7 +6,6 @@ COMMON_NODE_PROPS = {
 }
 
 POSITION = {
-    "game_type": "position",
     "shape_id": "square",
     "type_text": "New Position",
     "fill": "#ad560e",
@@ -15,7 +14,6 @@ POSITION = {
 }
 
 SUBMISSION = {
-    "game_type": "submission",
     "shape_id": "complex-circle",
     "type_text": "New Submission",
     "fill": "#f53337",
@@ -24,7 +22,6 @@ SUBMISSION = {
 }
 
 TRANSITION = {
-    "game_type": "transition",
     "shape_id": "skinny-rectangle",
     "type_text": "New Transition",
     "fill": "#9f4ae0",
@@ -33,7 +30,6 @@ TRANSITION = {
 }
 
 ENTRY = {
-    "game_type": "entry",
     "shape_id": "hexagon-pointed",
     "type_text": "New Entry",
     "fill": "#86fa5c",
@@ -42,7 +38,6 @@ ENTRY = {
 }
 
 TAKEDOWN = {
-    "game_type": "takedown",
     "shape_id": "trapezoid",
     "type_text": "New Takedown",
     "fill": "#86fade",
@@ -51,7 +46,6 @@ TAKEDOWN = {
 }
 
 SWEEP = {
-    "game_type": "sweep",
     "shape_id": "trapezoid-flipped",
     "type_text": "New Sweep",
     "fill": "#bd1eba",
@@ -60,7 +54,6 @@ SWEEP = {
 }
 
 GUARD_PULL = {
-    "game_type": "guardPull",
     "shape_id": "hexagon",
     "type_text": "New Guard-Pull",
     "fill": "#35aef0",
@@ -69,7 +62,6 @@ GUARD_PULL = {
 }
 
 GUARD_PASS = {
-    "game_type": "guardPass",
     "shape_id": "hexagon",
     "type_text": "New Guard-Pass",
     "fill": "#c2b010",
@@ -78,49 +70,53 @@ GUARD_PASS = {
 }
 
 TEXT = {
-    "meta_type": "text",
     "shape_id": "square",
     "type_text": "New Text",
     "fill": "transparent",
-    "opacity": "0",
+    "fill_opacity": "0",
     "stroke": "transparent",
     "stroke_width": "0",
 }
 
 COMMENT = {
-    "meta_type": "comment",
     "shape_id": "square",
     "type_text": "New Comment",
     "fill": "#bbbbbb",
-    "opacity": COMMON_NODE_PROPS["user_opacity"],
+    "fill_opacity": COMMON_NODE_PROPS["user_opacity"],
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
 }
 
-BASE_GAME_NODES_SETTINGS = [
-    POSITION,
-    SUBMISSION,
-    TRANSITION,
-    ENTRY,
-    TAKEDOWN,
-    SWEEP,
-    GUARD_PULL,
-    GUARD_PASS,
-]
+BASE_SCORE_NODE_SETTINGS = {
+    "position": POSITION,
+    "submission": SUBMISSION,
+    "transition": TRANSITION,
+    "entry": ENTRY,
+    "takedown": TAKEDOWN,
+    "sweep": SWEEP,
+    "guardpull": GUARD_PULL,
+    "guardpass": GUARD_PASS,
+}
 
-USER_GAME_NODES_SETTINGS = [
-    dict(node_shape, game_subtype="user", opacity=COMMON_NODE_PROPS["user_opacity"])
-    for node_shape in BASE_GAME_NODES_SETTINGS
-]
+BASE_META_NODE_SETTINGS = {
+    "text": TEXT,
+    "comment": COMMENT,
+}
 
-OPPONENT_GAME_NODES_SETTINGS = [
+SCORE_NODE_SETTINGS = [
+    dict(v, node_type=f"score-{k}-user", fill_opacity=COMMON_NODE_PROPS["user_opacity"])
+    for k, v in BASE_SCORE_NODE_SETTINGS.items()
+] + [
     dict(
-        node_shape,
-        game_subtype="opponent",
-        opacity=COMMON_NODE_PROPS["opponent_opacity"],
+        v,
+        node_type=f"score-{k}-opponent",
+        fill_opacity=COMMON_NODE_PROPS["opponent_opacity"],
     )
-    for node_shape in BASE_GAME_NODES_SETTINGS
+    for k, v in BASE_SCORE_NODE_SETTINGS.items()
 ]
 
-GAME_NODES_SETTINGS = USER_GAME_NODES_SETTINGS + OPPONENT_GAME_NODES_SETTINGS
-META_NODES_SETTINGS = [COMMENT, TEXT]
+META_NODE_SETTINGS = [
+    dict(v, node_type=f"meta-{k}") for k, v in BASE_META_NODE_SETTINGS.items()
+]
+
+DEFAULT_NODE_SETTINGS = SCORE_NODE_SETTINGS + META_NODE_SETTINGS

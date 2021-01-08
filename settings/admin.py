@@ -3,9 +3,7 @@ from django.contrib import admin
 from .models import (
     Settings,
     SiteSettings,
-    NodeSettings,
-    GameNodeSettings,
-    MetaNodeSettings,
+    DefaultNodeSettings,
 )
 
 from .forms import SiteSettingsChangeForm, NodeSettingsChangeForm
@@ -26,18 +24,11 @@ class SiteSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
     form = SiteSettingsChangeForm
 
 
-class GameNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
-    model = GameNodeSettings
-    form = NodeSettingsChangeForm
-
-
-class MetaNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
-    model = MetaNodeSettings
+class DefaultNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
+    model = DefaultNodeSettings
     form = NodeSettingsChangeForm
 
 
 admin.site.register(Settings)
-admin.site.register(NodeSettings)
+admin.site.register(DefaultNodeSettings, DefaultNodeSettingsAdmin)
 admin.site.register(SiteSettings, SiteSettingsAdmin)
-admin.site.register(GameNodeSettings, GameNodeSettingsAdmin)
-admin.site.register(MetaNodeSettings, MetaNodeSettingsAdmin)

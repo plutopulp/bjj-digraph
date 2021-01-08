@@ -1,47 +1,21 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
-from drf_multiple_model.views import FlatMultipleModelAPIView
 
-from .models import UserGameNodeSettings, UserMetaNodeSettings
-from .serializers import UserGameNodeSettingsSerializer, UserMetaNodeSettingsSerializer
+from .models import UserNodeSettings
+from .serializers import UserNodeSettingsSerializer
 from utils.views.permissions import IsOwnerOrReadOnly
-
-formatters = {
-    "game": {
-        "model": UserGameNodeSettings,
-        "serializer_class": UserGameNodeSettingsSerializer,
-        "list": True,
-    },
-    "meta": {
-        "model": UserMetaNodeSettings,
-        "serializer_class": UserMetaNodeSettingsSerializer,
-        "list": True,
-    },
-}
 
 
 class UserNodeSettingsAPIViewMixin:
-    """A mixin for node settings api views with helper and selector methods for getting
-    the node settings queryset and model for an incoming request
-    """
+    """ A mixin for node user settings api views. """
 
     def get_queryset(self):
-        """ Returns the correct queryset for the node settings type """
-        node_type = self.request.data["type"]
+        """ Returns the node settings queryset owned by the user """
         user = self.request.user
-        return formatters[node_type]["model"].objects.of_user(user)
+        return UserNodeSettings.objects.of_user(user)
 
     def get_serializer_class(self):
-        """ Returns the correct serializer class for the node settings type """
-        node_type = self.request.data["type"]
-        return formatters[node_type]["serializer_class"]
-
-
-class UserNodeSettingsCreate(UserNodeSettingsAPIViewMixin, generics.CreateAPIView):
-    """ An API view for creating node settings """
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        return UserNodeSettingsSerializer
 
 
 class UserNodeSettingsDetail(
@@ -54,18 +28,8 @@ class UserNodeSettingsDetail(
     lookup_url_kwarg = "node_settings_id"
 
 
-class UserNodeSettingsList(FlatMultipleModelAPIView):
-    """ A list API view for all node settings of a given user """
+class UserNodeSettingsList(UserNodeSettingsAPIViewMixin, generics.ListAPIView):
+    """A list API view for all node settings of a given user.
+    The mixins do all the work"""
 
-    add_model_type = False
-
-    def get_querylist(self):
-        querylist = [
-            {
-                "queryset": formatter["model"].objects.of_user(self.request.user),
-                "serializer_class": formatter["serializer_class"],
-            }
-            for _, formatter in formatters.items()
-            if formatter["list"]
-        ]
-        return querylist
+    pass
