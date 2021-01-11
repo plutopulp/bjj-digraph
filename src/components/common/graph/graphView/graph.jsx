@@ -74,6 +74,7 @@ const GraphViewContainer = ({
   React.useEffect(() => graphRef.current.renderNodes(), [multiSelect, paths]);
 
   const handleRenderNode = (ref, node, id, selected, hovered) => {
+    console.log(node);
     const nodeShape = getNodeShape(node);
     return renderNode(nodeShape);
   };

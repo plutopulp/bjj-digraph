@@ -16,38 +16,35 @@ export const useAPIController = (state, setState, endpoints) => {
   const prevState = usePrevious(state);
 
   // Reads all resources into state on mount
-  useMountedEffect(() => {
+  React.useEffect(() => {
     read(endpoints.list, setState);
   }, [token]);
 
   const canUpdate = () => Math.abs(state.length - prevState.length) === 1;
 
-  // Triggers post method when state array length increases
+  // Triggers post method on update when state array length increases
   useMountedEffect(() => {
-    if (canUpdate()) {
-      if (state.length > prevState.length) {
-        const newItem = getMissingObject(state, prevState);
-        create(endpoints.list, newItem);
-      }
+    if (!canUpdate()) return;
+    if (state.length > prevState.length) {
+      const newItem = getMissingObject(state, prevState);
+      create(endpoints.list, newItem);
     }
   }, [state.length]);
 
-  // Triggers delete method when state array length decreases
+  // Triggers delete method on update when state array length decreases
   useMountedEffect(() => {
-    if (canUpdate()) {
-      if (state.length < prevState.length) {
-        const oldItem = getMissingObject(prevState, state);
-        destroy(endpoints.detail(oldItem.id), oldItem);
-      }
+    if (!canUpdate()) return;
+    if (state.length < prevState.length) {
+      const oldItem = getMissingObject(prevState, state);
+      destroy(endpoints.detail(oldItem.id), oldItem);
     }
   }, [state.length]);
 
-  // Triggers patch method when one or more items in state array updates
+  // Triggers patch method on update when one or more items in state array updates
   useMountedEffect(() => {
     const canUpdate = () => state.length - prevState.length === 0;
-    if (canUpdate()) {
-      const updatedState = _.difference(state, prevState);
-      updatedState.forEach((item) => update(endpoints.detail(item.id), item));
-    }
+    if (!canUpdate()) return;
+    const updatedState = _.difference(state, prevState);
+    updatedState.forEach((item) => update(endpoints.detail(item.id), item));
   }, [JSON.stringify(state)]);
 };

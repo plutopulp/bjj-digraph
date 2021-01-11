@@ -60,6 +60,9 @@ export const useGraphOps = () => {
       id: uuid(),
       title: nodeType.typeText,
       type: nodeType.name,
+      // "nodeType" key is used on the backend instead of "type",
+      // which is a keyword in python
+      nodeType: nodeType.name,
       x,
       y,
     };
