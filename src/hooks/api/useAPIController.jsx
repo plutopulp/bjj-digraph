@@ -36,6 +36,7 @@ export const useAPIController = (state, setState, endpoints) => {
     if (!canUpdate()) return;
     if (state.length < prevState.length) {
       const oldItem = getMissingObject(prevState, state);
+      console.log(oldItem);
       destroy(endpoints.detail(oldItem.id), oldItem);
     }
   }, [state.length]);
