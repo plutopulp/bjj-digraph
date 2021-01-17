@@ -29,19 +29,15 @@ class ScoreNodeSerializer(NodeSerializer):
     """ A class to serialize bjj digraph score-nodes """
 
     description = serializers.CharField(required=False, allow_blank=True)
-    comment = serializers.CharField(required=False, allow_blank=True)
-    effectiveness = serializers.IntegerField(required=False)
-    priority = serializers.IntegerField(required=False)
-    proficiency = serializers.IntegerField(required=False)
+    score = serializers.IntegerField(required=False)
+    rationale = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = ScoreNode
         fields = NodeSerializer.Meta.fields + (
             "description",
-            "comment",
-            "effectiveness",
-            "priority",
-            "proficiency",
+            "score",
+            "rationale",
         )
 
 
