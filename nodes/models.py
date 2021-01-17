@@ -8,7 +8,7 @@ from graphs.models import Graph
 from main.config.node_types import NODE_TYPES
 
 
-GAME_NODE_VALIDATORS = [MinValueValidator(-100), MaxValueValidator(100)]
+SCORE_VALIDATORS = [MinValueValidator(-100), MaxValueValidator(100)]
 
 
 class Node(models.Model):
@@ -36,10 +36,9 @@ class ScoreNode(Node):
     """ A class to represent bjj score/game-related digraph nodes """
 
     description = models.TextField(default="", blank=True)
-    comment = models.TextField(default="", blank=True)
-    effectiveness = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
-    priority = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
-    proficiency = models.IntegerField(default=0, validators=GAME_NODE_VALIDATORS)
+    score = models.IntegerField(default=0, validators=SCORE_VALIDATORS)
+    rationale = models.TextField(default="", blank=True)
+
 
     class Meta:
         verbose_name = "Score Node"
