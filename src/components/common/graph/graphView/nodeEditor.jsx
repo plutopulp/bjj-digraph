@@ -1,24 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 
 import { GraphContext } from "../../../../contexts/graph";
 import { getNodeIndex } from "../../../../lib/utils/graph";
 import { FormContainer, FormTitle } from "../../../styles/forms";
 import withModalHOC from "../../../../hocs/withModal";
+import { useAPI } from "../../../../hooks";
+import { routes } from "../../../../lib/config/routes/routes";
 
 // A modal window for editing a node
 const NodeEditorContainer = ({ node }) => {
-  const { nodes, setNodes } = React.useContext(GraphContext);
+  const {
+    nodes,
+    setNodes,
+    currentGraphId,
+    disableAPI,
+    setDisableAPI,
+  } = React.useContext(GraphContext);
+  const { update } = useAPI();
 
-  // Probably an anti-pattern, but only want form fields to
-  // be stored in state on submission, because backend API calls
-  // happen automatically on state update. Consider changing this
-  const [formFields, setFormFields] = React.useState({ ...node });
+  React.useEffect(() => {
+    setDisableAPI(true);
+    return () => setDisableAPI(false);
+  }, []);
 
-  React.useEffect(() => console.log(formFields));
-
+  React.useEffect(() => console.log(currentGraphId));
   const handleNodeChange = (event) => {
+    if (!disableAPI) setDisableAPI(true);
     const nodeIndex = getNodeIndex(node, nodes);
     const { name, value } = event.target;
     const newNode = { ...nodes[nodeIndex], [name]: value };
@@ -30,9 +39,14 @@ const NodeEditorContainer = ({ node }) => {
     setNodes(newNodes);
   };
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
-  };
+    await setDisableAPI(false);
+    update(routes.api.nodes(currentGraphId).detail(node.id), {
+      ...nodes[getNodeIndex(node, nodes)],
+    });
+    setNodes(nodes);
+  }
 
   return (
     <NodeEditor
@@ -85,6 +99,7 @@ const NodeEditor = ({ node, handleChange, handleSubmit }) => (
         placeholder="The rationale behind the chosen score"
         onChange={handleChange}
       />
+      <Button type="submit">Save</Button>
     </Form>
   </FormContainer>
 );

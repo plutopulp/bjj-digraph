@@ -10,6 +10,7 @@ const withGraphContextHOC = (InnerComp) => (props) => {
     setEdges,
     selected,
     setSelected,
+    disableAPI,
   } = React.useContext(GraphContext);
 
   // When unmounting, reset context data
@@ -30,6 +31,7 @@ const withGraphContextHOC = (InnerComp) => (props) => {
       setEdges={setEdges}
       selected={selected}
       setSelected={setSelected}
+      disableAPI={disableAPI}
     />
   );
 };
