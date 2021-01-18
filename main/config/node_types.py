@@ -3,12 +3,9 @@ META_TYPES = ("comment", "text")
 SCORE_TYPES = (
     "entry",
     "position",
-    "guardpass",
-    "guardpull",
     "submission",
-    "takedown",
-    "sweep",
     "transition",
+    "action",
 )
 SCORE_SUBTYPES = ("user", "opponent")
 
