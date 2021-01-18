@@ -17,18 +17,20 @@ export const useAPI = () => {
   // Loads initial data of a resource type into state
   // Could be list or item, just supply appropriate
   // endpoint and callback
-
-  const read = (endpoint, callback) => {
+  const read = (endpoint, setState, setLoaded) => {
     Axios.get(endpoint, headers.current)
-      .then((response) => callback(response.data))
+      .then((response) => setState(response.data))
+      .then(() => setLoaded(true))
       .catch((error) => console.log(error));
   };
+
   // Creates an instance of a resource type
   const create = (endpoint, instance, callback) => {
     Axios.post(endpoint, instance, headers.current)
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
+
   // Updates an instance of a resource type
   const update = (endpoint, instance, callback) => {
     Axios.patch(endpoint, instance, headers.current)

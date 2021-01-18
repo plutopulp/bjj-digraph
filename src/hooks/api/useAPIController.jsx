@@ -10,40 +10,43 @@ import { useAPI } from "./useAPI";
 // for an input resource type are triggered
 export const useAPIController = (state, setState, endpoints) => {
   const { token, read, create, update, destroy } = useAPI();
+  // Set to true when resource initially loaded into state
+  // Must be true to make further API requests
+  const [loaded, setLoaded] = React.useState(false);
 
   // The previous react state. We use this to evaluate
   // whether an api call should take place.
   const prevState = usePrevious(state);
 
+  // Partial conditions for post, delete and update
+  const hasIncremented = () => state.length - prevState.length === 1;
+  const hasDecremented = () => state.length - prevState.length === -1;
+  const hasSameLength = () => state.length - prevState.length === 0;
+
   // Reads all resources into state on mount
   React.useEffect(() => {
-    read(endpoints.list, setState);
+    if (token) read(endpoints.list, setState, setLoaded);
   }, [token]);
-
-  const canUpdate = () => Math.abs(state.length - prevState.length) === 1;
 
   // Triggers post method on update when state array length increases
   useMountedEffect(() => {
-    if (!canUpdate()) return;
-    if (state.length > prevState.length) {
-      const newItem = getMissingObject(state, prevState);
-      create(endpoints.list, newItem);
-    }
+    const canPost = () => loaded && hasIncremented();
+    if (!canPost()) return;
+    const newItem = getMissingObject(state, prevState);
+    create(endpoints.list, newItem);
   }, [state.length]);
 
   // Triggers delete method on update when state array length decreases
   useMountedEffect(() => {
-    if (!canUpdate()) return;
-    if (state.length < prevState.length) {
-      const oldItem = getMissingObject(prevState, state);
-      console.log(oldItem);
-      destroy(endpoints.detail(oldItem.id), oldItem);
-    }
+    const canDelete = () => loaded && hasDecremented();
+    if (!canDelete()) return;
+    const oldItem = getMissingObject(prevState, state);
+    destroy(endpoints.detail(oldItem.id), oldItem);
   }, [state.length]);
 
   // Triggers patch method on update when one or more items in state array updates
   useMountedEffect(() => {
-    const canUpdate = () => state.length - prevState.length === 0;
+    const canUpdate = () => loaded && hasSameLength();
     if (!canUpdate()) return;
     const updatedState = _.difference(state, prevState);
     updatedState.forEach((item) => update(endpoints.detail(item.id), item));
