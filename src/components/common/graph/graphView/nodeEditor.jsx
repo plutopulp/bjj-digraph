@@ -1,15 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "semantic-ui-react";
-import styled from "styled-components";
 
 import { GraphContext } from "../../../../contexts/graph";
 import { getNodeIndex } from "../../../../lib/utils/graph";
 import { FormContainer, FormTitle } from "../../../styles/forms";
 import withModalHOC from "../../../../hocs/withModal";
 
+// A modal window for editing a node
 const NodeEditorContainer = ({ node }) => {
   const { nodes, setNodes } = React.useContext(GraphContext);
+
+  // Probably an anti-pattern, but only want form fields to
+  // be stored in state on submission, because backend API calls
+  // happen automatically on state update. Consider changing this
+  const [formFields, setFormFields] = React.useState({ ...node });
+
+  React.useEffect(() => console.log(formFields));
 
   const handleNodeChange = (event) => {
     const nodeIndex = getNodeIndex(node, nodes);
@@ -60,42 +67,22 @@ const NodeEditor = ({ node, handleChange, handleSubmit }) => (
         placeholder="Enter a description"
         onChange={handleChange}
       />
+      <Form.Input
+        label={`Score: ${node.score} `}
+        min={-100}
+        max={100}
+        name="score"
+        step={1}
+        type="range"
+        value={node.score}
+        onChange={handleChange}
+      />
       <Form.TextArea
-        label="Comment"
+        label="Score Rationale"
         type="text"
-        name="comment"
-        value={node.comment}
-        placeholder="Enter any comments"
-        onChange={handleChange}
-      />
-      <Form.Input
-        label={`Effectiveness: ${node.effectiveness} `}
-        min={0}
-        max={100}
-        name="effectiveness"
-        step={1}
-        type="range"
-        value={node.effectiveness}
-        onChange={handleChange}
-      />
-      <Form.Input
-        label={`Priority: ${node.priority} `}
-        min={0}
-        max={100}
-        name="priority"
-        step={1}
-        type="range"
-        value={node.priority}
-        onChange={handleChange}
-      />
-      <Form.Input
-        label={`Proficiency: ${node.proficiency} `}
-        min={0}
-        max={100}
-        name="proficiency"
-        step={1}
-        type="range"
-        value={node.proficiency}
+        name="rationale"
+        value={node.rationale}
+        placeholder="The rationale behind the chosen score"
         onChange={handleChange}
       />
     </Form>

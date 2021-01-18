@@ -4,15 +4,7 @@ import { useAuthAPI } from "./useAuthAPI";
 
 // A hook providing api request/handler methods
 export const useAPI = () => {
-  const { token } = useAuthAPI();
-  const headers = React.useRef(null);
-
-  // When token loaded set request headers
-  React.useEffect(() => {
-    headers.current = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-  }, [token]);
+  const { token, headers } = useAuthAPI();
 
   // Loads initial data of a resource type into state
   // Could be list or item, just supply appropriate

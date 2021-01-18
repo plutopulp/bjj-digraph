@@ -9,8 +9,11 @@ import { useAPI } from "./useAPI";
 // An api control hook which determines when the request methods
 // for an input resource type are triggered
 export const useAPIController = (state, setState, endpoints) => {
+  // The request methods are provided by the useAPI hook, which
+  // in turn hooks into the useAuth hook
   const { token, read, create, update, destroy } = useAPI();
-  // Set to true when resource initially loaded into state
+
+  // When resource initially loaded into state
   // Must be true to make further API requests
   const [loaded, setLoaded] = React.useState(false);
 
