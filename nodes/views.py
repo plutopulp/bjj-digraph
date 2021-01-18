@@ -36,9 +36,15 @@ class NodeAPIViewMixin:
         return graph_id
 
     def get_base_node_type(self):
-        """Extracts the base node type, e.g. score, meta etc..
-        from the complete node_type provided in the request body"""
-        complete_type = self.request.data["nodeType"]
+        """Extracts the base node type, e.g. score, meta etc.. """
+        # No payload in request body
+        if self.request.method == "DELETE":
+            node_id = self.request.resolver_match.kwargs["node_id"]
+            complete_type = get_object_or_404(Node, id=node_id).node_type
+        # Node type in payload
+        else:
+            complete_type = self.request.data["type"]
+
         base_type = complete_type.split("-")[0]
         return base_type
 

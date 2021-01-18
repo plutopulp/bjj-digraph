@@ -37,34 +37,10 @@ ENTRY = {
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
 }
 
-TAKEDOWN = {
-    "shape_id": "trapezoid",
-    "type_text": "New Takedown",
+ACTION = {
+    "shape_id": "lozenge",
+    "type_text": "New Action",
     "fill": "#86fade",
-    "stroke": COMMON_NODE_PROPS["stroke"],
-    "stroke_width": COMMON_NODE_PROPS["stroke_width"],
-}
-
-SWEEP = {
-    "shape_id": "trapezoid-flipped",
-    "type_text": "New Sweep",
-    "fill": "#bd1eba",
-    "stroke": COMMON_NODE_PROPS["stroke"],
-    "stroke_width": COMMON_NODE_PROPS["stroke_width"],
-}
-
-GUARD_PULL = {
-    "shape_id": "hexagon",
-    "type_text": "New Guard-Pull",
-    "fill": "#35aef0",
-    "stroke": COMMON_NODE_PROPS["stroke"],
-    "stroke_width": COMMON_NODE_PROPS["stroke_width"],
-}
-
-GUARD_PASS = {
-    "shape_id": "hexagon",
-    "type_text": "New Guard-Pass",
-    "fill": "#c2b010",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
 }
@@ -92,10 +68,7 @@ BASE_SCORE_NODE_SETTINGS = {
     "submission": SUBMISSION,
     "transition": TRANSITION,
     "entry": ENTRY,
-    "takedown": TAKEDOWN,
-    "sweep": SWEEP,
-    "guardpull": GUARD_PULL,
-    "guardpass": GUARD_PASS,
+    "action": ACTION,
 }
 
 BASE_META_NODE_SETTINGS = {

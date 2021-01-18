@@ -6,7 +6,7 @@ class NodeSerializer(serializers.ModelSerializer):
     """ A class to serialize bjj digraph base-nodes """
 
     id = serializers.UUIDField(required=False)
-    nodeType = serializers.CharField(source="node_type")
+    type = serializers.CharField(source="node_type")
     graph = serializers.ReadOnlyField(source="graph.id")
     createdAt = serializers.DateTimeField(source="created_at", required=False)
     x = serializers.FloatField(source="position_x", required=False)
@@ -16,7 +16,7 @@ class NodeSerializer(serializers.ModelSerializer):
         model = Node
         fields = (
             "id",
-            "nodeType",
+            "type",
             "graph",
             "title",
             "createdAt",
@@ -29,19 +29,15 @@ class ScoreNodeSerializer(NodeSerializer):
     """ A class to serialize bjj digraph score-nodes """
 
     description = serializers.CharField(required=False, allow_blank=True)
-    comment = serializers.CharField(required=False, allow_blank=True)
-    effectiveness = serializers.IntegerField(required=False)
-    priority = serializers.IntegerField(required=False)
-    proficiency = serializers.IntegerField(required=False)
+    score = serializers.IntegerField(required=False)
+    rationale = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = ScoreNode
         fields = NodeSerializer.Meta.fields + (
             "description",
-            "comment",
-            "effectiveness",
-            "priority",
-            "proficiency",
+            "score",
+            "rationale",
         )
 
 
