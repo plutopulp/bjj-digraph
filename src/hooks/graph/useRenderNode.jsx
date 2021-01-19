@@ -1,4 +1,5 @@
 import React from "react";
+import { GraphUtils } from "react-digraph";
 import { GraphContext } from "../../contexts/graph";
 import { NodeTypesContext } from "../../contexts/nodeTypes";
 
@@ -53,9 +54,17 @@ export const useRenderNode = () => {
 
   // Render method providing suitable svg symbol for input node
   const renderNode = (ref, node, id, selected, hovered) => {
+    const nodeClassName = GraphUtils.classNames("node", { selected, hovered });
     const nodeType = nodeTypes[node.type];
     const svgProps = getSVGProps(node);
-    return <use className="node" href={nodeType.shapeId} {...svgProps} />;
+    return (
+      <use
+        className={nodeClassName}
+        href={nodeType.shapeId}
+        xmlns="http://www.w3.org/2000/svg"
+        {...svgProps}
+      />
+    );
   };
 
   return renderNode;

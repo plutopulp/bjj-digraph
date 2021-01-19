@@ -14,9 +14,10 @@ import {
   useScale,
   useTranslation,
   useRenderNode,
+  useRenderNodeText,
 } from "../../../../hooks";
 import NodeToolBox from "./nodeToolBox";
-import renderNodeText from "./renderNodeText";
+//import renderNodeText from "./renderNodeText";
 import { GraphContext } from "../../../../contexts/graph";
 import ToolBox from "./graphToolBox";
 import { NodeTypesContext } from "../../../../contexts/nodeTypes";
@@ -60,6 +61,7 @@ const GraphViewContainer = ({
   const scale = useScale(graphRef);
   const translation = useTranslation(graphRef);
   const renderNode = useRenderNode();
+  const renderNodeText = useRenderNodeText();
   const { multiSelect, paths } = React.useContext(GraphContext);
   const { nodeTypes } = React.useContext(NodeTypesContext);
 
@@ -100,7 +102,7 @@ const GraphViewContainer = ({
           onCopySelected={handleCopySelected}
           onPasteSelected={handlePasteSelected}
           renderNode={renderNode}
-          //   renderNodeText={(data) => renderNodeText(data, nodeTypes)}
+          renderNodeText={renderNodeText}
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}

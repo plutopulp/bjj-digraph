@@ -10,6 +10,7 @@ export { useFormFields } from "./forms/useFormFields";
 export { useGraphOps } from "./graph/useGraphOps";
 export { useNodeDrop } from "./graph/useNodeDrop";
 export { useRenderNode } from "./graph/useRenderNode";
+export { useRenderNodeText } from "./graph/useRenderNodeText";
 export { useScale } from "./graph/useScale";
 export { useTranslation } from "./graph/useTranslation";
 export { usePrevious } from "./utils/usePrevious";
