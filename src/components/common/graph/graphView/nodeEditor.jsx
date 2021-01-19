@@ -20,12 +20,13 @@ const NodeEditorContainer = ({ node }) => {
   } = React.useContext(GraphContext);
   const { update } = useAPI();
 
+  // Disable backend API calls while modal is open
+  // to avoid calls on every change
   React.useEffect(() => {
     setDisableAPI(true);
     return () => setDisableAPI(false);
   }, []);
 
-  React.useEffect(() => console.log(currentGraphId));
   const handleNodeChange = (event) => {
     if (!disableAPI) setDisableAPI(true);
     const nodeIndex = getNodeIndex(node, nodes);
@@ -39,9 +40,9 @@ const NodeEditorContainer = ({ node }) => {
     setNodes(newNodes);
   };
 
+  // Explicitly call update on submit
   async function handleSubmit(event) {
     event.preventDefault();
-    await setDisableAPI(false);
     update(routes.api.nodes(currentGraphId).detail(node.id), {
       ...nodes[getNodeIndex(node, nodes)],
     });

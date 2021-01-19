@@ -175,7 +175,3 @@ export const shapes = [
   EmptyNodeShape,
   CustomEmptyShape,
 ];
-
-export const getShape = (shapeId) => {
-  return shapes.find((shape) => shape.props.id === shapeId);
-};

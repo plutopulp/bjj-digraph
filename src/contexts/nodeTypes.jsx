@@ -1,7 +1,7 @@
 import React from "react";
 import { useAPI } from "../hooks";
 import { routes } from "../lib/config/routes/routes";
-import { getShape } from "../lib/config/shapes/shapes";
+import { getShape } from "../lib/utils/graph";
 
 export const NodeTypesContext = React.createContext();
 

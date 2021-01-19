@@ -1,4 +1,5 @@
 import { NODE_KEY } from "../config/graph/graphConfig";
+import { shapes } from "../config/shapes/shapes";
 
 // Get the index of a given node
 export const getNodeIndex = (searchNode, nodes) =>
@@ -43,4 +44,8 @@ export const getNodeSize = (xlinkRef) => {
   const height = parseInt(nodeHeightAttr, 10);
 
   return { width, height };
+};
+
+export const getShape = (shapeId) => {
+  return shapes.find((shape) => shape.props.id === shapeId);
 };

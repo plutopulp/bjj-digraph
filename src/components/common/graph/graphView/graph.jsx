@@ -74,7 +74,6 @@ const GraphViewContainer = ({
   React.useEffect(() => graphRef.current.renderNodes(), [multiSelect, paths]);
 
   const handleRenderNode = (ref, node, id, selected, hovered) => {
-    console.log(node);
     const nodeShape = getNodeShape(node);
     return renderNode(nodeShape);
   };
@@ -94,6 +93,7 @@ const GraphViewContainer = ({
           showGraphControls={showControls}
           readOnly={readOnly ? readOnly : false}
           disableBackspace={true}
+          allowMultiselect={true}
           onSelectNode={handleSelectNode}
           onUpdateNode={handleUpdateNode}
           onCreateNode={handleCreateNode}
@@ -105,7 +105,7 @@ const GraphViewContainer = ({
           onCopySelected={handleCopySelected}
           onPasteSelected={handlePasteSelected}
           renderNode={handleRenderNode}
-          renderNodeText={(data) => renderNodeText(data, nodeTypes)}
+          //   renderNodeText={(data) => renderNodeText(data, nodeTypes)}
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}

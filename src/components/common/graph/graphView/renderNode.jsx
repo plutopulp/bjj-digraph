@@ -1,7 +1,7 @@
 import React from "react";
 
-const renderNode = ({ nodeTypeXlinkHref, svgProps }) => {
-  return <use className="node" xlinkHref={nodeTypeXlinkHref} {...svgProps} />;
+const renderNode = ({ shapeId, svgProps }) => {
+  return <use className="node" href={shapeId} {...svgProps} />;
 };
 
 export default renderNode;

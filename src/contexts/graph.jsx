@@ -11,9 +11,9 @@ export const GraphProvider = ({ children }) => {
 
   // The graph detail view currently open in the browser
   const [currentGraphId, setCurrentGraphId] = React.useState("");
-  React.useEffect(() => setCurrentGraphId(location.state.graphId), [
-    location.state.graphId,
-  ]);
+  React.useEffect(() => {
+    //setCurrentGraphId(location.state.graphId);
+  }, []);
 
   // All the nodes and edges of the current graph
   const [nodes, setNodes] = React.useState([]);
