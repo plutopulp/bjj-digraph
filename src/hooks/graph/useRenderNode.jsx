@@ -1,18 +1,18 @@
 import React from "react";
 import { GraphContext } from "../../contexts/graph";
 import { NodeTypesContext } from "../../contexts/nodeTypes";
-import { getNodeSize } from "../../lib/utils/graph";
 
-// A hook which returns the node and node text render functions
-// embedding the approriate svg properties of the node
-export const useNodeShape = () => {
+// A hook which returns a render node method for react digraphs.
+// The svg properties of the node are embedded in the svg symbol
+// returned by the render method
+export const useRenderNode = () => {
   const { multiSelect, paths } = React.useContext(GraphContext);
   const { nodeTypes } = React.useContext(NodeTypesContext);
 
-  // returns the svg width, height and x, y position offset
-  // of the node
-  const getNodeDimensions = (href) => {
-    const { width, height } = getNodeSize(href);
+  // Get the svg width, height and x, y position offset
+  // of a nodeType
+  const getNodeDimensions = (nodeType) => {
+    const { width, height } = nodeType.shape.props;
     const x = -width / 2;
     const y = -height / 2;
     return { width, height, x, y };
@@ -22,7 +22,7 @@ export const useNodeShape = () => {
   const getBaseSvgProps = (nodeType) => {
     let svgProps = {
       ...nodeType.svgProps,
-      ...getNodeDimensions(nodeType.shapeId),
+      ...getNodeDimensions(nodeType),
     };
     return svgProps;
   };
@@ -42,17 +42,21 @@ export const useNodeShape = () => {
     }
   };
 
-  const getNodeShape = (node) => {
+  // Returns the complete svg properties of a node
+  const getSVGProps = (node) => {
     const nodeType = nodeTypes[node.type];
     const baseSvgProps = getBaseSvgProps(nodeType);
     const dynamicSvgProps = getDynamicSvgProps(node);
     const svgProps = { ...baseSvgProps, ...dynamicSvgProps };
-
-    return {
-      shapeId: nodeType.shapeId,
-      svgProps,
-    };
+    return svgProps;
   };
 
-  return getNodeShape;
+  // Render method providing suitable svg symbol for input node
+  const renderNode = (ref, node, id, selected, hovered) => {
+    const nodeType = nodeTypes[node.type];
+    const svgProps = getSVGProps(node);
+    return <use className="node" href={nodeType.shapeId} {...svgProps} />;
+  };
+
+  return renderNode;
 };
