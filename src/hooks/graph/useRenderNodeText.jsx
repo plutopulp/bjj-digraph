@@ -27,8 +27,9 @@ export const useRenderNodeText = () => {
         {title && (
           <tspan
             x={0}
-            dy={4}
+            dy={6}
             fontSize="1.25em"
+            fontWeight={600}
             xmlns="http://www.w3.org/2000/svg"
           >
             {title.length > maxTitleChars

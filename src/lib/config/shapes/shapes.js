@@ -62,22 +62,13 @@ export const HexagonPointed = (
 
 export const Lozenge = (
   <symbol viewBox="-27 0 154 154" id="lozenge" width="154" height="154">
-    <rect
-      transform="translate(50) rotate(45)"
-      width="109"
-      height="109"
-      fill="rgba(240, 166, 38, 0.8)"
-    />
+    <rect transform="translate(50) rotate(45)" width="109" height="109" />
   </symbol>
 );
 
 export const HexagonFlat = (
   <symbol viewBox="0 0 88 88" id="hexagon-flat" width="154" height="154">
-    <path
-      d="M 0 36 18 0 70 0 88 36 70 72 18 72Z"
-      transform="translate(0, 8)"
-      fill="rgba(53, 174, 240, 0.8)"
-    />
+    <path d="M 0 36 18 0 70 0 88 36 70 72 18 72Z" transform="translate(0, 8)" />
   </symbol>
 );
 
