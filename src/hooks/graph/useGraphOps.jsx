@@ -135,13 +135,12 @@ export const useGraphOps = () => {
       return;
     }
     if (selectedNodes !== null) {
-      setCopiedNodes;
-    }
-    const x = selected.x + 10;
-    const y = selected.y + 10;
-    setCopiedNode({ ...selected, x, y });
+      setCopiedNodes([...selectedNodes]);
+      setCopiedEdges([...selectedEdges]);
+    } else setCopiedNode({ ...selected });
   };
 
+  React.useEffect(() => console.log(selectedNodes), [selectedNodes.length]);
   const handlePasteSelected = (node, mousePosition) => {
     const newNode = {
       ...node,
@@ -155,6 +154,7 @@ export const useGraphOps = () => {
   return {
     handleSelectNode,
     handleSelectEdge,
+    handleSelect,
     handleCreateNode,
     handleUpdateNode,
     handleDeleteNode,

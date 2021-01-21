@@ -9,6 +9,8 @@ const withGraphContextHOC = (InnerComp) => (props) => {
     edges,
     setEdges,
     selected,
+    selectedNodes,
+    selectedEdges,
     setSelected,
     disableAPI,
   } = React.useContext(GraphContext);
@@ -30,6 +32,8 @@ const withGraphContextHOC = (InnerComp) => (props) => {
       edges={edges}
       setEdges={setEdges}
       selected={selected}
+      selectedNodes={selectedNodes}
+      selectedEdges={selectedEdges}
       setSelected={setSelected}
       disableAPI={disableAPI}
     />

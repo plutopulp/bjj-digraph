@@ -32,7 +32,6 @@ const NodeTypeContainer = ({ nodeType }) => {
     },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });
-  console.log(nodeType);
 
   // Extracts the title from the node type
   const getNodeTitle = () => toTitle(nodeType.name.split("-")[1]);

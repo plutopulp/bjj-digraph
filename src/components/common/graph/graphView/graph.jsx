@@ -38,6 +38,8 @@ const GraphViewContainer = ({
   nodes,
   edges,
   selected,
+  selectedNodes,
+  selectedEdges,
   width,
   height,
   showControls,
@@ -46,6 +48,7 @@ const GraphViewContainer = ({
   const {
     handleSelectNode,
     handleSelectEdge,
+    handleSelect,
     handleCreateNode,
     handleUpdateNode,
     handleDeleteNode,
@@ -84,6 +87,8 @@ const GraphViewContainer = ({
           nodes={nodes}
           edges={edges}
           selected={selected}
+          selectedNodes={selectedNodes}
+          selectedEdges={selectedEdges}
           nodeTypes={nodeTypes}
           nodeSubtypes={nodeSubtypes}
           edgeTypes={edgeTypes}
@@ -92,10 +97,11 @@ const GraphViewContainer = ({
           disableBackspace={true}
           allowMultiselect={true}
           onSelectNode={handleSelectNode}
+          onSelectEdge={handleSelectEdge}
+          onSelect={handleSelect}
           onUpdateNode={handleUpdateNode}
           onCreateNode={handleCreateNode}
           onDeleteNode={handleDeleteNode}
-          onSelectEdge={handleSelectEdge}
           onCreateEdge={handleCreateEdge}
           onSwapEdge={handleSwapEdge}
           onDeleteEdge={handleDeleteEdge}

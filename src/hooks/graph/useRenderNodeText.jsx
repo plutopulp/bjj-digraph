@@ -1,11 +1,15 @@
 import React from "react";
 import { GraphUtils } from "react-digraph";
 
+import { GraphContext } from "../../contexts/graph";
 import { NodeTypesContext } from "../../contexts/nodeTypes";
+
+import { nodesInclude } from "../../lib/utils/graph";
 
 export const useRenderNodeText = () => {
   const ref = React.useRef();
   const { nodeTypes } = React.useContext(NodeTypesContext);
+  const { selectedNodes } = React.useContext(GraphContext);
 
   const getTypeText = (data) => {
     if (data.type && nodeTypes[data.type]) return nodeTypes[data.type].typeText;
@@ -14,7 +18,11 @@ export const useRenderNodeText = () => {
   };
 
   const renderNodeText = (data, id, selected) => {
-    const className = GraphUtils.classNames("node-text", { selected });
+    let selectedTMP = selected;
+    if (nodesInclude(id, selectedNodes)) selectedTMP = true;
+    const className = GraphUtils.classNames("node-text", {
+      selected: selectedTMP,
+    });
     const { title } = data;
     const maxTitleChars = 24;
     return (
@@ -28,7 +36,7 @@ export const useRenderNodeText = () => {
           <tspan
             x={0}
             dy={6}
-            fontSize="1.25em"
+            fontSize={"1.25em"}
             fontWeight={600}
             xmlns="http://www.w3.org/2000/svg"
           >

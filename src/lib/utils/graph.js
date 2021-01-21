@@ -12,12 +12,16 @@ export const getEdgeIndex = (searchEdge, edges) =>
       edge.source === searchEdge.source && edge.target === searchEdge.target
   );
 
-// Get the node corresponding to a given NODE_KEY
-export const getNode = (nodeKey, nodes) => {
-  const searchNode = { [NODE_KEY]: nodeKey };
+// Get the node with a given id
+export const getNode = (id, nodes) => {
+  const searchNode = { [NODE_KEY]: id };
   const searchIndex = getNodeIndex(searchNode);
   return nodes[searchIndex];
 };
+
+// Checks if an id is in a given node set
+export const nodesInclude = (id, nodes) =>
+  nodes.find((node) => id.includes(node.id));
 
 // Get the adjacent nodes of a given node in the digraph
 export const getAdjacentNodes = (nodes, edges, node) => {

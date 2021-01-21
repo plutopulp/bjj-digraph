@@ -14,6 +14,8 @@ const StatelessGraphView = ({
   nodes,
   edges,
   selected,
+  selectedNodes,
+  selectedEdges,
   readOnly,
   showControls,
 }) => (
