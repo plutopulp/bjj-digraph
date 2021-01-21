@@ -54,7 +54,6 @@ const NodeToolBox = ({
       selected.id,
       "a6bbdbd5-c2d3-4558-82d5-72cf5b90944d"
     );
-  console.log(multiSelect);
   return (
     <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
       <Popup

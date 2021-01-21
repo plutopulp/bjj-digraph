@@ -8,8 +8,8 @@ import { NODE_KEY } from "../../lib/config/graph/graphConfig";
 import { useKeyPressed } from "../events/useKeyPressed";
 
 // Hook for all graph operation/modification methods
-// These methods modify client nodes and edges (react states)
-// No server modifications / API calls are made here.
+// These methods modify client nodes, edges etc.. (react states)
+// No server requests / API calls are made here.
 
 export const useGraphOps = () => {
   const {
@@ -42,6 +42,8 @@ export const useGraphOps = () => {
       setSelected(null);
       setMultiSelect([]);
       setPaths([]);
+      setSelectedEdges([]);
+      setSelectedNodes([]);
     }
   }, [escapePressed]);
 
@@ -63,9 +65,13 @@ export const useGraphOps = () => {
   };
 
   // Selecting multiple items at a time
+  // Annoying... both onSelect and onSelectNode get called
+  // when clicking on a node. Can't just get rid of onSelectNode
+  // because delete method couple to selected behind the scene
   const handleSelect = ({ nodes, edges }) => {
-    setSelectedNodes(nodes);
-    setSelectedEdges(edges);
+    // Ensure only selected populated when clicking on an item
+    if (nodes.length > 1) setSelectedNodes(nodes);
+    if (edges.length > 1) setSelectedEdges(edges);
   };
 
   // Appends a new node to nodes. Expects x and y graph coordinate
@@ -130,6 +136,7 @@ export const useGraphOps = () => {
   };
 
   const handleCopySelected = () => {
+    console.log(selectedNodes);
     if (selected.source) {
       console.warn("Can't copy selected edges, try selecting a node instead.");
       return;
@@ -140,8 +147,19 @@ export const useGraphOps = () => {
     } else setCopiedNode({ ...selected });
   };
 
-  React.useEffect(() => console.log(selectedNodes), [selectedNodes.length]);
+  // Pastes the selected item(s) to mouse position
   const handlePasteSelected = (node, mousePosition) => {
+    console.log(node, mousePosition);
+    if (copiedNodes === null && copiedNode !== null)
+      // Used when allowMultiselect is false
+      handleSingleNodePaste(node, mousePosition);
+    else if (copiedNodes !== null)
+      // Used when allowMultiselect is false
+      handleMultiNodePaste(mousePosition);
+  };
+
+  // "Private" method for handling single node paste
+  const handleSingleNodePaste = (node, mousePosition) => {
     const newNode = {
       ...node,
       id: uuid(),
@@ -149,6 +167,36 @@ export const useGraphOps = () => {
       y: mousePosition ? mousePosition[1] : node.y,
     };
     setNodes([...nodes, newNode]);
+    setSelected(newNode);
+  };
+
+  // "Private" method for handling multiple node paste
+  const handleMultiNodePaste = ([mouseX, mouseY]) => {
+    let cornerX, cornerY;
+    copiedNodes.forEach((copiedNode) => {
+      // find left-most node and record x position
+      if (cornerX == null || copiedNode.x < cornerX) cornerX = copiedNode.x;
+
+      // find top-most node and record y position
+      if (cornerY == null || copiedNode.y < cornerY) cornerY = copiedNode.y;
+    });
+    // Keep track of the mapping of old IDs to new IDs
+    // so we can recreate the edges
+    const newIDs = {};
+
+    // Every node position is relative to the top and left-most corner
+    copiedNodes.forEach((copiedNode) => {
+      const x = mouseX + (copiedNode.x - cornerX);
+      const y = mouseY + (copiedNode.y - cornerY);
+      handleCreateNode(x, y, copiedNode.nodeType);
+    });
+    const newEdges = copiedEdges.map((copiedEdge) => {
+      return {
+        ...copiedEdge,
+        source: newIDs[copiedEdge.source],
+        target: newIDs[copiedEdge.target],
+      };
+    });
   };
 
   return {

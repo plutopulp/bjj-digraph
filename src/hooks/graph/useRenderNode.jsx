@@ -21,7 +21,8 @@ export const useRenderNode = () => {
 
   // Returns the base (static) svg properties of a node of a given type
   const getBaseSvgProps = (nodeType) => {
-    let svgProps = {
+    if (!nodeType) return;
+    const svgProps = {
       ...nodeType.svgProps,
       ...getNodeDimensions(nodeType),
     };
@@ -45,7 +46,7 @@ export const useRenderNode = () => {
 
   // Returns the complete svg properties of a node
   const getSVGProps = (node) => {
-    const nodeType = nodeTypes[node.type];
+    const nodeType = nodeTypes[node.type] || nodeTypes["score-position-user"];
     const baseSvgProps = getBaseSvgProps(nodeType);
     const dynamicSvgProps = getDynamicSvgProps(node);
     const svgProps = { ...baseSvgProps, ...dynamicSvgProps };
@@ -55,7 +56,7 @@ export const useRenderNode = () => {
   // Render method providing suitable svg symbol for input node
   const renderNode = (ref, node, id, selected, hovered) => {
     const nodeClassName = GraphUtils.classNames("node", { selected, hovered });
-    const nodeType = nodeTypes[node.type];
+    const nodeType = nodeTypes[node.type] || nodeTypes["score-position-user"];
     const svgProps = getSVGProps(node);
     return (
       <use
