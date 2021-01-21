@@ -35,11 +35,14 @@ const NodeTypeList = ({ title, type, subtype }) => {
         nodeType.name.includes(type) && nodeType.name.includes(subtype)
     );
   };
+  const sortByTitle = (types) =>
+    types.sort((a, b) => a.name.length - b.name.length);
+
   return (
     <SectionWrapper>
       <Title>{title}</Title>
       <ListWrapper>
-        {filteredNodeTypes().map((nodeType) => (
+        {sortByTitle(filteredNodeTypes()).map((nodeType) => (
           <NodeType key={uuid()} nodeType={nodeType} />
         ))}
       </ListWrapper>

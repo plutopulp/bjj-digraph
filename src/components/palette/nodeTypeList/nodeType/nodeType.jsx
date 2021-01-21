@@ -5,7 +5,11 @@ import styled from "styled-components";
 import { dragTypes } from "../../../../lib/config/types/dragTypes";
 import { toTitle } from "../../../../lib/utils/strings";
 
-const Wrapper = styled.div`
+const SVGWithShadow = styled.div`
+  -webkit-filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.3));
+`;
+const NodeTypeWrapper = styled.div`
   margin: 1em 2em 1em 0;
   display: flex;
   flex-direction: column;
@@ -33,19 +37,21 @@ const NodeTypeContainer = ({ nodeType }) => {
   // Extracts the title from the node type
   const getNodeTitle = () => toTitle(nodeType.name.split("-")[1]);
   return (
-    <Wrapper ref={ref} isDragging={isDragging}>
-      {" "}
-      <svg width="50" height="50">
-        {nodeType.shape}
-        <use
-          xlinkHref={nodeType.shapeId}
-          width="50"
-          height="50"
-          {...svgProps}
-        />
-      </svg>
+    <NodeTypeWrapper>
+      <SVGWithShadow ref={ref} isDragging={isDragging}>
+        {" "}
+        <svg width="50" height="50">
+          {nodeType.shape}
+          <use
+            xlinkHref={nodeType.shapeId}
+            width="50"
+            height="50"
+            {...svgProps}
+          />
+        </svg>
+      </SVGWithShadow>
       <Title>{getNodeTitle()}</Title>
-    </Wrapper>
+    </NodeTypeWrapper>
   );
 };
 

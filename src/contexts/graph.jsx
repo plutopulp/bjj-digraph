@@ -12,8 +12,9 @@ export const GraphProvider = ({ children }) => {
   // The graph detail view currently open in the browser
   const [currentGraphId, setCurrentGraphId] = React.useState("");
   React.useEffect(() => {
-    //setCurrentGraphId(location.state.graphId);
-  }, []);
+    if (location.pathname.includes("/graphs/") && location.state)
+      setCurrentGraphId(location.state.graphId);
+  }, [location, location.pathname]);
 
   // All the nodes and edges of the current graph
   const [nodes, setNodes] = React.useState([]);
@@ -22,6 +23,12 @@ export const GraphProvider = ({ children }) => {
   // Default react-digraph selected and copied node
   const [selected, setSelected] = React.useState({});
   const [copiedNode, setCopiedNode] = React.useState({});
+
+  // New default react-digraph multiselected
+  const [selectedNodes, setSelectedNodes] = React.useState([]);
+  const [selectedEdges, setSelectedEdges] = React.useState([]);
+  const [copiedNodes, setCopiedNodes] = React.useState([]);
+  const [copiedEdges, setCopiedEdges] = React.useState([]);
 
   // Custom implemented array of selected nodes
   const [multiSelect, setMultiSelect] = React.useState([]);
@@ -44,6 +51,14 @@ export const GraphProvider = ({ children }) => {
         setEdges,
         selected,
         setSelected,
+        selectedNodes,
+        setSelectedNodes,
+        selectedEdges,
+        setSelectedEdges,
+        copiedNodes,
+        setCopiedNodes,
+        copiedEdges,
+        setCopiedEdges,
         multiSelect,
         setMultiSelect,
         paths,

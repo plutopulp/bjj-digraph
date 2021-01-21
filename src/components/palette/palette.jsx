@@ -5,7 +5,7 @@ import styled from "styled-components";
 import NodeTypeList from "./nodeTypeList/nodeTypeList";
 
 const PaletteWrapper = styled.div`
-  width: 16.67%;
+  width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;

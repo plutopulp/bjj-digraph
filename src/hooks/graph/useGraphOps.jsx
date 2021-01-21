@@ -19,11 +19,19 @@ export const useGraphOps = () => {
     setEdges,
     selected,
     setSelected,
+    selectedNodes,
+    setSelectedNodes,
+    selectedEdges,
+    setSelectedEdges,
     multiSelect,
     setMultiSelect,
     setPaths,
     copiedNode,
     setCopiedNode,
+    copiedNodes,
+    setCopiedNodes,
+    copiedEdges,
+    setCopiedEdges,
   } = React.useContext(GraphContext);
 
   // Will probably put this into its own hook, when other hotkeys are defined
@@ -37,8 +45,8 @@ export const useGraphOps = () => {
     }
   }, [escapePressed]);
 
+  // Selecting single node at a time
   const handleSelectNode = (node) => {
-    console.log(node);
     if (sKeyPressed) {
       if (multiSelect.find((selectedNode) => selectedNode.id === node.id))
         setMultiSelect(
@@ -49,8 +57,15 @@ export const useGraphOps = () => {
     setSelected(node);
   };
 
+  // Selecting single edge at a time
   const handleSelectEdge = (edge) => {
     setSelected(edge);
+  };
+
+  // Selecting multiple items at a time
+  const handleSelect = ({ nodes, edges }) => {
+    setSelectedNodes(nodes);
+    setSelectedEdges(edges);
   };
 
   // Appends a new node to nodes. Expects x and y graph coordinate
@@ -60,8 +75,6 @@ export const useGraphOps = () => {
       id: uuid(),
       title: nodeType.typeText,
       type: nodeType.name,
-      // "nodeType" key is used on the backend instead of "type",
-      // which is a keyword in python
       nodeType: nodeType.name,
       x,
       y,
@@ -120,6 +133,9 @@ export const useGraphOps = () => {
     if (selected.source) {
       console.warn("Can't copy selected edges, try selecting a node instead.");
       return;
+    }
+    if (selectedNodes !== null) {
+      setCopiedNodes;
     }
     const x = selected.x + 10;
     const y = selected.y + 10;
