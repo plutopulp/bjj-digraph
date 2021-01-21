@@ -1,5 +1,6 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
+import _ from "lodash";
 
 import { GraphContext } from "../../contexts/graph";
 import { getNodeIndex, getEdgeIndex } from "../../lib/utils/graph";
@@ -40,12 +41,25 @@ export const useGraphOps = () => {
   React.useEffect(() => {
     if (escapePressed) {
       setSelected(null);
-      setMultiSelect([]);
-      setPaths([]);
       setSelectedEdges([]);
       setSelectedNodes([]);
+      setCopiedNode({});
+      setCopiedNodes([]);
+      setCopiedEdges([]);
+      setMultiSelect([]);
+      setPaths([]);
     }
-  }, [escapePressed]);
+  }, [
+    escapePressed,
+    setCopiedNode,
+    setSelected,
+    setSelectedEdges,
+    setSelectedNodes,
+    setCopiedNodes,
+    setCopiedEdges,
+    setMultiSelect,
+    setPaths,
+  ]);
 
   // Selecting single node at a time
   const handleSelectNode = (node) => {
@@ -67,9 +81,9 @@ export const useGraphOps = () => {
   // Selecting multiple items at a time
   // Annoying... both onSelect and onSelectNode get called
   // when clicking on a node. Can't just get rid of onSelectNode
-  // because delete method couple to selected behind the scene
+  // because delete method couple to selected node behind the scene
   const handleSelect = ({ nodes, edges }) => {
-    // Ensure only selected populated when clicking on an item
+    // Ensure only selected is populated when clicking on an item
     if (nodes.length > 1) setSelectedNodes(nodes);
     if (edges.length > 1) setSelectedEdges(edges);
   };
@@ -136,30 +150,31 @@ export const useGraphOps = () => {
   };
 
   const handleCopySelected = () => {
-    console.log(selectedNodes);
     if (selected.source) {
       console.warn("Can't copy selected edges, try selecting a node instead.");
       return;
     }
-    if (selectedNodes !== null) {
+    if (selectedNodes.length > 0) {
       setCopiedNodes([...selectedNodes]);
       setCopiedEdges([...selectedEdges]);
     } else setCopiedNode({ ...selected });
   };
+  React.useEffect(() => console.log(selected), [selected]);
+  React.useEffect(() => console.log(copiedNode), [copiedNode]);
 
   // Pastes the selected item(s) to mouse position
   const handlePasteSelected = (node, mousePosition) => {
-    console.log(node, mousePosition);
-    if (copiedNodes === null && copiedNode !== null)
+    console.log(node, mousePosition, copiedNodes, _.isEmpty(copiedNode));
+    if (copiedNodes.length === 0 && !_.isEmpty(copiedNode))
       // Used when allowMultiselect is false
-      handleSingleNodePaste(node, mousePosition);
-    else if (copiedNodes !== null)
+      handlePasteNode(node, mousePosition);
+    else if (copiedNodes.length !== 0)
       // Used when allowMultiselect is false
-      handleMultiNodePaste(mousePosition);
+      handlePasteNodes(mousePosition);
   };
 
   // "Private" method for handling single node paste
-  const handleSingleNodePaste = (node, mousePosition) => {
+  const handlePasteNode = (node, mousePosition) => {
     const newNode = {
       ...node,
       id: uuid(),
@@ -171,7 +186,7 @@ export const useGraphOps = () => {
   };
 
   // "Private" method for handling multiple node paste
-  const handleMultiNodePaste = ([mouseX, mouseY]) => {
+  const handlePasteNodes = ([mouseX, mouseY]) => {
     let cornerX, cornerY;
     copiedNodes.forEach((copiedNode) => {
       // find left-most node and record x position

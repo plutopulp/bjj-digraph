@@ -33,10 +33,10 @@ const NodeToolBox = ({
   const [openEditor, toggleEditor] = useToggle(false);
   const nodeElem = document.getElementById(`node-${selected.id}`);
   const { handleDeleteNode } = useGraphOps();
-  React.useEffect(() => {
-    const nodePos = nodeElem.getBoundingClientRect();
-    setBoxPosition([nodePos.left, nodePos.top - 60]);
-  }, [selected.x, selected.y, scale, translation]);
+  //React.useEffect(() => {
+  //  const nodePos = nodeElem.getBoundingClientRect();
+  //  setBoxPosition([nodePos.left, nodePos.top - 60]);
+  //}, [selected.x, selected.y, scale, translation]);
 
   const handleDelete = () => handleDeleteNode(selected, selected.id);
   const handleBFS = () => bfs(nodes, edges, selected.id);
