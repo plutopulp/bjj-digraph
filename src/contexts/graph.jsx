@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
+import { initialEdges, initialNodes } from "../test/sample";
 
 export const GraphContext = React.createContext();
 
@@ -17,8 +18,8 @@ export const GraphProvider = ({ children }) => {
   }, [location, location.pathname]);
 
   // All the nodes and edges of the current graph
-  const [nodes, setNodes] = React.useState([]);
-  const [edges, setEdges] = React.useState([]);
+  const [nodes, setNodes] = React.useState(initialNodes);
+  const [edges, setEdges] = React.useState(initialEdges);
 
   // Default react-digraph selected and copied node
   const [selected, setSelected] = React.useState({});

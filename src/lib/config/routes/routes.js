@@ -6,6 +6,7 @@ const serverUrl = process.env.REACT_APP_SERVER_URL;
 export const routes = {
   pages: {
     home: "/",
+    test: "/test/",
     about: "/about/",
     graphs: {
       base: "/graphs/",

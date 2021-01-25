@@ -1,18 +1,14 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
+import { GraphView } from "react-digraph";
 import _ from "lodash";
 
-import { GraphContext } from "../../contexts/graph";
-import { getNodeIndex, getEdgeIndex } from "../../lib/utils/graph";
+import GraphConfig, { NODE_KEY } from "./graph-config"; // Configures node/edge types
+import { GraphContext } from "../contexts/graph";
 
-import { NODE_KEY } from "../../lib/config/graph/graphConfig";
-import { useKeyPressed } from "../events/useKeyPressed";
+const { NodeTypes, NodeSubtypes, EdgeTypes } = GraphConfig;
 
-// Hook for all graph operation/modification methods
-// These methods modify client nodes, edges etc.. (react states)
-// No server requests / API calls are made here.
-
-export const useGraphOps = () => {
+const GraphViewContainer = () => {
+  const graphRef = React.useRef();
   const {
     nodes,
     setNodes,
@@ -24,80 +20,37 @@ export const useGraphOps = () => {
     setSelectedNodes,
     selectedEdges,
     setSelectedEdges,
-    multiSelect,
-    setMultiSelect,
-    setPaths,
-    copiedNode,
-    setCopiedNode,
-    copiedNodes,
-    setCopiedNodes,
-    copiedEdges,
-    setCopiedEdges,
   } = React.useContext(GraphContext);
+  const [copiedNode, setCopiedNode] = React.useState({});
+  const [copiedNodes, setCopiedNodes] = React.useState([]);
+  const [copiedEdges, setCopiedEdges] = React.useState([]);
 
-  // Will probably put this into its own hook, when other hotkeys are defined
-  const escapePressed = useKeyPressed("Escape");
-  const sKeyPressed = useKeyPressed("s");
-  React.useEffect(() => {
-    if (escapePressed) {
-      setSelected({});
-      setSelectedEdges([]);
-      setSelectedNodes([]);
-      setCopiedNode({});
-      setCopiedNodes([]);
-      setCopiedEdges([]);
-      setMultiSelect([]);
-      setPaths([]);
-    }
-  }, [
-    escapePressed,
-    setCopiedNode,
-    setSelected,
-    setSelectedEdges,
-    setSelectedNodes,
-    setCopiedNodes,
-    setCopiedEdges,
-    setMultiSelect,
-    setPaths,
-  ]);
+  const getNodeIndex = (searchNode, nodes) =>
+    nodes.findIndex((node) => node[NODE_KEY] === searchNode[NODE_KEY]);
 
-  // Selecting single node at a time
+  const getEdgeIndex = (searchEdge, edges) =>
+    edges.findIndex(
+      (edge) =>
+        edge.source === searchEdge.source && edge.target === searchEdge.target
+    );
   const handleSelectNode = (node) => {
     console.log("single node selected");
-    if (sKeyPressed) {
-      if (multiSelect.find((selectedNode) => selectedNode.id === node.id))
-        setMultiSelect(
-          multiSelect.filter((selectedNode) => selectedNode.id !== node.id)
-        );
-      else setMultiSelect([...multiSelect, node]);
-    }
     setSelected(node);
   };
-
-  // Selecting single edge at a time
   const handleSelectEdge = (edge) => {
     setSelected(edge);
   };
-
-  // Selecting multiple items at a time
-  // Annoying... both onSelect and onSelectNode get called
-  // when clicking on a node. Can't just get rid of onSelectNode
-  // because delete method couple to selected node behind the scene
   const handleSelect = ({ nodes, edges }) => {
-    // Ensure only selected is populated when clicking on an item
     console.log("multi node selected");
     setSelectedNodes(nodes);
     setSelectedEdges(edges);
   };
-
-  // Appends a new node to nodes. Expects x and y graph coordinate
-  // and nodeType as defined in nodeTypes
   const handleCreateNode = (x, y, nodeType) => {
+    const type = Math.random() < 0.25 ? "poly" : "special";
     const newNode = {
-      id: uuid(),
-      title: nodeType.typeText,
-      type: nodeType.name,
-      nodeType: nodeType.name,
+      id: Date.now(),
+      title: "New Node",
+      type,
       x,
       y,
     };
@@ -109,7 +62,6 @@ export const useGraphOps = () => {
     setNodes([...nodes.slice(0, index), newNode, ...nodes.slice(index + 1)]);
   };
 
-  // Removes a given node from nodes and its connected edges from edges
   const handleDeleteNode = (node, nodeId) => {
     const newEdges = edges.filter(
       (edge) => edge.source !== node[NODE_KEY] && edge.target !== node[NODE_KEY]
@@ -120,11 +72,10 @@ export const useGraphOps = () => {
     setSelected({});
   };
 
-  // Creates an edge between 2 nodes
   const handleCreateEdge = (sourceNode, targetNode) => {
     if (sourceNode !== targetNode) {
       const newEdge = {
-        id: uuid(),
+        id: Date.now(),
         source: sourceNode[NODE_KEY],
         target: targetNode[NODE_KEY],
         type: "emptyEdge",
@@ -134,7 +85,6 @@ export const useGraphOps = () => {
     }
   };
 
-  // Changes the target node of an edge
   const handleSwapEdge = (source, target, edge) => {
     const edgeIndex = getEdgeIndex(edge, edges);
     const newEdge = JSON.parse(JSON.stringify(edges[edgeIndex]));
@@ -147,14 +97,11 @@ export const useGraphOps = () => {
     ]);
   };
 
-  // Removes a given edge from edges
   const handleDeleteEdge = (_, newEdges) => {
     setEdges(newEdges);
     setSelected({});
   };
 
-  // Only firing on Ctl + c when selected populated, not selectedNodes
-  // May be an issue with react digraph
   const handleCopySelected = () => {
     console.log("fired");
     if (selected?.source) {
@@ -168,7 +115,6 @@ export const useGraphOps = () => {
   };
   React.useEffect(() => console.log(selectedNodes, copiedNodes));
 
-  // Pastes the selected item(s) to mouse position
   const handlePasteSelected = (node, mousePosition) => {
     console.log(copiedNodes);
     if (copiedNodes.length === 0 && !_.isEmpty(copiedNode))
@@ -181,10 +127,10 @@ export const useGraphOps = () => {
 
   // "Private" method for handling single node paste
   const handlePasteNode = (node, mousePosition) => {
-    console.log("paste single node ");
+    console.log("paste single node");
     const newNode = {
       ...node,
-      id: uuid(),
+      id: Date.now(),
       x: mousePosition ? mousePosition[0] : node.x,
       y: mousePosition ? mousePosition[1] : node.y,
     };
@@ -194,7 +140,7 @@ export const useGraphOps = () => {
 
   // "Private" method for handling multiple node paste
   const handlePasteNodes = ([mouseX, mouseY]) => {
-    console.log("paste multi node ");
+    console.log("paste multi node");
     let cornerX, cornerY;
     copiedNodes.forEach((copiedNode) => {
       // find left-most node and record x position
@@ -211,7 +157,7 @@ export const useGraphOps = () => {
     const newNodes = copiedNodes.map((copiedNode) => {
       const x = mouseX + (copiedNode.x - cornerX);
       const y = mouseY + (copiedNode.y - cornerY);
-      const id = uuid();
+      const id = `${copiedNode.id}_${Date.now()}`;
 
       newIDs[copiedNode.id] = id;
 
@@ -238,17 +184,34 @@ export const useGraphOps = () => {
     setSelectedEdges(newEdges);
   };
 
-  return {
-    handleSelectNode,
-    handleSelectEdge,
-    handleSelect,
-    handleCreateNode,
-    handleUpdateNode,
-    handleDeleteNode,
-    handleCreateEdge,
-    handleSwapEdge,
-    handleDeleteEdge,
-    handleCopySelected,
-    handlePasteSelected,
-  };
+  return (
+    <div style={{ height: "1000px" }}>
+      <GraphView
+        ref={graphRef}
+        nodeKey={NODE_KEY}
+        nodes={nodes}
+        edges={edges}
+        selected={selected}
+        selectedNodes={selectedNodes}
+        selectedEdges={selectedEdges}
+        nodeTypes={NodeTypes}
+        nodeSubtypes={NodeSubtypes}
+        edgeTypes={EdgeTypes}
+        allowMultiselect={true}
+        onSelectNode={handleSelectNode}
+        onSelectEdge={handleSelectEdge}
+        onSelect={handleSelect}
+        onUpdateNode={handleUpdateNode}
+        onCreateNode={handleCreateNode}
+        onDeleteNode={handleDeleteNode}
+        onCreateEdge={handleCreateEdge}
+        onSwapEdge={handleSwapEdge}
+        onDeleteEdge={handleDeleteEdge}
+        onCopySelected={handleCopySelected}
+        onPasteSelected={handlePasteSelected}
+      />
+    </div>
+  );
 };
+
+export default GraphViewContainer;
