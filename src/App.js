@@ -15,7 +15,6 @@ import Home from "./components/home/home";
 import { APIController } from "./components/APIController";
 import { SettingsProvider } from "./contexts/settings";
 import { NodeTypesProvider } from "./contexts/nodeTypes";
-import TestGraph from "./test/Graph";
 
 const App = () => {
   return (
@@ -47,7 +46,6 @@ const App = () => {
                     path={routes.pages.graphs.detail(":slug")}
                     component={AuthenticatedGraphView}
                   />
-                  <Route exact path={routes.pages.test} component={TestGraph} />
                 </SettingsProvider>
               </NodeTypesProvider>
             </GraphProvider>

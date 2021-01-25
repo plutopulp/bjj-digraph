@@ -27,6 +27,8 @@ const StatelessGraphView = ({
       selected={selected}
       readOnly={readOnly}
       showControls={showControls}
+      selectedNodes={selectedNodes}
+      selectedEdges={selectedEdges}
     />
   </Wrapper>
 );
