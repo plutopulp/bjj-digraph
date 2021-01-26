@@ -22,16 +22,16 @@ export const useAPIController = (state, setState, endpoints, disabled) => {
   const prevState = usePrevious(state);
 
   // Partial conditions for create, update and delete
-  const hasIncremented = () => state.length - prevState.length === 1;
-  const hasDecremented = () => state.length - prevState.length === -1;
+  const hasGrown = () => state.length - prevState.length > 0;
+  const hasShrunk = () => state.length - prevState.length < 0;
   const hasSameLength = () => state.length - prevState.length === 0;
 
   // Common conditions for create, update and delete
   const canCUD = () => loaded && !disabled;
 
   // Putting these conditions together
-  const canCreate = () => canCUD() && hasIncremented();
-  const canDelete = () => canCUD() && hasDecremented();
+  const canCreate = () => canCUD() && hasGrown();
+  const canDelete = () => canCUD() && hasShrunk();
   const canUpdate = () => canCUD() && hasSameLength();
 
   // Reads all resources into state on mount
@@ -42,15 +42,15 @@ export const useAPIController = (state, setState, endpoints, disabled) => {
   // Triggers post method on update when state array length increases
   useMountedEffect(() => {
     if (!canCreate()) return;
-    const newItem = getMissingObject(state, prevState);
-    create(endpoints.list, newItem);
+    const newItems = _.difference(state, prevState);
+    newItems.forEach((item) => create(endpoints.list, item));
   }, [state.length]);
 
   // Triggers delete method on update when state array length decreases
   useMountedEffect(() => {
     if (!canDelete()) return;
-    const oldItem = getMissingObject(prevState, state);
-    destroy(endpoints.detail(oldItem.id), oldItem);
+    const oldItems = _.difference(prevState, state);
+    oldItems.forEach((item) => destroy(endpoints.detail(item.id), item));
   }, [state.length]);
 
   // Triggers patch method on update when one or more items in state array updates
