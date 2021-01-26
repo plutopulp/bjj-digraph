@@ -63,7 +63,6 @@ export const useGraphOps = () => {
 
   // Selecting single node at a time
   const handleSelectNode = (node) => {
-    console.log("single node selected");
     if (sKeyPressed) {
       if (multiSelect.find((selectedNode) => selectedNode.id === node.id))
         setMultiSelect(
@@ -85,9 +84,9 @@ export const useGraphOps = () => {
   // because delete method couple to selected node behind the scene
   const handleSelect = ({ nodes, edges }) => {
     // Ensure only selected is populated when clicking on an item
-    console.log("multi node selected");
-    setSelectedNodes(nodes);
-    setSelectedEdges(edges);
+    if (nodes.length === 1) setSelected(nodes[0]);
+    else setSelectedNodes(nodes);
+    if (edges.length > 1) setSelectedEdges(edges);
   };
 
   // Appends a new node to nodes. Expects x and y graph coordinate
@@ -106,7 +105,11 @@ export const useGraphOps = () => {
   const handleUpdateNode = (node) => {
     const index = getNodeIndex(node, nodes);
     const newNode = { ...node };
-    setNodes([...nodes.slice(0, index), newNode, ...nodes.slice(index + 1)]);
+    setNodes((nodes) => [
+      ...nodes.slice(0, index),
+      newNode,
+      ...nodes.slice(index + 1),
+    ]);
   };
 
   // Removes a given node from nodes and its connected edges from edges
@@ -156,7 +159,6 @@ export const useGraphOps = () => {
   // Only firing on Ctl + c when selected populated, not selectedNodes
   // May be an issue with react digraph
   const handleCopySelected = () => {
-    console.log("fired");
     if (selected?.source) {
       console.warn("Can't copy selected edges, try selecting a node instead.");
       return;
@@ -166,11 +168,9 @@ export const useGraphOps = () => {
       setCopiedEdges([...selectedEdges]);
     } else setCopiedNode({ ...selected });
   };
-  React.useEffect(() => console.log(selectedNodes, copiedNodes));
 
   // Pastes the selected item(s) to mouse position
   const handlePasteSelected = (node, mousePosition) => {
-    console.log(copiedNodes);
     if (copiedNodes.length === 0 && !_.isEmpty(copiedNode))
       // Used when allowMultiselect is false
       handlePasteNode(node, mousePosition);
@@ -181,7 +181,6 @@ export const useGraphOps = () => {
 
   // "Private" method for handling single node paste
   const handlePasteNode = (node, mousePosition) => {
-    console.log("paste single node ");
     const newNode = {
       ...node,
       id: uuid(),
@@ -194,7 +193,6 @@ export const useGraphOps = () => {
 
   // "Private" method for handling multiple node paste
   const handlePasteNodes = ([mouseX, mouseY]) => {
-    console.log("paste multi node ");
     let cornerX, cornerY;
     copiedNodes.forEach((copiedNode) => {
       // find left-most node and record x position
@@ -226,6 +224,7 @@ export const useGraphOps = () => {
     const newEdges = copiedEdges.map((copiedEdge) => {
       return {
         ...copiedEdge,
+        id: uuid(),
         source: newIDs[copiedEdge.source],
         target: newIDs[copiedEdge.target],
       };

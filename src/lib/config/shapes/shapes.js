@@ -61,8 +61,8 @@ export const HexagonPointed = (
 );
 
 export const Lozenge = (
-  <symbol viewBox="-27 0 154 154" id="lozenge" width="154" height="154">
-    <rect transform="translate(50) rotate(45)" width="109" height="109" />
+  <symbol viewBox="-50 0 200 200" id="lozenge" width="200" height="200">
+    <rect transform="translate(50) rotate(45)" width="140" height="140" />
   </symbol>
 );
 

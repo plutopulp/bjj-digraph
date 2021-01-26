@@ -32,7 +32,7 @@ export const useRenderNode = () => {
   // Returns the dynamic svg properties of a node due to user interaction
   const getDynamicSvgProps = (node) => {
     if (multiSelect.find((selectedNode) => selectedNode.id === node.id)) {
-      return { stroke: "blue" };
+      return { filter: "url(#shadow)" };
     }
     const pathNodes = [];
     paths.forEach((path) => {
@@ -40,7 +40,7 @@ export const useRenderNode = () => {
     });
 
     if (pathNodes.find((pathNode) => pathNode.id === node.id)) {
-      return { strokeWidth: "20" };
+      return { filter: "url(#shadow)" };
     }
   };
 
@@ -59,12 +59,24 @@ export const useRenderNode = () => {
     const nodeType = nodeTypes[node.type] || nodeTypes["score-position-user"];
     const svgProps = getSVGProps(node);
     return (
-      <use
-        className={nodeClassName}
-        href={nodeType.shapeId}
-        xmlns="http://www.w3.org/2000/svg"
-        {...svgProps}
-      />
+      <g>
+        <defs>
+          <filter id="shadow">
+            <feDropShadow
+              dx="10"
+              dy="10"
+              floodColor="rgba(0, 0, 0, 0.6)"
+              stdDeviation="2"
+            />
+          </filter>
+        </defs>
+        <use
+          className={nodeClassName}
+          href={nodeType.shapeId}
+          xmlns="http://www.w3.org/2000/svg"
+          {...svgProps}
+        />
+      </g>
     );
   };
 
