@@ -4,7 +4,7 @@ import { Button, Popup, Icon } from "semantic-ui-react";
 
 import { SettingsContext } from "../../../../contexts/settings";
 import { GraphContext } from "../../../../contexts/graph";
-import { getConnectingPaths } from "../../../../lib/graph/algorithms/getConnectingPaths";
+import { usePathFinder } from "../../../../hooks";
 const Wrapper = styled.div`
   position: absolute;
   left: 0;
@@ -20,22 +20,9 @@ const Image = styled.img`
 
 const ToolBoxContainer = () => {
   const { readOnly, toggleReadOnly } = React.useContext(SettingsContext);
-  const { nodes, edges, multiSelect, setPaths } = React.useContext(
-    GraphContext
-  );
+  const { multiSelect } = React.useContext(GraphContext);
+  const { handleConnectingPaths } = usePathFinder();
 
-  const handleConnectedPaths = () => {
-    // An array of paths connecting 2 nodes
-    // path is an array of nodes
-    const paths = getConnectingPaths(
-      nodes,
-      edges,
-      multiSelect[0].id,
-      multiSelect[1].id
-    );
-    setPaths(paths);
-    console.log(paths);
-  };
   const canGetConnectingPaths = () => multiSelect.length === 2;
   return (
     <Wrapper>
@@ -56,7 +43,7 @@ const ToolBoxContainer = () => {
             <Button
               icon
               compact
-              onClick={handleConnectedPaths}
+              onClick={handleConnectingPaths}
               disabled={!canGetConnectingPaths()}
             >
               <Icon name="code branch" />

@@ -23,14 +23,15 @@ export const getNode = (id, nodes) => {
 export const nodesInclude = (id, nodes) =>
   nodes.find((node) => id.includes(node.id));
 
+// Maps an array of node ids to their respective view nodes
+export const IdsToViewNodes = (nodeIds, nodes) =>
+  nodeIds.map((id) => nodes.find((node) => node.id === id));
+
 // Get the adjacent nodes of a given node in the digraph
 export const getAdjacentNodes = (nodes, edges, node) => {
   const outwardEdges = edges.filter((edge) => edge.source === node.id);
   const adjacentNodeIds = outwardEdges.map((edge) => edge.target);
-  const adjacentNodes = adjacentNodeIds.map((nodeId) => {
-    return nodes.find((node) => node.id === nodeId);
-  });
-  return adjacentNodes;
+  return IdsToViewNodes(adjacentNodeIds, nodes);
 };
 
 // Get the adjacent node IDs for a given node ID
@@ -39,10 +40,6 @@ export const getAdjacentNodeIds = (nodeId, edges) => {
   const adjacentNodeIds = outwardEdges.map((edge) => edge.target);
   return adjacentNodeIds;
 };
-
-// Maps an array of node ids to their respective view nodes
-export const IdsToViewNodes = (nodeIds, nodes) =>
-  nodeIds.map((id) => nodes.find((node) => node.id === id));
 
 export const getNodeSize = (xlinkRef) => {
   // get width and height defined on def element

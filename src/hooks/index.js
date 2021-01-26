@@ -15,3 +15,4 @@ export { useScale } from "./graph/useScale";
 export { useTranslation } from "./graph/useTranslation";
 export { usePrevious } from "./utils/usePrevious";
 export { useToggle } from "./utils/useToggle";
+export { usePathFinder } from "./graph/usePathFinder";
