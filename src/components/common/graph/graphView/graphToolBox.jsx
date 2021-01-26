@@ -25,6 +25,8 @@ const ToolBoxContainer = () => {
   );
 
   const handleConnectedPaths = () => {
+    // An array of paths connecting 2 nodes
+    // path is an array of nodes
     const paths = getConnectingPaths(
       nodes,
       edges,

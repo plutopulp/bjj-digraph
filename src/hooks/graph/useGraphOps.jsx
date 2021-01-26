@@ -63,16 +63,20 @@ export const useGraphOps = () => {
 
   // Selecting single node at a time
   const handleSelectNode = (node) => {
-    if (sKeyPressed) {
-      if (multiSelect.find((selectedNode) => selectedNode.id === node.id))
-        setMultiSelect(
-          multiSelect.filter((selectedNode) => selectedNode.id !== node.id)
-        );
-      else setMultiSelect([...multiSelect, node]);
-    }
-    setSelected(node);
+    if (sKeyPressed) handleMultiselect(node);
+    else setSelected(node);
   };
 
+  const handleMultiselect = (node) => {
+    setSelected({});
+    if (multiSelect.find((selectedNode) => selectedNode.id === node.id))
+      setMultiSelect(
+        multiSelect.filter((selectedNode) => selectedNode.id !== node.id)
+      );
+    else {
+      setMultiSelect([...multiSelect, node]);
+    }
+  };
   // Selecting single edge at a time
   const handleSelectEdge = (edge) => {
     setSelected(edge);

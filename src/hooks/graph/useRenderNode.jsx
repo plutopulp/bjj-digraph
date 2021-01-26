@@ -63,10 +63,10 @@ export const useRenderNode = () => {
         <defs>
           <filter id="shadow">
             <feDropShadow
-              dx="10"
-              dy="10"
+              dx="12"
+              dy="12"
               floodColor="rgba(0, 0, 0, 0.6)"
-              stdDeviation="2"
+              stdDeviation="4"
             />
           </filter>
         </defs>

@@ -1,35 +1,45 @@
-import { getAdjacentNodes } from "../../utils/graph";
+import { getAdjacentNodeIds, IdsToViewNodes } from "../../utils/graph";
 
-export const getConnectingPaths = (nodes, edges, startNodeId, endNodeId) => {
-  // Create a deep copy of the nodes and edges
-  const newNodes = JSON.parse(JSON.stringify(nodes));
-  const newEdges = JSON.parse(JSON.stringify(edges));
-
-  // Find the starting node
-  const startNode = newNodes.find((node) => node.id === startNodeId);
-
-  // Initialize all nodes to unvisited
-  newNodes.forEach((node) => {
-    node.visited = false;
+export const getConnectingPaths = (
+  viewNodes,
+  viewEdges,
+  startNodeId,
+  endNodeId
+) => {
+  // Extract the node IDs of the view nodes
+  // Only use these in the search
+  const edges = viewEdges.map((edge) => {
+    return {
+      id: edge.id,
+      source: edge.source,
+      target: edge.target,
+    };
   });
-  // Create an array to store a path of nodes
+
+  // The nodes which have been visited
+  const visited = new Set();
+
+  // An array to store a path of nodes
   const path = [];
-  // Create an array to store paths
+  // An array to store paths
   const outputPaths = [];
 
-  const dfs = (node) => {
-    node.visited = true;
-    path.push(node);
-    if (node.id === endNodeId) outputPaths.push(path.map((node) => node));
+  // A depth first search traversal which pushes
+  // all connecting paths to the output
+  const dfs = (id) => {
+    visited.add(id);
+    path.push(id);
+    if (id === endNodeId) outputPaths.push(path.map((id) => id));
     else {
-      const adjacentNodes = getAdjacentNodes(newNodes, newEdges, node);
-      adjacentNodes.forEach((node) => {
-        if (!node.visited) dfs(node);
+      const adjacentNodeIds = getAdjacentNodeIds(id, edges);
+      adjacentNodeIds.forEach((id) => {
+        if (!visited.has(id)) dfs(id);
       });
     }
     path.pop();
-    node.visited = false;
+    visited.delete(id);
   };
-  dfs(startNode);
-  return outputPaths;
+  dfs(startNodeId);
+  // Convert the ids to nodes
+  return outputPaths.map((path) => IdsToViewNodes(path, viewNodes));
 };
