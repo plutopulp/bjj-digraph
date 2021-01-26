@@ -1,12 +1,17 @@
 export const Square = (
-  <symbol id="square" viewBox="0 0 160 160" width="160" height="160">
-    <rect width="154" height="154" rx="5" ry="5" transform="translate(3, 3)" />
+  <symbol id="square" viewBox="-10 -10 200 200" width="200" height="200">
+    <rect width="180" height="180" rx="5" ry="5" transform="translate(3, 3)" />
   </symbol>
 );
 
 export const SkinnyRectangle = (
-  <symbol viewBox="0 0 154 77" width="154" height="77" id="skinny-rectangle">
-    <rect x="0" y="0" rx="2" ry="2" width="154" height="77" />
+  <symbol
+    viewBox="-10 -5 200 100"
+    width="200"
+    height="100"
+    id="skinny-rectangle"
+  >
+    <rect x="0" y="0" rx="2" ry="2" width="180" height="90" />
   </symbol>
 );
 
