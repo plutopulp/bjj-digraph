@@ -19,9 +19,12 @@ export const getNode = (id, nodes) => {
   return nodes[searchIndex];
 };
 
-// Checks if an id is in a given node set
-export const nodesInclude = (id, nodes) =>
-  nodes.find((node) => id.includes(node.id));
+// Checks if an id is in a given node array
+export const nodesInclude = (id, nodes) => {
+  return nodes === undefined
+    ? false
+    : nodes.find((node) => id.includes(node.id));
+};
 
 // Maps an array of node ids to their respective view nodes
 export const IdsToViewNodes = (nodeIds, nodes) =>

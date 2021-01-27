@@ -7,7 +7,7 @@ import { NodeTypesContext } from "../../contexts/nodeTypes";
 // The svg properties of the node are embedded in the svg symbol
 // returned by the render method
 export const useRenderNode = () => {
-  const { multiSelect, paths } = React.useContext(GraphContext);
+  const { multiSelect, paths, showPathIndex } = React.useContext(GraphContext);
   const { nodeTypes } = React.useContext(NodeTypesContext);
 
   // Get the svg width, height and x, y position offset
@@ -34,13 +34,10 @@ export const useRenderNode = () => {
     if (multiSelect.find((selectedNode) => selectedNode.id === node.id)) {
       return { filter: "url(#shadow)" };
     }
-    const pathNodes = [];
-    paths.forEach((path) => {
-      path.forEach((node) => pathNodes.push(node));
-    });
-
-    if (pathNodes.find((pathNode) => pathNode.id === node.id)) {
-      return { filter: "url(#shadow)" };
+    if (paths.length) {
+      if (paths[showPathIndex].find((pathNode) => pathNode.id === node.id)) {
+        return { filter: "url(#shadow)" };
+      }
     }
   };
 
@@ -63,8 +60,8 @@ export const useRenderNode = () => {
         <defs>
           <filter id="shadow">
             <feDropShadow
-              dx="12"
-              dy="12"
+              dx="15"
+              dy="15"
               floodColor="rgba(0, 0, 0, 0.6)"
               stdDeviation="4"
             />

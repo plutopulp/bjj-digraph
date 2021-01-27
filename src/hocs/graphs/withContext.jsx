@@ -32,8 +32,8 @@ const withGraphContextHOC = (InnerComp) => (props) => {
       edges={edges}
       setEdges={setEdges}
       selected={selected}
-      selectedNodes={selectedNodes}
-      selectedEdges={selectedEdges}
+      //selectedNodes={selectedNodes}
+      //electedEdges={selectedEdges}
       setSelected={setSelected}
       disableAPI={disableAPI}
     />

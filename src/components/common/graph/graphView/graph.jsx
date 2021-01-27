@@ -19,7 +19,7 @@ import {
 import NodeToolBox from "./nodeToolBox";
 //import renderNodeText from "./renderNodeText";
 import { GraphContext } from "../../../../contexts/graph";
-import ToolBox from "./graphToolBox";
+import ToolBox from "./toolBox/toolBox";
 import { NodeTypesContext } from "../../../../contexts/nodeTypes";
 
 const { nodeSubtypes, edgeTypes } = graphConfig;
@@ -65,7 +65,7 @@ const GraphViewContainer = ({
   const translation = useTranslation(graphRef);
   const renderNode = useRenderNode();
   const renderNodeText = useRenderNodeText();
-  const { multiSelect, paths } = React.useContext(GraphContext);
+  const { multiSelect, paths, showPathIndex } = React.useContext(GraphContext);
   const { nodeTypes } = React.useContext(NodeTypesContext);
 
   const [showToolBox, setShowToolBox] = React.useState(false);
@@ -75,7 +75,11 @@ const GraphViewContainer = ({
     setTimeout(() => setShowToolBox(true), 600);
   }, [scale, JSON.stringify(translation)]);
 
-  React.useEffect(() => graphRef.current.renderNodes(), [multiSelect, paths]);
+  React.useEffect(() => graphRef.current.renderNodes(), [
+    multiSelect,
+    paths,
+    showPathIndex,
+  ]);
 
   return (
     <GraphWrapper ref={wrapperRef} width={width} height={height}>

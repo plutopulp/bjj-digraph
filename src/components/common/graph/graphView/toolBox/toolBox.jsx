@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Button, Popup, Icon } from "semantic-ui-react";
 
-import { SettingsContext } from "../../../../contexts/settings";
-import { GraphContext } from "../../../../contexts/graph";
-import { usePathFinder } from "../../../../hooks";
+import { SettingsContext } from "../../../../../contexts/settings";
+import { GraphContext } from "../../../../../contexts/graph";
+import { usePathFinder } from "../../../../../hooks";
+import PathBox from "../pathBox";
 const Wrapper = styled.div`
   position: absolute;
   left: 0;
@@ -52,6 +53,7 @@ const ToolBoxContainer = () => {
           content="See all connecting paths"
         />
       </Button.Group>
+      <PathBox />
     </Wrapper>
   );
 };

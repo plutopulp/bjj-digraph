@@ -35,6 +35,7 @@ export const GraphProvider = ({ children }) => {
 
   // An array of paths connecting 2 nodes
   const [paths, setPaths] = React.useState([]);
+  const [showPathIndex, setShowPathIndex] = React.useState(0);
 
   // For disabling backend API calls. Used in the node editor,
   // where API call only occurs on submit
@@ -63,6 +64,8 @@ export const GraphProvider = ({ children }) => {
         setMultiSelect,
         paths,
         setPaths,
+        showPathIndex,
+        setShowPathIndex,
         copiedNode,
         setCopiedNode,
         disableAPI,

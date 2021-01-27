@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { GraphUtils } from "react-digraph";
 
 import { GraphContext } from "../../contexts/graph";
@@ -6,8 +7,20 @@ import { NodeTypesContext } from "../../contexts/nodeTypes";
 
 import { nodesInclude } from "../../lib/utils/graph";
 
+const NodeContentWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.25em;
+  font-weight: 650;
+  padding: 1em;
+  color: ${({ selected }) => (selected ? "white" : "#222")};
+`;
+
 export const useRenderNodeText = () => {
-  const ref = React.useRef();
   const { nodeTypes } = React.useContext(NodeTypesContext);
   const { selectedNodes } = React.useContext(GraphContext);
 
@@ -17,36 +30,26 @@ export const useRenderNodeText = () => {
     return null;
   };
 
-  const renderNodeText = (data, id, selected) => {
+  const renderNodeText = (node, id, selected) => {
+    const nodeType = nodeTypes[node.type] || nodeTypes["score-position-user"];
     let selectedTMP = selected;
-    if (nodesInclude(id, selectedNodes)) selectedTMP = true;
+    if (nodesInclude(id, Array.from(selectedNodes))) selectedTMP = true;
     const className = GraphUtils.classNames("node-text", {
       selected: selectedTMP,
     });
-    const { title } = data;
     const maxTitleChars = 24;
+    const { width, height } = nodeType.shape.props;
     return (
-      <text
-        ref={ref}
-        className={className}
-        textAnchor="middle"
-        xmlns="http://www.w3.org/2000/svg"
+      <foreignObject
+        x={-width / 2}
+        y={-height / 2}
+        width={width}
+        height={height}
       >
-        {title && (
-          <tspan
-            x={0}
-            dy={6}
-            fontSize={"1.25em"}
-            fontWeight={600}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {title.length > maxTitleChars
-              ? title.substr(0, maxTitleChars)
-              : title}
-          </tspan>
-        )}
-        {title && <title>{title}</title>}
-      </text>
+        <NodeContentWrapper selected={selectedTMP}>
+          <span>{node.title} </span>
+        </NodeContentWrapper>
+      </foreignObject>
     );
   };
   return renderNodeText;

@@ -7,6 +7,7 @@ import { bfs } from "../../../../lib/graph/algorithms/bfs";
 import { dfs } from "../../../../lib/graph/algorithms/dfs";
 import { getConnectingPaths } from "../../../../lib/graph/algorithms/getConnectingPaths";
 import { shortestPathBFS } from "../../../../lib/graph/algorithms/shortestPathBFS";
+import GraphTransformState from "../../../../lib/graph/transformState";
 
 import NodeEditor from "./nodeEditor";
 
@@ -20,6 +21,7 @@ const Wrapper = styled.div`
   top: calc(${({ y }) => y}px);
   left: ${({ x }) => x}px;
 `;
+
 // Appears as a toolbox above the selected node
 const NodeToolBox = ({
   selected,
@@ -32,11 +34,12 @@ const NodeToolBox = ({
   const [boxPosition, setBoxPosition] = React.useState([]);
   const [openEditor, toggleEditor] = useToggle(false);
   const nodeElem = document.getElementById(`node-${selected.id}`);
+  const [nodePos, setNodePos] = React.useState({});
   const { handleDeleteNode } = useGraphOps();
-  //React.useEffect(() => {
-  //  const nodePos = nodeElem.getBoundingClientRect();
-  //  setBoxPosition([nodePos.left, nodePos.top - 60]);
-  //}, [selected.x, selected.y, scale, translation]);
+  React.useEffect(() => {
+    const nodePos = nodeElem.getBoundingClientRect();
+    setBoxPosition([nodePos.left, nodePos.top - 60]);
+  }, [selected.x, selected.y, scale, translation]);
 
   const handleDelete = () => handleDeleteNode(selected, selected.id);
   const handleBFS = () => bfs(nodes, edges, selected.id);
@@ -55,78 +58,80 @@ const NodeToolBox = ({
       "a6bbdbd5-c2d3-4558-82d5-72cf5b90944d"
     );
   return (
-    <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
-      <Popup
-        trigger={
-          <Button
-            size="mini"
-            onClick={toggleEditor}
-            circular
-            icon="edit"
-            color="violet"
-            inverted
-          />
-        }
-        content="Edit Node"
-      />
-      <Popup
-        trigger={
-          <Button
-            size="mini"
-            onClick={handleDelete}
-            circular
-            icon="trash"
-            color="red"
-            inverted
-          />
-        }
-        content="Delete Node"
-      />
-      <Popup
-        trigger={
-          <Button
-            size="mini"
-            onClick={handleBFS}
-            circular
-            icon="find"
-            color="blue"
-            inverted
-          />
-        }
-        content="Find Node"
-      />
-      <Popup
-        trigger={
-          <Button
-            size="mini"
-            onClick={handleShortestPathBFS}
-            circular
-            icon="find"
-            color="green"
-            inverted
-          />
-        }
-        content="Find Node"
-      />
-      <Popup
-        trigger={
-          <Button
-            size="mini"
-            onClick={handleConnectingPaths}
-            circular
-            icon="find"
-            color="red"
-            inverted
-          />
-        }
-        content="Find Node"
-      />
-      <NodeEditor
-        open={openEditor}
-        handleClose={toggleEditor}
-        node={selected}
-      />
-    </Wrapper>
+    <React.Fragment>
+      <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
+        <Popup
+          trigger={
+            <Button
+              size="mini"
+              onClick={toggleEditor}
+              circular
+              icon="edit"
+              color="violet"
+              inverted
+            />
+          }
+          content="Edit Node"
+        />
+        <Popup
+          trigger={
+            <Button
+              size="mini"
+              onClick={handleDelete}
+              circular
+              icon="trash"
+              color="red"
+              inverted
+            />
+          }
+          content="Delete Node"
+        />
+        <Popup
+          trigger={
+            <Button
+              size="mini"
+              onClick={handleBFS}
+              circular
+              icon="find"
+              color="blue"
+              inverted
+            />
+          }
+          content="Find Node"
+        />
+        <Popup
+          trigger={
+            <Button
+              size="mini"
+              onClick={handleShortestPathBFS}
+              circular
+              icon="find"
+              color="green"
+              inverted
+            />
+          }
+          content="Find Node"
+        />
+        <Popup
+          trigger={
+            <Button
+              size="mini"
+              onClick={handleConnectingPaths}
+              circular
+              icon="find"
+              color="red"
+              inverted
+            />
+          }
+          content="Find Node"
+        />
+        <NodeEditor
+          open={openEditor}
+          handleClose={toggleEditor}
+          node={selected}
+        />
+      </Wrapper>
+    </React.Fragment>
   );
 };
 

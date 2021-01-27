@@ -21,7 +21,6 @@ export const useNodeDrop = (graphRef, wrapperRef) => {
     ]);
     if (dropPosition)
       handleCreateNode(dropPosition[0], dropPosition[1], itemType.subtype);
-    console.log(itemType);
   };
 
   const handleCanDrop = () => {
