@@ -17,12 +17,14 @@ const SectionWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  margin: 1.25em;
+  margin: 0.75em;
+  padding: 0.75em;
 `;
 
 const Title = styled.div`
   font-size: 1.5em;
   font-weight: 700;
+  margin: 0.75em;
 `;
 
 // A list of dragable svg nodes in the palette

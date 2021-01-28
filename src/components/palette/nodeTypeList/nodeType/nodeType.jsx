@@ -10,7 +10,7 @@ const SVGWithShadow = styled.div`
   filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.3));
 `;
 const NodeTypeWrapper = styled.div`
-  margin: 1em 2em 1em 0;
+  padding: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;

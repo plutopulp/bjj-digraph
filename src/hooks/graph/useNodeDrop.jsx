@@ -5,20 +5,18 @@ import { useGraphOps } from "./useGraphOps";
 import GraphTransformState from "../../lib/graph/transformState";
 import { dragTypes } from "../../lib/config/types/dragTypes";
 import { SettingsContext } from "../../contexts/settings";
+import { usePositionConverter } from "./usePositionConverter";
 
 // A hook to drop nodes from the palette to the canvas
 export const useNodeDrop = (graphRef, wrapperRef) => {
   const { handleCreateNode } = useGraphOps();
+  const { clientToGraph } = usePositionConverter(graphRef, wrapperRef);
   const { readOnly } = React.useContext(SettingsContext);
 
   // Creates a node of suitable type under the mouse cursor
   const handleDrop = () => {
     // Calculates the absolute position for dropping
-    const positionConverter = new GraphTransformState(graphRef, wrapperRef);
-    const dropPosition = positionConverter.clientToGraph([
-      mousePosition.x,
-      mousePosition.y,
-    ]);
+    const dropPosition = clientToGraph([mousePosition.x, mousePosition.y]);
     if (dropPosition)
       handleCreateNode(dropPosition[0], dropPosition[1], itemType.subtype);
   };
