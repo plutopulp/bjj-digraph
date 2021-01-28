@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { GraphUtils } from "react-digraph";
 
 import { GraphContext } from "../../contexts/graph";
 import { NodeTypesContext } from "../../contexts/nodeTypes";
@@ -32,12 +31,8 @@ export const useRenderNodeText = () => {
 
   const renderNodeText = (node, id, selected) => {
     const nodeType = nodeTypes[node.type] || nodeTypes["score-position-user"];
-    let selectedTMP = selected;
-    if (nodesInclude(id, Array.from(selectedNodes))) selectedTMP = true;
-    const className = GraphUtils.classNames("node-text", {
-      selected: selectedTMP,
-    });
-    const maxTitleChars = 24;
+    let isSelected = selected;
+    if (nodesInclude(id, Array.from(selectedNodes))) isSelected = true;
     const { width, height } = nodeType.shape.props;
     return (
       <foreignObject
@@ -46,7 +41,7 @@ export const useRenderNodeText = () => {
         width={width}
         height={height}
       >
-        <NodeContentWrapper selected={selectedTMP}>
+        <NodeContentWrapper selected={isSelected}>
           <span>{node.title} </span>
         </NodeContentWrapper>
       </foreignObject>

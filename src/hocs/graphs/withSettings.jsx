@@ -8,6 +8,7 @@ const withSettingsHOC = (InnerComp) => (props) => {
     toggleReadOnly,
     showControls,
     toggleShowControls,
+    layoutEngine,
   } = React.useContext(SettingsContext);
   return (
     <InnerComp
@@ -16,6 +17,7 @@ const withSettingsHOC = (InnerComp) => (props) => {
       toggleReadOnly={toggleReadOnly}
       showControls={showControls}
       toggleShowControls={toggleShowControls}
+      layoutEngine={layoutEngine}
     />
   );
 };

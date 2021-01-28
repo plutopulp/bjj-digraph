@@ -44,6 +44,7 @@ const GraphViewContainer = ({
   height,
   showControls,
   readOnly,
+  layoutEngine,
 }) => {
   const {
     handleSelectNode,
@@ -113,6 +114,7 @@ const GraphViewContainer = ({
           onPasteSelected={handlePasteSelected}
           renderNode={renderNode}
           renderNodeText={renderNodeText}
+          layoutEngineType={layoutEngine}
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}

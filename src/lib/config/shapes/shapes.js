@@ -71,9 +71,22 @@ export const Lozenge = (
   </symbol>
 );
 
+const scale = 2;
 export const HexagonFlat = (
-  <symbol viewBox="0 0 88 88" id="hexagon-flat" width="154" height="154">
-    <path d="M 0 36 18 0 70 0 88 36 70 72 18 72Z" transform="translate(0, 8)" />
+  <symbol
+    viewBox={`0 0 ${scale * 88} ${scale * 88}`}
+    id="hexagon-flat"
+    width={`${scale * 88}`}
+    height={`${scale * 88}`}
+  >
+    <path
+      d={`M ${scale * 0} ${scale * 36} ${scale * 18} ${scale * 0} ${
+        scale * 70
+      } ${scale * 0} ${scale * 88} ${scale * 36} ${scale * 70} ${scale * 72} ${
+        scale * 18
+      } ${scale * 72}Z`}
+      transform={`translate(0, ${8 * scale})`}
+    />
   </symbol>
 );
 

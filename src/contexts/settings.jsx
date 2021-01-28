@@ -7,10 +7,18 @@ export const SettingsContext = React.createContext();
 export const SettingsProvider = ({ children }) => {
   const [readOnly, toggleReadOnly] = useToggle(false);
   const [showControls, toggleShowControls] = useToggle(true);
+  const [layoutEngine, setLayoutEngine] = React.useState("VerticalTree");
 
   return (
     <SettingsContext.Provider
-      value={{ readOnly, toggleReadOnly, showControls, toggleShowControls }}
+      value={{
+        readOnly,
+        toggleReadOnly,
+        showControls,
+        toggleShowControls,
+        layoutEngine,
+        setLayoutEngine,
+      }}
     >
       {children}
     </SettingsContext.Provider>

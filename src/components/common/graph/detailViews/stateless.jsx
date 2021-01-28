@@ -18,6 +18,7 @@ const StatelessGraphView = ({
   selectedEdges,
   readOnly,
   showControls,
+  layoutEngine,
 }) => (
   <Wrapper>
     <Palette />
@@ -29,6 +30,7 @@ const StatelessGraphView = ({
       showControls={showControls}
       selectedNodes={selectedNodes}
       selectedEdges={selectedEdges}
+      layoutEngine={layoutEngine}
     />
   </Wrapper>
 );
