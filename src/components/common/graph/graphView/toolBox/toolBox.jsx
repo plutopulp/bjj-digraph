@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Popup, Icon } from "semantic-ui-react";
+import { Button, Popup, Icon, Dropdown, Menu } from "semantic-ui-react";
 
 import { SettingsContext } from "../../../../../contexts/settings";
 import { GraphContext } from "../../../../../contexts/graph";
@@ -19,18 +19,47 @@ const Image = styled.img`
   width: 20px;
 `;
 
+const layoutOptions = [
+  { key: 1, text: "None", value: "None" },
+  { key: 2, text: "Snap To Grid", value: "SnapToGrid" },
+  { key: 3, text: "Vertical", value: "VerticalTree" },
+  { key: 4, text: "Horizontal", value: "HorizontalTree" },
+];
 const ToolBoxContainer = () => {
-  const { readOnly, toggleReadOnly } = React.useContext(SettingsContext);
+  const {
+    readOnly,
+    toggleReadOnly,
+    layoutEngine,
+    setLayoutEngine,
+  } = React.useContext(SettingsContext);
   const { multiSelect } = React.useContext(GraphContext);
   const { handleConnectingPaths } = usePathFinder();
 
   const canGetConnectingPaths = () => multiSelect.length === 2;
+
+  const handleLayoutChange = (event, { value }) => {
+    setLayoutEngine(value);
+  };
   return (
     <Wrapper>
       <Button.Group>
-        <Button icon compact>
-          <Image src="../media/icons/grid.svg" alt="Grid" />
-        </Button>
+        <Popup
+          trigger={
+            <Menu compact icon>
+              <Dropdown
+                icon="grid layout"
+                button
+                className="icon"
+                options={layoutOptions}
+                onChange={handleLayoutChange}
+                defaultValue="None"
+                labeled
+              />
+            </Menu>
+          }
+          content="Layout"
+        />
+
         <Popup
           trigger={
             <Button icon compact onClick={toggleReadOnly}>

@@ -7,7 +7,7 @@ export const SettingsContext = React.createContext();
 export const SettingsProvider = ({ children }) => {
   const [readOnly, toggleReadOnly] = useToggle(false);
   const [showControls, toggleShowControls] = useToggle(true);
-  const [layoutEngine, setLayoutEngine] = React.useState("VerticalTree");
+  const [layoutEngine, setLayoutEngine] = React.useState("None");
 
   return (
     <SettingsContext.Provider
