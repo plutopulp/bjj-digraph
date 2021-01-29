@@ -10,6 +10,8 @@ const withSettingsHOC = (InnerComp) => (props) => {
     toggleShowControls,
     layoutEngine,
     centerNodeOnMove,
+    disableBackspace,
+    disableAPI,
   } = React.useContext(SettingsContext);
   return (
     <InnerComp
@@ -20,6 +22,8 @@ const withSettingsHOC = (InnerComp) => (props) => {
       toggleShowControls={toggleShowControls}
       layoutEngine={layoutEngine}
       centerNodeOnMove={centerNodeOnMove}
+      disableBackspace={disableBackspace}
+      disableAPI={disableAPI}
     />
   );
 };

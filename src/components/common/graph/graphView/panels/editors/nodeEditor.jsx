@@ -7,9 +7,10 @@ import { getNodeIndex } from "../../../../../../lib/utils/graph";
 import { FormContainer, FormTitle } from "../../../../../styles/forms";
 import { useAPI } from "../../../../../../hooks";
 import { routes } from "../../../../../../lib/config/routes/routes";
+import { SettingsContext } from "../../../../../../contexts/settings";
 
-// A modal window for editing a node
-const NodeEditorContainer = ({ node }) => {
+// A form/editor for editing a node
+const NodeEditorContainer = ({ node, handleClose }) => {
   const {
     nodes,
     setNodes,
@@ -17,14 +18,19 @@ const NodeEditorContainer = ({ node }) => {
     disableAPI,
     setDisableAPI,
   } = React.useContext(GraphContext);
+  const { setDisableBackspace } = React.useContext(SettingsContext);
   const { update } = useAPI();
 
-  console.log(node);
-  // Disable backend API calls while modal is open
-  // to avoid calls on every change
+  // Disable backend API calls while editor is open
+  // to avoid calls on every change. Also disable backspace
+  // hotkey so that node doesn't get deleted when pressed
   React.useEffect(() => {
     setDisableAPI(true);
-    return () => setDisableAPI(false);
+    setDisableBackspace(true);
+    return () => {
+      setDisableAPI(false);
+      setDisableBackspace(false);
+    };
   }, []);
 
   const handleNodeChange = (event) => {
@@ -47,6 +53,7 @@ const NodeEditorContainer = ({ node }) => {
       ...nodes[getNodeIndex(node, nodes)],
     });
     setNodes(nodes);
+    handleClose();
   }
 
   return (

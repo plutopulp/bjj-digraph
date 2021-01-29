@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 export const GraphContext = React.createContext();
 
 // Context provider for all the state quantities
-// associated with the current graph the user is working on
+// associated with the current graph view of the viewport
 export const GraphProvider = ({ children }) => {
   const location = useLocation();
 

@@ -20,6 +20,7 @@ const StatelessGraphView = ({
   readOnly,
   showControls,
   layoutEngine,
+  disableBackspace,
 }) => (
   <Wrapper>
     <Palette />
@@ -33,6 +34,7 @@ const StatelessGraphView = ({
       selectedNodes={selectedNodes}
       selectedEdges={selectedEdges}
       layoutEngine={layoutEngine}
+      disableBackspace={disableBackspace}
     />
   </Wrapper>
 );

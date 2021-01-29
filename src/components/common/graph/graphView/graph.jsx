@@ -11,8 +11,6 @@ import NodePanel from "./panels/nodePanel";
 import {
   useNodeDrop,
   useGraphOps,
-  useScale,
-  useTranslation,
   useRenderNode,
   useRenderNodeText,
   useToggle,
@@ -42,10 +40,10 @@ const GraphViewContainer = ({
   selectedEdges,
   width,
   height,
-  showControls,
   readOnly,
+  showControls,
   layoutEngine,
-  centerNodeOnMove,
+  disableBackspace,
 }) => {
   const {
     handleSelectNode,
@@ -96,7 +94,7 @@ const GraphViewContainer = ({
             edgeTypes={edgeTypes}
             showGraphControls={showControls ? showControls : true}
             readOnly={readOnly ? readOnly : false}
-            disableBackspace={false}
+            disableBackspace={disableBackspace}
             allowMultiselect={false}
             onSelectNode={handleSelectNode}
             onSelectEdge={handleSelectEdge}
