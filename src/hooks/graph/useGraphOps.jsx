@@ -91,6 +91,9 @@ export const useGraphOps = () => {
       setDoubleClicked({});
     }, 400);
   };
+  const handleResetDoubleClicked = () => {
+    setDoubleClicked({});
+  };
 
   const handleMultiselect = (node) => {
     setSelected({});
@@ -270,6 +273,7 @@ export const useGraphOps = () => {
     handleSelectNode,
     handleSelectEdge,
     handleSelect,
+    handleResetDoubleClicked,
     handleCreateNode,
     handleUpdateNode,
     handleDeleteNode,

@@ -2,12 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form, Button } from "semantic-ui-react";
 
-import { GraphContext } from "../../../../contexts/graph";
-import { getNodeIndex } from "../../../../lib/utils/graph";
-import { FormContainer, FormTitle } from "../../../styles/forms";
-import withModalHOC from "../../../../hocs/withModal";
-import { useAPI } from "../../../../hooks";
-import { routes } from "../../../../lib/config/routes/routes";
+import { GraphContext } from "../../../../../../contexts/graph";
+import { getNodeIndex } from "../../../../../../lib/utils/graph";
+import { FormContainer, FormTitle } from "../../../../../styles/forms";
+import { useAPI } from "../../../../../../hooks";
+import { routes } from "../../../../../../lib/config/routes/routes";
 
 // A modal window for editing a node
 const NodeEditorContainer = ({ node }) => {
@@ -20,6 +19,7 @@ const NodeEditorContainer = ({ node }) => {
   } = React.useContext(GraphContext);
   const { update } = useAPI();
 
+  console.log(node);
   // Disable backend API calls while modal is open
   // to avoid calls on every change
   React.useEffect(() => {
@@ -111,4 +111,4 @@ NodeEditor.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };
 
-export default withModalHOC(NodeEditorContainer);
+export default NodeEditorContainer;

@@ -14,6 +14,7 @@ const StatelessGraphView = ({
   nodes,
   edges,
   selected,
+  doubleClicked,
   selectedNodes,
   selectedEdges,
   readOnly,
@@ -26,6 +27,7 @@ const StatelessGraphView = ({
       nodes={nodes}
       edges={edges}
       selected={selected}
+      doubleClicked={doubleClicked}
       readOnly={readOnly}
       showControls={showControls}
       selectedNodes={selectedNodes}
