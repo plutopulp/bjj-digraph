@@ -17,7 +17,6 @@ import {
   useRenderNodeText,
 } from "../../../../hooks";
 import NodeToolBox from "./nodeToolBox";
-//import renderNodeText from "./renderNodeText";
 import { GraphContext } from "../../../../contexts/graph";
 import ToolBox from "./toolBox/toolBox";
 import { NodeTypesContext } from "../../../../contexts/nodeTypes";
@@ -45,6 +44,7 @@ const GraphViewContainer = ({
   showControls,
   readOnly,
   layoutEngine,
+  centerNodeOnMove,
 }) => {
   const {
     handleSelectNode,
@@ -115,18 +115,10 @@ const GraphViewContainer = ({
           renderNode={renderNode}
           renderNodeText={renderNodeText}
           layoutEngineType={layoutEngine}
+          centerNodeOnMove={true}
         />
         {selected && !selected.source && <NodePanel node={selected} />}
         {selected && selected.source && <EdgePanel edge={selected} />}
-        {!_.isEmpty(selected) && showToolBox && !selected.source && (
-          <NodeToolBox
-            selected={selected}
-            graphRef={graphRef}
-            wrapperRef={wrapperRef}
-            scale={scale}
-            translation={translation}
-          />
-        )}
       </DropZone>
     </GraphWrapper>
   );

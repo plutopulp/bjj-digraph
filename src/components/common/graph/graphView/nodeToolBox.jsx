@@ -2,43 +2,58 @@ import React from "react";
 import { Icon, Button, Popup } from "semantic-ui-react";
 import styled from "styled-components";
 import { GraphContext } from "../../../../contexts/graph";
-import { useGraphOps, useToggle } from "../../../../hooks";
+import {
+  useGraphOps,
+  useMountedEffect,
+  useScale,
+  useToggle,
+  useTranslation,
+} from "../../../../hooks";
+import { usePositionConverter } from "../../../../hooks/graph/usePositionConverter";
 import { bfs } from "../../../../lib/graph/algorithms/bfs";
-import { dfs } from "../../../../lib/graph/algorithms/dfs";
 import { getConnectingPaths } from "../../../../lib/graph/algorithms/getConnectingPaths";
 import { shortestPathBFS } from "../../../../lib/graph/algorithms/shortestPathBFS";
-import GraphTransformState from "../../../../lib/graph/transformState";
 
 import NodeEditor from "./nodeEditor";
 
 const Wrapper = styled.div`
   position: absolute;
-  width: ${({ scale }) => 10 * (0.5 + 1.2 * scale)}em;
-  height: ${({ scale }) => 3 * (0.5 + 1.2 * scale)}em;
+  width: ${({ boxRect }) => boxRect.width}px;
+  height: ${({ boxRect }) => boxRect.height}px;
   background: #fff;
   border-radius: 5px;
   border: solid 1px #777;
-  top: calc(${({ y }) => y}px);
+  top: ${({ boxRect }) => boxRect.y}px;
+  left: ${({ boxRect }) => boxRect.x}px;
+  z-index: 1;
+`;
+const Rect = styled.div`
+  position: absolute;
+  top: ${({ y }) => y}px;
   left: ${({ x }) => x}px;
+  width: 50px;
+  height: 50px;
+  border: solid 1px #777;
 `;
 
 // Appears as a toolbox above the selected node
-const NodeToolBox = ({
-  selected,
-  graphRef,
-  wrapperRef,
-  scale,
-  translation,
-}) => {
-  const { nodes, edges, multiSelect } = React.useContext(GraphContext);
-  const [boxPosition, setBoxPosition] = React.useState([]);
+const NodeToolBox = ({ selected, graphRef, wrapperRef }) => {
+  const { nodes, edges } = React.useContext(GraphContext);
+  const scale = useScale(graphRef);
+  const translation = useTranslation(graphRef);
+  const [boxBoundingRect, setBoxBoundingRect] = React.useState({});
   const [openEditor, toggleEditor] = useToggle(false);
   const nodeElem = document.getElementById(`node-${selected.id}`);
-  const [nodePos, setNodePos] = React.useState({});
   const { handleDeleteNode } = useGraphOps();
-  React.useEffect(() => {
+  useMountedEffect(() => {
     const nodePos = nodeElem.getBoundingClientRect();
-    setBoxPosition([nodePos.left, nodePos.top - 60]);
+    const graphPos = wrapperRef.current.getBoundingClientRect();
+    setBoxBoundingRect({
+      x: nodePos.x - graphPos.x,
+      y: nodePos.y - graphPos.y,
+      width: nodePos.width * 1.1,
+      height: nodePos.height * 1.1,
+    });
   }, [selected.x, selected.y, scale, translation]);
 
   const handleDelete = () => handleDeleteNode(selected, selected.id);
@@ -59,7 +74,7 @@ const NodeToolBox = ({
     );
   return (
     <React.Fragment>
-      <Wrapper x={boxPosition[0]} y={boxPosition[1]} scale={scale}>
+      <Wrapper boxRect={boxBoundingRect} scale={scale}>
         <Popup
           trigger={
             <Button

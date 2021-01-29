@@ -24,6 +24,9 @@ export const GraphProvider = ({ children }) => {
   const [selected, setSelected] = React.useState({});
   const [copiedNode, setCopiedNode] = React.useState({});
 
+  // Custom double-clicked node
+  const [doubleClicked, setDoubleClicked] = React.useState({});
+
   // New default react-digraph multiselected
   const [selectedNodes, setSelectedNodes] = React.useState([]);
   const [selectedEdges, setSelectedEdges] = React.useState([]);
@@ -52,6 +55,8 @@ export const GraphProvider = ({ children }) => {
         setEdges,
         selected,
         setSelected,
+        doubleClicked,
+        setDoubleClicked,
         selectedNodes,
         setSelectedNodes,
         selectedEdges,

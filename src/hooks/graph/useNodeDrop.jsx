@@ -2,7 +2,6 @@ import React from "react";
 import { useDrop, useDragLayer } from "react-dnd";
 
 import { useGraphOps } from "./useGraphOps";
-import GraphTransformState from "../../lib/graph/transformState";
 import { dragTypes } from "../../lib/config/types/dragTypes";
 import { SettingsContext } from "../../contexts/settings";
 import { usePositionConverter } from "./usePositionConverter";

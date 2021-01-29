@@ -20,6 +20,7 @@ export const useGraphOps = () => {
     setEdges,
     selected,
     setSelected,
+    setDoubleClicked,
     selectedNodes,
     setSelectedNodes,
     selectedEdges,
@@ -38,6 +39,9 @@ export const useGraphOps = () => {
   // Will probably put this into its own hook, when other hotkeys are defined
   const escapePressed = useKeyPressed("Escape");
   const sKeyPressed = useKeyPressed("s");
+  const doubleClickPending = React.useRef(false);
+  const doubleClickTimeout = React.useRef(setTimeout);
+
   React.useEffect(() => {
     if (escapePressed) {
       setSelected({});
@@ -63,8 +67,29 @@ export const useGraphOps = () => {
 
   // Selecting single node at a time
   const handleSelectNode = (node) => {
+    checkDoubleClicked(node);
     if (sKeyPressed) handleMultiselect(node);
     else setSelected(node);
+  };
+
+  // Checks to see if a node has been double clicked
+  const checkDoubleClicked = (node) => {
+    if (doubleClickPending.current) handleDoubleClicked(node);
+    else handleDoubleClickPending();
+  };
+  // When node is double clicked
+  const handleDoubleClicked = (node) => {
+    setDoubleClicked(node);
+    doubleClickPending.current = false;
+    clearTimeout(doubleClickTimeout.current);
+  };
+
+  const handleDoubleClickPending = () => {
+    doubleClickPending.current = true;
+    doubleClickTimeout.current = setTimeout(() => {
+      doubleClickPending.current = false;
+      setDoubleClicked({});
+    }, 400);
   };
 
   const handleMultiselect = (node) => {

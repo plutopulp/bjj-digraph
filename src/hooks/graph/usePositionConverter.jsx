@@ -21,5 +21,11 @@ export const usePositionConverter = (graphRef, wrapperRef) => {
       (coord, i) => (coord - graphPosition[i] - translation[i]) / scale
     );
   };
-  return { clientToGraph };
+  const graphToClient = (position) => {
+    const graphPosition = getGraphPosition();
+    return position.map(
+      (coord, i) => scale * coord + graphPosition[i] + translation[i]
+    );
+  };
+  return { clientToGraph, graphToClient };
 };

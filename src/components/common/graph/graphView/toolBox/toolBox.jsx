@@ -5,6 +5,7 @@ import { Button, Popup, Icon } from "semantic-ui-react";
 import Layout from "./options/layout";
 import Lock from "./options/lock";
 import PathFinder from "./options/pathFinder";
+import CenterNode from "./options/centerNode";
 const Wrapper = styled.div`
   position: absolute;
   left: 0;
@@ -20,6 +21,7 @@ const ToolBoxContainer = () => {
       <Button.Group>
         <Layout />
         <Lock />
+        <CenterNode />
         <PathFinder />
       </Button.Group>
     </Wrapper>

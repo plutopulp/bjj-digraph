@@ -9,6 +9,7 @@ const withSettingsHOC = (InnerComp) => (props) => {
     showControls,
     toggleShowControls,
     layoutEngine,
+    centerNodeOnMove,
   } = React.useContext(SettingsContext);
   return (
     <InnerComp
@@ -18,6 +19,7 @@ const withSettingsHOC = (InnerComp) => (props) => {
       showControls={showControls}
       toggleShowControls={toggleShowControls}
       layoutEngine={layoutEngine}
+      centerNodeOnMove={centerNodeOnMove}
     />
   );
 };

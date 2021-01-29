@@ -8,6 +8,7 @@ export const SettingsProvider = ({ children }) => {
   const [readOnly, toggleReadOnly] = useToggle(false);
   const [showControls, toggleShowControls] = useToggle(true);
   const [layoutEngine, setLayoutEngine] = React.useState("None");
+  const [centerNodeOnMove, toggleCenterNodeOnMove] = React.useState(false);
 
   return (
     <SettingsContext.Provider
@@ -18,6 +19,8 @@ export const SettingsProvider = ({ children }) => {
         toggleShowControls,
         layoutEngine,
         setLayoutEngine,
+        centerNodeOnMove,
+        toggleCenterNodeOnMove,
       }}
     >
       {children}
