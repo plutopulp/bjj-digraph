@@ -11,11 +11,9 @@ export const SettingsProvider = ({ children }) => {
   const [showControls, toggleShowControls] = useToggle(true);
   // The layout engine type of the graph
   const [layoutEngine, setLayoutEngine] = React.useState("None");
-  const [centerNodeOnMove, toggleCenterNodeOnMove] = useToggle(false);
-
-  // Fordisabling node deletion on backspace
+  const [centerNodeOnMove, toggleCenterNodeOnMove] = useToggle(true);
+  // For disabling node deletion on backspace
   const [disableBackspace, setDisableBackspace] = React.useState(false);
-
   // For disabling backend API calls. Used in the node editor,
   // where API call only occurs on submit
   const [disableAPI, setDisableAPI] = React.useState(false);
@@ -35,6 +33,22 @@ export const SettingsProvider = ({ children }) => {
         setDisableBackspace,
         disableAPI,
         setDisableAPI,
+        settings: {
+          readOnly,
+          showControls,
+          layoutEngine,
+          centerNodeOnMove,
+          disableBackspace,
+          disableAPI,
+        },
+        settingsSetters: {
+          toggleReadOnly,
+          toggleShowControls,
+          setLayoutEngine,
+          toggleCenterNodeOnMove,
+          setDisableBackspace,
+          setDisableAPI,
+        },
       }}
     >
       {children}

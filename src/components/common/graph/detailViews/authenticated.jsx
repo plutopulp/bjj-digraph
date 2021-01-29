@@ -6,7 +6,7 @@ import StatelessGraphView from "./stateless";
 import withSettingsHOC from "../../../../hocs/graphs/withSettings";
 
 // A Graph detail view for authenticated users, hooked up
-// to context and api controllers
+// to context, settings and api controllers
 const authGraphHOCs = compose(
   withGraphContextHOC,
   withSettingsHOC,

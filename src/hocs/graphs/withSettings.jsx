@@ -3,27 +3,12 @@ import { SettingsContext } from "../../contexts/settings";
 
 // A higher order component which binds the graph settings to the context
 const withSettingsHOC = (InnerComp) => (props) => {
-  const {
-    readOnly,
-    toggleReadOnly,
-    showControls,
-    toggleShowControls,
-    layoutEngine,
-    centerNodeOnMove,
-    disableBackspace,
-    disableAPI,
-  } = React.useContext(SettingsContext);
+  const { settings, settingsSetters } = React.useContext(SettingsContext);
   return (
     <InnerComp
       {...props}
-      readOnly={readOnly}
-      toggleReadOnly={toggleReadOnly}
-      showControls={showControls}
-      toggleShowControls={toggleShowControls}
-      layoutEngine={layoutEngine}
-      centerNodeOnMove={centerNodeOnMove}
-      disableBackspace={disableBackspace}
-      disableAPI={disableAPI}
+      settings={settings}
+      settingsSetters={settingsSetters}
     />
   );
 };

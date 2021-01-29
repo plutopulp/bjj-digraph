@@ -11,7 +11,6 @@ const withGraphContextHOC = (InnerComp) => (props) => {
     selected,
     doubleClicked,
     setSelected,
-    disableAPI,
   } = React.useContext(GraphContext);
 
   // When unmounting, reset context data
@@ -33,7 +32,6 @@ const withGraphContextHOC = (InnerComp) => (props) => {
       selected={selected}
       doubleClicked={doubleClicked}
       setSelected={setSelected}
-      disableAPI={disableAPI}
     />
   );
 };

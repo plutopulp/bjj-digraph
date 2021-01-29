@@ -40,10 +40,7 @@ const GraphViewContainer = ({
   selectedEdges,
   width,
   height,
-  readOnly,
-  showControls,
-  layoutEngine,
-  disableBackspace,
+  settings,
 }) => {
   const {
     handleSelectNode,
@@ -67,7 +64,13 @@ const GraphViewContainer = ({
   const { multiSelect, paths, showPathIndex } = React.useContext(GraphContext);
   const { nodeTypes } = React.useContext(NodeTypesContext);
 
-  const [nodePanel, toggleNodePanel] = useToggle();
+  const {
+    readOnly,
+    showControls,
+    layoutEngine,
+    centerNodeOnMove,
+    disableBackspace,
+  } = settings;
 
   React.useEffect(() => graphRef.current.renderNodes(), [
     multiSelect,
@@ -92,8 +95,8 @@ const GraphViewContainer = ({
             nodeTypes={nodeTypes}
             nodeSubtypes={nodeSubtypes}
             edgeTypes={edgeTypes}
-            showGraphControls={showControls ? showControls : true}
-            readOnly={readOnly ? readOnly : false}
+            showGraphControls={showControls}
+            readOnly={readOnly}
             disableBackspace={disableBackspace}
             allowMultiselect={false}
             onSelectNode={handleSelectNode}
@@ -110,7 +113,7 @@ const GraphViewContainer = ({
             renderNode={renderNode}
             renderNodeText={renderNodeText}
             layoutEngineType={layoutEngine}
-            centerNodeOnMove={true}
+            centerNodeOnMove={centerNodeOnMove}
           />
         </DropZone>
       </GraphWrapper>

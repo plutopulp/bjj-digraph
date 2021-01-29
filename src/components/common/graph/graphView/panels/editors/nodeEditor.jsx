@@ -11,14 +11,10 @@ import { SettingsContext } from "../../../../../../contexts/settings";
 
 // A form/editor for editing a node
 const NodeEditorContainer = ({ node, handleClose }) => {
-  const {
-    nodes,
-    setNodes,
-    currentGraphId,
-    disableAPI,
-    setDisableAPI,
-  } = React.useContext(GraphContext);
-  const { setDisableBackspace } = React.useContext(SettingsContext);
+  const { nodes, setNodes, currentGraphId } = React.useContext(GraphContext);
+  const { settings, settingsSetters } = React.useContext(SettingsContext);
+  const { disableAPI } = settings;
+  const { setDisableAPI, setDisableBackspace } = settingsSetters;
   const { update } = useAPI();
 
   // Disable backend API calls while editor is open
