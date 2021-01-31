@@ -5,10 +5,10 @@ import styled from "styled-components";
 import NodeTypeList from "./nodeTypeList/nodeTypeList";
 
 const PaletteWrapper = styled.div`
-  width: 20%;
+  width: 15%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   background: #94858545;
 `;
 
