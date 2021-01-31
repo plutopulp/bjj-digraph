@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Popup, Dropdown } from "semantic-ui-react";
 
-import { SettingsContext } from "../../../../../../contexts/settings";
+import { SettingsContext } from "../../../../../../contexts/graph/settings";
 
 const layoutOptions = [
   { key: 1, text: "None", value: "None" },

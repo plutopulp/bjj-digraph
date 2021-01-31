@@ -1,6 +1,6 @@
 import React from "react";
 import { GraphUtils } from "react-digraph";
-import { GraphContext } from "../../contexts/graph";
+import { GraphContext } from "../../contexts/graph/graph";
 import { NodeTypesContext } from "../../contexts/nodeTypes";
 
 // A hook which returns a render node method for react digraphs.

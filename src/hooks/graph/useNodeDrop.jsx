@@ -3,14 +3,14 @@ import { useDrop, useDragLayer } from "react-dnd";
 
 import { useGraphOps } from "./useGraphOps";
 import { dragTypes } from "../../lib/config/types/dragTypes";
-import { SettingsContext } from "../../contexts/settings";
+import { SettingsContext } from "../../contexts/graph/settings";
 import { usePositionConverter } from "./usePositionConverter";
 
 // A hook to drop nodes from the palette to the canvas
 export const useNodeDrop = (graphRef, wrapperRef) => {
   const { handleCreateNode } = useGraphOps();
   const { clientToGraph } = usePositionConverter(graphRef, wrapperRef);
-  const { readOnly } = React.useContext(SettingsContext);
+  const { settings } = React.useContext(SettingsContext);
 
   // Creates a node of suitable type under the mouse cursor
   const handleDrop = () => {
@@ -21,7 +21,7 @@ export const useNodeDrop = (graphRef, wrapperRef) => {
   };
 
   const handleCanDrop = () => {
-    if (!readOnly) return true;
+    if (!settings.readOnly) return true;
     // todo: else trigger a msg to user to unlock graph
   };
 

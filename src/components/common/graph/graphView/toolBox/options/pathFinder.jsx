@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Icon, Popup, Menu, Dropdown } from "semantic-ui-react";
 
-import { GraphContext } from "../../../../../../contexts/graph";
+import { GraphContext } from "../../../../../../contexts/graph/graph";
 import { usePathFinder } from "../../../../../../hooks";
 
 // Toolbox option for obtaining all the connecting paths

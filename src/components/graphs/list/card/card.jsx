@@ -26,18 +26,24 @@ const CardContainer = ({ id, title, createdAt, description, slug }) => {
     read(routes.api.edges(id).list, setEdges);
   }, [token]);
 
+  const settings = {
+    readOnly: true,
+    showControls: false,
+    showToolbox: false,
+    disableBackspace: true,
+    layoutEngine: "None",
+  };
   return (
     <Wrapper ref={ref}>
       <Card raised={hovered}>
         <Graph
           width="100%"
           height="300px"
-          showGraphControls={false}
-          readOnly={true}
           nodes={nodes}
           setNodes={setNodes}
           edges={edges}
           setEdges={setEdges}
+          settings={settings}
         />
         <Card.Content>
           <Card.Header>

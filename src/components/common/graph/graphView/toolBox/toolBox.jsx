@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Button, Popup, Icon } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 
 import Layout from "./options/layout";
 import Lock from "./options/lock";
@@ -15,17 +16,23 @@ const Wrapper = styled.div`
   z-index: 1000;
 `;
 
-const ToolBoxContainer = () => {
+const ToolBoxContainer = ({ show }) => {
   return (
-    <Wrapper>
-      <Button.Group>
-        <Layout />
-        <Lock />
-        <CenterNode />
-        <PathFinder />
-      </Button.Group>
-    </Wrapper>
+    show && (
+      <Wrapper>
+        <Button.Group>
+          <Layout />
+          <Lock />
+          <CenterNode />
+          <PathFinder />
+        </Button.Group>
+      </Wrapper>
+    )
   );
+};
+
+ToolBoxContainer.propTypes = {
+  show: PropTypes.bool.isRequired,
 };
 
 export default ToolBoxContainer;

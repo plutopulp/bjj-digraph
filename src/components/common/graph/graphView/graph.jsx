@@ -13,9 +13,8 @@ import {
   useGraphOps,
   useRenderNode,
   useRenderNodeText,
-  useToggle,
 } from "../../../../hooks";
-import { GraphContext } from "../../../../contexts/graph";
+import { GraphContext } from "../../../../contexts/graph/graph";
 import ToolBox from "./toolBox/toolBox";
 import { NodeTypesContext } from "../../../../contexts/nodeTypes";
 
@@ -67,9 +66,14 @@ const GraphViewContainer = ({
   const {
     readOnly,
     showControls,
+    showToolbox,
     layoutEngine,
     centerNodeOnMove,
     disableBackspace,
+    gridDotSize,
+    gridSpacing,
+    maxZoom,
+    minZoom,
   } = settings;
 
   React.useEffect(() => graphRef.current.renderNodes(), [
@@ -78,12 +82,11 @@ const GraphViewContainer = ({
     showPathIndex,
   ]);
 
-  React.useEffect(() => console.log(doubleClicked));
   return (
     <React.Fragment>
       <GraphWrapper ref={wrapperRef} width={width} height={height}>
         <DropZone ref={dropRef}>
-          <ToolBox />
+          <ToolBox show={showToolbox} />
           <GraphView
             ref={graphRef}
             nodeKey={NODE_KEY}
@@ -114,6 +117,10 @@ const GraphViewContainer = ({
             renderNodeText={renderNodeText}
             layoutEngineType={layoutEngine}
             centerNodeOnMove={centerNodeOnMove}
+            gridDotSize={gridDotSize}
+            gridSpacing={gridSpacing}
+            maxZoom={maxZoom}
+            minZoom={minZoom}
           />
         </DropZone>
       </GraphWrapper>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { GraphContext } from "../../contexts/graph";
+import { GraphContext } from "../../contexts/graph/graph";
 import { NodeTypesContext } from "../../contexts/nodeTypes";
 
 import { nodesInclude } from "../../lib/utils/graph";

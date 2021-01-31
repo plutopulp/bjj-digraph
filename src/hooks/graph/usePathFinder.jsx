@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GraphContext } from "../../contexts/graph";
+import { GraphContext } from "../../contexts/graph/graph";
 
 import { getAdjacentNodeIds, IdsToViewNodes } from "../../lib/utils/graph";
 

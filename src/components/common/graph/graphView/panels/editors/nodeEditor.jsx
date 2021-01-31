@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form, Button } from "semantic-ui-react";
 
-import { GraphContext } from "../../../../../../contexts/graph";
+import { GraphContext } from "../../../../../../contexts/graph/graph";
 import { getNodeIndex } from "../../../../../../lib/utils/graph";
 import { FormContainer, FormTitle } from "../../../../../styles/forms";
 import { useAPI } from "../../../../../../hooks";
 import { routes } from "../../../../../../lib/config/routes/routes";
-import { SettingsContext } from "../../../../../../contexts/settings";
+import { SettingsContext } from "../../../../../../contexts/graph/settings";
 
 // A form/editor for editing a node
 const NodeEditorContainer = ({ node, handleClose }) => {

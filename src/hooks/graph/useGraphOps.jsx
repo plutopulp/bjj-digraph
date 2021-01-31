@@ -2,7 +2,7 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 import _ from "lodash";
 
-import { GraphContext } from "../../contexts/graph";
+import { GraphContext } from "../../contexts/graph/graph";
 import { getNodeIndex, getEdgeIndex } from "../../lib/utils/graph";
 
 import { NODE_KEY } from "../../lib/config/graph/graphConfig";

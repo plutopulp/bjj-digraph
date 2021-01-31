@@ -1,5 +1,5 @@
 import React from "react";
-import { SettingsContext } from "../../contexts/settings";
+import { SettingsContext } from "../../contexts/graph/settings";
 
 // A higher order component which binds the graph settings to the context
 const withSettingsHOC = (InnerComp) => (props) => {

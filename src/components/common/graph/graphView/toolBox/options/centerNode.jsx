@@ -1,13 +1,12 @@
 import React from "react";
 import { Popup, Button, Icon } from "semantic-ui-react";
-import { SettingsContext } from "../../../../../../contexts/settings";
+import { SettingsContext } from "../../../../../../contexts/graph/settings";
 
 // Graph Toolbox option for centering node on mouse cursor
 // when node is moving
 const CenterNode = () => {
-  const { centerNodeOnMove, toggleCenterNodeOnMove } = React.useContext(
-    SettingsContext
-  );
+  const { settings } = React.useContext(SettingsContext);
+  const { centerNodeOnMove, toggleCenterNodeOnMove } = settings;
   return (
     <Popup
       trigger={

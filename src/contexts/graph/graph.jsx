@@ -40,10 +40,6 @@ export const GraphProvider = ({ children }) => {
   const [paths, setPaths] = React.useState([]);
   const [showPathIndex, setShowPathIndex] = React.useState(0);
 
-  // For disabling backend API calls. Used in the node editor,
-  // where API call only occurs on submit
-  const [disableAPI, setDisableAPI] = React.useState(false);
-
   return (
     <GraphContext.Provider
       value={{
@@ -73,8 +69,6 @@ export const GraphProvider = ({ children }) => {
         setShowPathIndex,
         copiedNode,
         setCopiedNode,
-        disableAPI,
-        setDisableAPI,
       }}
     >
       {children}
