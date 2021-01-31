@@ -49,6 +49,8 @@ export const SettingsProvider = ({ children }) => {
         setDisableBackspace,
         disableAPI,
         setDisableAPI,
+        maxZoom,
+        gridDotSize,
         settings: {
           readOnly,
           showControls,
@@ -73,6 +75,8 @@ export const SettingsProvider = ({ children }) => {
           setDisableAPI,
           setGridDotSize,
           setGridSpacing,
+          setMinZoom,
+          setMaxZoom,
         },
       }}
     >

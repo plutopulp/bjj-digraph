@@ -5,7 +5,10 @@ import { SettingsContext } from "../../../../../../contexts/graph/settings";
 // Graph Toolbox option for toggling read only / locked
 // When locked no graph operations
 const Lock = () => {
-  const { readOnly, toggleReadOnly } = React.useContext(SettingsContext);
+  const {
+    settings: { readOnly },
+    settingsSetters: { toggleReadOnly },
+  } = React.useContext(SettingsContext);
   return (
     <Popup
       trigger={

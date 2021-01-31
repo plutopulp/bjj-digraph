@@ -7,6 +7,7 @@ import Layout from "./options/layout";
 import Lock from "./options/lock";
 import PathFinder from "./options/pathFinder";
 import CenterNode from "./options/centerNode";
+import Zoom from "./options/zoom";
 const Wrapper = styled.div`
   position: absolute;
   left: 0;

@@ -12,7 +12,10 @@ const layoutOptions = [
 
 // Graph toolbox option for choosing the layout engine of the graph
 const Layout = () => {
-  const { setLayoutEngine } = React.useContext(SettingsContext);
+  const {
+    settingsSetters: { setLayoutEngine },
+  } = React.useContext(SettingsContext);
+
   const handleLayoutEngineChange = (event, { value }) => {
     setLayoutEngine(value);
   };

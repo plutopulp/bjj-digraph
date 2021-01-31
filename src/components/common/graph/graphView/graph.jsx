@@ -39,7 +39,18 @@ const GraphViewContainer = ({
   selectedEdges,
   width,
   height,
-  settings,
+  settings: {
+    readOnly,
+    showControls,
+    showToolbox,
+    layoutEngine,
+    centerNodeOnMove,
+    disableBackspace,
+    gridDotSize,
+    gridSpacing,
+    maxZoom,
+    minZoom,
+  },
 }) => {
   const {
     handleSelectNode,
@@ -62,19 +73,6 @@ const GraphViewContainer = ({
   const renderNodeText = useRenderNodeText();
   const { multiSelect, paths, showPathIndex } = React.useContext(GraphContext);
   const { nodeTypes } = React.useContext(NodeTypesContext);
-
-  const {
-    readOnly,
-    showControls,
-    showToolbox,
-    layoutEngine,
-    centerNodeOnMove,
-    disableBackspace,
-    gridDotSize,
-    gridSpacing,
-    maxZoom,
-    minZoom,
-  } = settings;
 
   React.useEffect(() => graphRef.current.renderNodes(), [
     multiSelect,
