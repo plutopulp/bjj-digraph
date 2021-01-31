@@ -6,7 +6,7 @@ import { useHovered } from "../../../../hooks/";
 import { CardWrapper, HeaderWrapper } from "./styles";
 import Image from "./image/image";
 import Title from "./content/title";
-import EditButtons from "./content/editButtons";
+import EditButtons from "./content/edit/editButtons";
 import DateCreated from "./content/dateCreated";
 
 const CardContainer = ({ id, title, createdAt, description, slug }) => {
@@ -20,7 +20,7 @@ const CardContainer = ({ id, title, createdAt, description, slug }) => {
           <Card.Header>
             <HeaderWrapper>
               <Title id={id} title={title} slug={slug} />
-              <EditButtons />
+              <EditButtons id={id} title={title} />
             </HeaderWrapper>
           </Card.Header>
           <Card.Meta>
