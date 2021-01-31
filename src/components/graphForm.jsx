@@ -1,9 +1,9 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
-import { Button, Form } from "semantic-ui-react";
+
 import { GraphsContext } from "../contexts/graphs";
+import GraphForm from "./common/graph/form";
 import { useFormFields } from "../hooks/index";
-import { FormContainer, FormTitle } from "./styles/forms";
 
 const slugify = require("slugify");
 
@@ -11,7 +11,7 @@ const initialFields = {
   title: "",
   description: "",
 };
-const GraphFormContainer = () => {
+const CreateGraph = () => {
   const [fields, setFields, handleChange] = useFormFields(initialFields);
   const { graphs, setGraphs } = React.useContext(GraphsContext);
 
@@ -31,36 +31,13 @@ const GraphFormContainer = () => {
 
   return (
     <GraphForm
+      formTitle="New Graph"
       fields={fields}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      actionContent="Create"
     />
   );
 };
 
-const GraphForm = ({ fields, handleChange, handleSubmit }) => (
-  <FormContainer>
-    <Form onSubmit={handleSubmit}>
-      <FormTitle>New Graph</FormTitle>
-      <Form.Input
-        label="Title"
-        type="text"
-        name="title"
-        value={fields.title}
-        placeholder="Enter a title"
-        onChange={handleChange}
-      />
-      <Form.TextArea
-        label="Description"
-        type="text"
-        name="description"
-        value={fields.description}
-        placeholder="Enter a description"
-        onChange={handleChange}
-      />
-      <Button type="submit">Submit</Button>
-    </Form>
-  </FormContainer>
-);
-
-export default GraphFormContainer;
+export default CreateGraph;

@@ -38,17 +38,17 @@ export const routes = {
     },
     graphs: {
       list: serverUrl + "graphs/",
-      detail: (graphId) => `${routes.api.graphs.list}${graphId}`,
+      detail: (graphId) => `${routes.api.graphs.list}${graphId}/`,
     },
     nodes: (graphId) => {
       return {
-        list: `${routes.api.graphs.detail(graphId)}/nodes/`,
+        list: `${routes.api.graphs.detail(graphId)}nodes/`,
         detail: (nodeId) => `${routes.api.nodes(graphId).list}${nodeId}/`,
       };
     },
     edges: (graphId) => {
       return {
-        list: `${routes.api.graphs.detail(graphId)}/edges/`,
+        list: `${routes.api.graphs.detail(graphId)}edges/`,
         detail: (edgeId) => `${routes.api.edges(graphId).list}${edgeId}/`,
       };
     },
