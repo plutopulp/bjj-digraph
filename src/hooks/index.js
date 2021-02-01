@@ -8,6 +8,7 @@ export { useHovered } from "./events/useHovered";
 export { useWindowSize } from "./events/useWindowSize";
 export { useScrollPosition } from "./events/useScrollPosition";
 export { useRefPositions } from "./events/useRefPositions";
+export { useActiveRef } from "./events/useActiveRef";
 export { useFormFields } from "./forms/useFormFields";
 export { useGraphOps } from "./graph/useGraphOps";
 export { useNodeDrop } from "./graph/useNodeDrop";
