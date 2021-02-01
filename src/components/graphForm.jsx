@@ -11,22 +11,21 @@ const initialFields = {
   title: "",
   description: "",
 };
-const CreateGraph = () => {
+const CreateGraph = ({ handleClose }) => {
   const [fields, setFields, handleChange] = useFormFields(initialFields);
   const { graphs, setGraphs } = React.useContext(GraphsContext);
 
   async function handleSubmit(event) {
     event.preventDefault();
-    await setGraphs([
-      ...graphs,
-      {
-        ...fields,
-        createdAt: new Date(),
-        id: uuid(),
-        slug: slugify(fields.title, { remove: "_", lower: true, strict: true }),
-      },
-    ]);
+    const newGraph = {
+      ...fields,
+      createdAt: new Date(),
+      id: uuid(),
+      slug: slugify(fields.title, { remove: "_", lower: true, strict: true }),
+    };
+    await setGraphs([...graphs, newGraph]);
     setFields(initialFields);
+    handleClose();
   }
 
   return (

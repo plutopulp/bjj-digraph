@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from "react-router-dom";
-import { Menu, Button, Message, Icon } from "semantic-ui-react";
+import { Menu, Button, Container, Icon } from "semantic-ui-react";
 
 import { StyledMenu, StyledMessage } from "./styles";
 import withPortalHOC from "../../hocs/withPortal";
@@ -44,46 +44,52 @@ const Navbar = () => {
   const { graphs } = React.useContext(GraphsContext);
   return (
     <React.Fragment>
+      <LoadingPortal open={isLoading} />
+      <ErrorPortal open={error} errorMsg={error} />
+      <GraphFormModal open={newGraph} handleClose={() => setNewGraph(false)} />
       <StyledMenu fixed inverted pointing secondary size="large">
-        <LoadingPortal open={isLoading} />
-        <ErrorPortal open={error} errorMsg={error} />
-        <GraphFormModal
-          open={newGraph}
-          handleClose={() => setNewGraph(false)}
-        />
-        <Menu.Item>
-          {!isAuthenticated && (
-            <Button as="a" inverted onClick={loginWithPopup}>
-              Log In
-            </Button>
-          )}
+        <Container>
+          <NavLink to={{ pathname: routes.pages.home }}>
+            <Menu.Item as="a" name="home"></Menu.Item>
+          </NavLink>
+          <NavLink to={{ pathname: routes.pages.about }}>
+            <Menu.Item as="a" name="about"></Menu.Item>
+          </NavLink>
 
-          {isAuthenticated && (
-            <Button
-              as="a"
-              inverted
-              onClick={() => logout({ returnTo: window.location.origin })}
-            >
-              Log Out
-            </Button>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {isAuthenticated && (
-            <Button as="a" inverted onClick={() => setNewGraph(true)}>
-              New Graph
-            </Button>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {isAuthenticated && (
-            <Button as="a" inverted>
-              <NavLink to={{ pathname: routes.pages.graphs.list }}>
-                My Graphs
-              </NavLink>
-            </Button>
-          )}
-        </Menu.Item>
+          <Menu.Item>
+            {!isAuthenticated && (
+              <Button as="a" inverted onClick={loginWithPopup}>
+                Log In
+              </Button>
+            )}
+
+            {isAuthenticated && (
+              <Button
+                as="a"
+                inverted
+                onClick={() => logout({ returnTo: window.location.origin })}
+              >
+                Log Out
+              </Button>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {isAuthenticated && (
+              <Button as="a" inverted onClick={() => setNewGraph(true)}>
+                New Graph
+              </Button>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {isAuthenticated && (
+              <Button as="a" inverted>
+                <NavLink to={{ pathname: routes.pages.graphs.list }}>
+                  My Graphs
+                </NavLink>
+              </Button>
+            )}
+          </Menu.Item>
+        </Container>
       </StyledMenu>
       {showGraphs && (
         <div>

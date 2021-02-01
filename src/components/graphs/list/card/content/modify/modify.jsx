@@ -2,10 +2,10 @@ import React from "react";
 import { Popup, Button } from "semantic-ui-react";
 import { useToggle } from "../../../../../../hooks";
 import { HeaderWrapper } from "../../styles";
-import DeleteModal from "./delete";
-import EditGraph from "./editGraph";
+import DeleteGraph from "./delete";
+import EditGraph from "./edit";
 
-const EditButtons = ({ id, title }) => {
+const ModifyGraph = ({ id, title }) => {
   const [deleteModal, toggleDeleteModal] = useToggle(false);
   const [editModal, toggleEditModal] = useToggle(false);
   React.useEffect(() => console.log(editModal), [editModal]);
@@ -38,7 +38,7 @@ const EditButtons = ({ id, title }) => {
           content="Delete Map"
         />
       </HeaderWrapper>
-      <DeleteModal
+      <DeleteGraph
         title={title}
         id={id}
         open={deleteModal}
@@ -49,4 +49,4 @@ const EditButtons = ({ id, title }) => {
   );
 };
 
-export default EditButtons;
+export default ModifyGraph;

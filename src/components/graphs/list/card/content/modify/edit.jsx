@@ -10,7 +10,7 @@ const slugify = require("slugify");
 const EditGraph = ({ id, handleClose }) => {
   const { graphs, setGraphs } = React.useContext(GraphsContext);
   const targetGraph = graphs.find((graph) => graph.id === id);
-  const [fields, setFields, handleChange] = useFormFields({
+  const [fields, , handleChange] = useFormFields({
     title: targetGraph.title,
     description: targetGraph.description,
   });

@@ -5,7 +5,7 @@ import { GraphsContext } from "../../../../../../contexts/graphs";
 import withModalHOC from "../../../../../../hocs/withModal";
 import { toTitle } from "../../../../../../lib/utils/strings";
 
-const DeleteModal = ({ title, id, handleClose }) => {
+const DeleteGraph = ({ title, id, handleClose }) => {
   const { graphs, setGraphs } = React.useContext(GraphsContext);
 
   const handleDelete = () => {
@@ -31,4 +31,4 @@ const DeleteModal = ({ title, id, handleClose }) => {
     </React.Fragment>
   );
 };
-export default withModalHOC(DeleteModal);
+export default withModalHOC(DeleteGraph);
