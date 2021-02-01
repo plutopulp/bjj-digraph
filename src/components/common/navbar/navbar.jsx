@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useRefs } from "react-context-refs";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Menu, Visibility } from "semantic-ui-react";
 
 import { NavbarMenu } from "./styles";
 import { useActiveRef } from "../../../hooks";

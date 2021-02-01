@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Segment } from "semantic-ui-react";
 
 import { useWindowSize } from "../../hooks";
+import withBottomPassedHOC from "../../hocs/withBottomPassed";
 
 const StyledSegment = styled(Segment)`
   min-height: ${({ height }) => height}px;
@@ -24,4 +25,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default withBottomPassedHOC(Landing);

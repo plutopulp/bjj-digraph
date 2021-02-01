@@ -36,7 +36,6 @@ const App = () => {
               <GraphProvider>
                 <NodeTypesProvider>
                   <SettingsProvider>
-                    <Navbar />
                     <APIController />
                     <Route exact path={routes.pages.home} component={Home} />
                     <Route
