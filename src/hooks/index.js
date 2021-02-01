@@ -1,6 +1,7 @@
 export { useAPI } from "./api/useAPI";
 export { useAPIController } from "./api/useAPIController";
 export { useResourceTypes } from "./api/useResourceTypes";
+export { useAuth } from "./api/useAuth";
 export { useDependencyTrigger } from "./effects/useDependencyTrigger";
 export { useMountedEffect } from "./effects/useMountedEffect";
 export { useKeyPressed } from "./events/useKeyPressed";

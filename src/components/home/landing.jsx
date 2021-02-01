@@ -56,7 +56,7 @@ const Landing = () => {
   const { nodeTypes } = React.useContext(NodeTypesContext);
   return (
     <div ref={ref} id="home">
-      <Banner compact text>
+      <Banner text>
         <StyledSegment circular compact>
           <Title size="huge">Connect your game</Title>
           <Title size="large">with bjj-paths</Title>

@@ -1,11 +1,10 @@
 import React from "react";
 
 import { Button, Menu } from "semantic-ui-react";
-
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth } from "../../../../hooks";
 
 const LoginItem = () => {
-  const { isLoading, error, isAuthenticated, loginWithPopup } = useAuth0();
+  const { isAuthenticated, loginWithPopup } = useAuth();
   return (
     <Menu.Item position="right">
       {!isAuthenticated && (

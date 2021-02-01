@@ -1,10 +1,10 @@
 import React from "react";
 import Axios from "axios";
-import { useAuthAPI } from "./useAuthAPI";
+import { useAuth } from "./useAuth";
 
 // A hook providing api request/handler methods
 export const useAPI = () => {
-  const { token, headers } = useAuthAPI();
+  const { token, headers } = useAuth();
 
   // Loads initial data of a resource type into state
   // Could be list or item, just supply appropriate
