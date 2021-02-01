@@ -1,5 +1,6 @@
 import React from "react";
 import About from "./about";
+import Contact from "./contact";
 import Landing from "./landing";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <React.Fragment>
       <Landing />
       <About />
+      <Contact />
     </React.Fragment>
   );
 };

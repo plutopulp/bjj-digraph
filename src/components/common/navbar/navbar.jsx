@@ -20,7 +20,7 @@ const Navbar = ({ fixed }) => {
       (a, b) => sections.indexOf(a.meta.name) - sections.indexOf(b.meta.name)
     );
   const activeRef = useActiveRef(sectionRefs, { offset: 0 });
-  React.useEffect(() => console.log(activeRef), [activeRef]);
+  React.useEffect(() => console.log(sectionRefs));
   return (
     <NavbarMenu
       fixed={fixed ? "top" : null}

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { RefProvider } from "react-context-refs";
+
 import "semantic-ui-css/semantic.min.css";
 
 import Navbar from "./components/common/navbar/navbar";
@@ -28,29 +30,31 @@ const App = () => {
       useRefreshTokens={true}
     >
       <Router>
-        <DndProvider backend={HTML5Backend}>
-          <GraphsProvider>
-            <GraphProvider>
-              <NodeTypesProvider>
-                <SettingsProvider>
-                  <Navbar />
-                  <APIController />
-                  <Route exact path={routes.pages.home} component={Home} />
-                  <Route
-                    exact
-                    path={routes.pages.graphs.list}
-                    component={GraphCardList}
-                  />
-                  <Route
-                    exact
-                    path={routes.pages.graphs.detail(":slug")}
-                    component={AuthenticatedGraphView}
-                  />
-                </SettingsProvider>
-              </NodeTypesProvider>
-            </GraphProvider>
-          </GraphsProvider>
-        </DndProvider>
+        <RefProvider>
+          <DndProvider backend={HTML5Backend}>
+            <GraphsProvider>
+              <GraphProvider>
+                <NodeTypesProvider>
+                  <SettingsProvider>
+                    <Navbar />
+                    <APIController />
+                    <Route exact path={routes.pages.home} component={Home} />
+                    <Route
+                      exact
+                      path={routes.pages.graphs.list}
+                      component={GraphCardList}
+                    />
+                    <Route
+                      exact
+                      path={routes.pages.graphs.detail(":slug")}
+                      component={AuthenticatedGraphView}
+                    />
+                  </SettingsProvider>
+                </NodeTypesProvider>
+              </GraphProvider>
+            </GraphsProvider>
+          </DndProvider>
+        </RefProvider>
       </Router>
     </Auth0Provider>
   );
