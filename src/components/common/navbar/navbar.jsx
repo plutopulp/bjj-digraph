@@ -8,7 +8,7 @@ import { Container, Menu } from "semantic-ui-react";
 import { NavbarMenu } from "./styles";
 import { useActiveRef } from "../../../hooks";
 
-const sections = ["landing", "about", "try", "contact"];
+const sections = ["home", "about", "try", "contact"];
 
 const Navbar = ({ fixed }) => {
   // Get the section refs from context
@@ -19,8 +19,7 @@ const Navbar = ({ fixed }) => {
     .sort(
       (a, b) => sections.indexOf(a.meta.name) - sections.indexOf(b.meta.name)
     );
-  const activeRef = useActiveRef(sectionRefs, { offset: 0 });
-  React.useEffect(() => console.log(sectionRefs));
+  const activeRef = useActiveRef(sectionRefs, { offset: 20 });
   return (
     <NavbarMenu
       fixed={fixed ? "top" : null}

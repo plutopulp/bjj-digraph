@@ -18,7 +18,7 @@ const Landing = () => {
   const windowSize = useWindowSize();
   const ref = useContextRef("section", { name: "landing" });
   return (
-    <div ref={ref} id="landing">
+    <div ref={ref} id="home">
       <StyledSegment vertical height={windowSize.height} />
     </div>
   );
