@@ -9,9 +9,11 @@ export const NavbarMenu = styled(Menu)`
     ${Color}
     margin: 0;
     border-style: none;
+    padding: 0.5em 0;
   }
   &.ui.menu {
     ${Color}
+    padding: 0.5em 0;
   }
 `;
 
