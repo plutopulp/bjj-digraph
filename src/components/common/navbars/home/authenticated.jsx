@@ -2,9 +2,10 @@ import React from "react";
 
 import { Container } from "semantic-ui-react";
 
-import { NavbarMenu } from "./styles";
-import HomeItems from "./items/home";
-import LogoutItem from "./items/logout";
+import { HomeItemsWrapper, NavbarMenu } from "../styles";
+import HomeItems from "../items/home";
+import LogoutItem from "../items/logout";
+import AppItem from "../items/appLink";
 
 const AuthNavbar = ({ fixed }) => {
   return (
@@ -16,7 +17,10 @@ const AuthNavbar = ({ fixed }) => {
       size="large"
     >
       <Container>
-        <HomeItems />
+        <HomeItemsWrapper>
+          <HomeItems />
+          <AppItem />
+        </HomeItemsWrapper>
         <LogoutItem />
       </Container>
     </NavbarMenu>

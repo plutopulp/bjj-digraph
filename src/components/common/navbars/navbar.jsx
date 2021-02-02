@@ -1,8 +1,8 @@
 import React from "react";
 import { useAuth } from "../../../hooks";
 
-import NonAuthNavbar from "./nonAuthenticated";
-import AuthNavbar from "./authenticated";
+import NonAuthNavbar from "./home/nonAuthenticated";
+import AuthNavbar from "./home/authenticated";
 
 const Navbar = ({ fixed }) => {
   const { isAuthenticated } = useAuth();

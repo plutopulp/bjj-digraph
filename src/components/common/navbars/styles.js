@@ -22,3 +22,10 @@ export const SidebarMenu = styled(Menu)`
     ${Color}
   }
 `;
+
+export const HomeItemsWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+`;

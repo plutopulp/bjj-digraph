@@ -7,7 +7,6 @@ import { RefProvider } from "react-context-refs";
 
 import "semantic-ui-css/semantic.min.css";
 
-import Navbar from "./components/common/navbar/navbar";
 import { GraphProvider } from "./contexts/graph/graph";
 import { GraphsProvider } from "./contexts/graphs";
 import { routes } from "./lib/config/routes/routes";

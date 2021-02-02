@@ -8,13 +8,6 @@ import { Menu } from "semantic-ui-react";
 
 import { useActiveRef } from "../../../../hooks";
 
-export const HomeItemsWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
-`;
-
 const homeSections = ["home", "about", "try", "contact"];
 
 // The home page menu, with smooth-scrolling between sections
@@ -30,13 +23,13 @@ const HomeItems = () => {
     );
   const activeRef = useActiveRef(sectionRefs, { offset: 20 });
   return (
-    <HomeItemsWrapper>
+    <React.Fragment>
       {homeSections.map((section, idx) => (
         <AnchorLink href={`#${section}`} offset="-1" key={uuid()}>
-          <Menu.Item as="" name={section} active={idx === activeRef} />
+          <Menu.Item as="a" name={section} active={idx === activeRef} />
         </AnchorLink>
       ))}
-    </HomeItemsWrapper>
+    </React.Fragment>
   );
 };
 
