@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Container } from "semantic-ui-react";
-
-import { NavFlexWrap, NavbarMenu } from "../styles";
-import HomeItems from "../items/home";
-import AppItem from "../items/appLink";
-import UserDropdown from "../items/userDropdown";
+import { NavFlexWrap } from "../common/styles";
+import HomeItems from "../common/items/home";
+import AppItem from "../common/items/appLink";
+import UserDropdown from "../common/items/userDropdown";
+import withNavbarMenuHOC from "../../../../hocs/withNavbarMenu";
 
 const NavWrapper = styled.div`
   display: flex;
@@ -15,26 +14,14 @@ const NavWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
 `;
-const AuthNavbar = ({ fixed }) => {
-  return (
-    <NavbarMenu
-      fixed={fixed ? "top" : null}
-      inverted
-      pointing
-      secondary
-      size="large"
-    >
-      <Container>
-        <NavWrapper>
-          <NavFlexWrap>
-            <HomeItems />
-            <AppItem />
-          </NavFlexWrap>
-          <UserDropdown />
-        </NavWrapper>
-      </Container>
-    </NavbarMenu>
-  );
-};
+const AuthNavbar = ({ fixed }) => (
+  <NavWrapper>
+    <NavFlexWrap>
+      <HomeItems />
+      <AppItem />
+    </NavFlexWrap>
+    <UserDropdown />
+  </NavWrapper>
+);
 
-export default AuthNavbar;
+export default withNavbarMenuHOC(AuthNavbar);

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Dropdown, Image, Menu } from "semantic-ui-react";
-import { useAuth } from "../../../../hooks";
-import { routes } from "../../../../lib/config/routes/routes";
+import { useAuth } from "../../../../../hooks";
+import { routes } from "../../../../../lib/config/routes/routes";
 
 const Wrapper = styled.div`
   display: flex;

@@ -6,7 +6,7 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 
 import { Menu } from "semantic-ui-react";
 
-import { useActiveRef } from "../../../../hooks";
+import { useActiveRef } from "../../../../../hooks";
 
 const homeSections = ["home", "about", "try", "contact"];
 
