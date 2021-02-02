@@ -5,7 +5,7 @@ import { Container } from "semantic-ui-react";
 import { NavbarMenu } from "../styles";
 import HomeItems from "../items/home";
 import LoginItem from "../items/login";
-import { HomeItemsWrapper } from "../styles";
+import { NavFlexWrap } from "../styles";
 
 const NonAuthNavbar = ({ fixed }) => {
   return (
@@ -17,9 +17,9 @@ const NonAuthNavbar = ({ fixed }) => {
       size="large"
     >
       <Container>
-        <HomeItemsWrapper>
+        <NavFlexWrap>
           <HomeItems />
-        </HomeItemsWrapper>
+        </NavFlexWrap>
         <LoginItem />
       </Container>
     </NavbarMenu>
