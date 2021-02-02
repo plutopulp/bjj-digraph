@@ -1,25 +1,15 @@
 import React from "react";
+import { useAuth } from "../../../hooks";
 
-import { Container } from "semantic-ui-react";
-
-import { NavbarMenu } from "./styles";
-import HomeItems from "./nonAuthenticated/homeItems";
-import LoginItem from "./nonAuthenticated/loginItem";
+import NonAuthNavbar from "./nonAuthenticated";
+import AuthNavbar from "./authenticated";
 
 const Navbar = ({ fixed }) => {
-  return (
-    <NavbarMenu
-      fixed={fixed ? "top" : null}
-      inverted
-      pointing
-      secondary
-      size="large"
-    >
-      <Container>
-        <HomeItems />
-        <LoginItem />
-      </Container>
-    </NavbarMenu>
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? (
+    <AuthNavbar fixed={fixed} />
+  ) : (
+    <NonAuthNavbar fixed={fixed} />
   );
 };
 
