@@ -14,7 +14,8 @@ const NavWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
 `;
-const AuthNavbar = ({ fixed }) => (
+// fixed prop passed to AuthNavbar but only used in HOC
+const AuthNavbar = () => (
   <NavWrapper>
     <NavFlexWrap>
       <HomeItems />

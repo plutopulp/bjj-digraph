@@ -7,7 +7,7 @@ import { StyledMenu, StyledMessage } from "./styles";
 import withPortalHOC from "../../hocs/withPortal";
 import withModalHOC from "../../hocs/withModal";
 
-import GraphForm from "../graphForm";
+import GraphForm from "../common/navbars/app/newGraph";
 import { GraphsContext } from "../../contexts/graphs";
 import { routes } from "../../lib/config/routes/routes";
 
@@ -40,7 +40,6 @@ const Navbar = () => {
   } = useAuth0();
 
   const [newGraph, setNewGraph] = React.useState(false);
-  const [showGraphs, setShowGraphs] = React.useState(false);
   const { graphs } = React.useContext(GraphsContext);
   return (
     <React.Fragment>
@@ -91,16 +90,6 @@ const Navbar = () => {
           </Menu.Item>
         </Container>
       </StyledMenu>
-      {showGraphs && (
-        <div>
-          {graphs.map((graph) => (
-            <div key={graph.id}>
-              <h2>{graph.title}</h2>
-              <h2>{graph.id}</h2>
-            </div>
-          ))}
-        </div>
-      )}
     </React.Fragment>
   );
 };

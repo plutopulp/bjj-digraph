@@ -18,14 +18,6 @@ const NavbarMenu = styled(Menu)`
   }
 `;
 
-const NavWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
-
 const withNavbarMenuHOC = (InnerComp) => (props) => {
   const { fixed } = props;
   return (

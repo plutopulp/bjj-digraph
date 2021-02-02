@@ -4,12 +4,7 @@ import { Button, Menu } from "semantic-ui-react";
 import { useAuth } from "../../../../../hooks";
 
 import { Modal, Loader } from "semantic-ui-react";
-
-const Loading = ({ active }) => (
-  <Modal open={active}>
-    <Loader size="huge">Loading</Loader>
-  </Modal>
-);
+import Loading from "../../../messages/loading";
 
 const LoginItem = () => {
   const { isLoading, loginWithRedirect } = useAuth();
@@ -20,7 +15,7 @@ const LoginItem = () => {
           Log In
         </Button>
       </Menu.Item>
-      <Loading active={isLoading} />
+      <Loading isLoading={isLoading} message="Logging you in, one sec..." />
     </React.Fragment>
   );
 };

@@ -18,11 +18,13 @@ const UserDropdown = () => {
   };
   return (
     <Wrapper>
-      {user.picture && <Image size="mini" circular src={user.picture} />}
+      {user && user.picture && (
+        <Image size="mini" circular src={user.picture} />
+      )}
       <Dropdown
         item
         simple
-        text={user.given_name ? `Hey ${user.given_name}` : `Hey there`}
+        text={user && user.given_name ? `Hey ${user.given_name}` : `Hey there`}
       >
         <Dropdown.Menu>
           <Dropdown.Item>Profile</Dropdown.Item>

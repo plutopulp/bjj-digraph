@@ -6,8 +6,9 @@ import { Container } from "semantic-ui-react";
 import { NavFlexWrap, NavbarMenu } from "../common/styles";
 import UserDropdown from "../common/items/userDropdown";
 import LandingItem from "../common/items/landingLink";
-import GraphsItem from "../common/items/graphs";
+import UserMapsItem from "../common/items/userMaps";
 import withNavbarMenuHOC from "../../../../hocs/withNavbarMenu";
+import NewMapItem from "../common/items/newMap";
 
 const NavWrapper = styled.div`
   display: flex;
@@ -21,7 +22,8 @@ const AppNavbar = ({ fixed }) => {
     <NavWrapper>
       <NavFlexWrap>
         <LandingItem />
-        <GraphsItem />
+        <UserMapsItem />
+        <NewMapItem />
       </NavFlexWrap>
       <UserDropdown />
     </NavWrapper>

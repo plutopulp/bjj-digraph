@@ -1,9 +1,10 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 
-import { GraphsContext } from "../contexts/graphs";
-import GraphForm from "./common/graph/form";
-import { useFormFields } from "../hooks/index";
+import { GraphsContext } from "../../../../contexts/graphs";
+import GraphForm from "../../graph/form";
+import { useFormFields } from "../../../../hooks";
+import withModalHOC from "../../../../hocs/withModal";
 
 const slugify = require("slugify");
 
@@ -11,7 +12,7 @@ const initialFields = {
   title: "",
   description: "",
 };
-const CreateGraph = ({ handleClose }) => {
+const NewGraph = ({ handleClose }) => {
   const [fields, setFields, handleChange] = useFormFields(initialFields);
   const { graphs, setGraphs } = React.useContext(GraphsContext);
 
@@ -39,4 +40,4 @@ const CreateGraph = ({ handleClose }) => {
   );
 };
 
-export default CreateGraph;
+export default withModalHOC(NewGraph);

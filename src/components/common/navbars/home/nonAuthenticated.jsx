@@ -1,8 +1,5 @@
 import React from "react";
 
-import { Container } from "semantic-ui-react";
-
-import { NavbarMenu } from "../common/styles";
 import HomeItems from "../common/items/home";
 import LoginItem from "../common/items/login";
 import { NavFlexWrap } from "../common/styles";
