@@ -42,7 +42,7 @@ class EdgeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """ Creates an edge with appropriate source and target nodes """
         # When user copy pastes multiple nodes with edges
-        # nodes need to be created first, so pause. A hack 
+        # nodes need to be created first, so pause. A hack
         # solution for now
         time.sleep(0.25)
         nodes = self.get_edge_nodes(validated_data)

@@ -39,7 +39,6 @@ class ScoreNode(Node):
     score = models.IntegerField(default=0, validators=SCORE_VALIDATORS)
     rationale = models.TextField(default="", blank=True)
 
-
     class Meta:
         verbose_name = "Score Node"
         verbose_name_plural = "Score Nodes"

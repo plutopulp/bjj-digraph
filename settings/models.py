@@ -48,7 +48,9 @@ class AbstractBaseNodeSettings(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # Level is just a way to sort types on the front end
-    level = models.PositiveSmallIntegerField(default=0, blank=True, null=True, validators=LEVEL_VALIDATORS)
+    level = models.PositiveSmallIntegerField(
+        default=0, blank=True, null=True, validators=LEVEL_VALIDATORS
+    )
     shape_id = models.CharField(max_length=64, default="#square")
     type_text = models.CharField(max_length=64, default="")
     fill = ColorField(default="#ad560e")

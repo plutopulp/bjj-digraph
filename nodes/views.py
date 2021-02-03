@@ -70,10 +70,10 @@ class NodeDetail(NodeAPIViewMixin, generics.RetrieveUpdateDestroyAPIView):
 
 class NodeList(NodeAPIViewMixin, generics.CreateAPIView, FlatMultipleModelAPIView):
     """A List + Create API view for retrieving all nodes of a graph (multiple types)
-    and creating any node type instance """
+    and creating any node type instance"""
 
     add_model_type = False
-    
+
     def perform_create(self, serializer):
         graph_id = self.get_graph_id()
         graph = get_object_or_404(Graph, id=graph_id)

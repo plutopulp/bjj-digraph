@@ -7,34 +7,40 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nodes', '0002_auto_20210108_1310'),
+        ("nodes", "0002_auto_20210108_1310"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='scorenode',
-            name='comment',
+            model_name="scorenode",
+            name="comment",
         ),
         migrations.RemoveField(
-            model_name='scorenode',
-            name='effectiveness',
+            model_name="scorenode",
+            name="effectiveness",
         ),
         migrations.RemoveField(
-            model_name='scorenode',
-            name='priority',
+            model_name="scorenode",
+            name="priority",
         ),
         migrations.RemoveField(
-            model_name='scorenode',
-            name='proficiency',
+            model_name="scorenode",
+            name="proficiency",
         ),
         migrations.AddField(
-            model_name='scorenode',
-            name='rationale',
-            field=models.TextField(blank=True, default=''),
+            model_name="scorenode",
+            name="rationale",
+            field=models.TextField(blank=True, default=""),
         ),
         migrations.AddField(
-            model_name='scorenode',
-            name='score',
-            field=models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(-100), django.core.validators.MaxValueValidator(100)]),
+            model_name="scorenode",
+            name="score",
+            field=models.IntegerField(
+                default=0,
+                validators=[
+                    django.core.validators.MinValueValidator(-100),
+                    django.core.validators.MaxValueValidator(100),
+                ],
+            ),
         ),
     ]

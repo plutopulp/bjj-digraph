@@ -49,4 +49,3 @@ class MetaNodeSerializer(NodeSerializer):
     class Meta:
         model = MetaNode
         fields = NodeSerializer.Meta.fields + ("description",)
-        

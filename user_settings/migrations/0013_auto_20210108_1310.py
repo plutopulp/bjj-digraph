@@ -6,18 +6,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user_settings', '0012_auto_20210108_1014'),
+        ("user_settings", "0012_auto_20210108_1014"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='usermetanodesettings',
-            name='owner',
+            model_name="usermetanodesettings",
+            name="owner",
         ),
         migrations.DeleteModel(
-            name='UserGameNodeSettings',
+            name="UserGameNodeSettings",
         ),
         migrations.DeleteModel(
-            name='UserMetaNodeSettings',
+            name="UserMetaNodeSettings",
         ),
     ]
