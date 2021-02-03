@@ -1,12 +1,15 @@
 import uuid
 
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from colorfield.fields import ColorField
 
 from utils.models import SingletonModel
 
 from main.config.node_types import NODE_TYPES
 from .nodes.default import COMMON_NODE_PROPS
+
+LEVEL_VALIDATORS = [MinValueValidator(0), MaxValueValidator(len(NODE_TYPES))]
 
 
 class Settings(SingletonModel):
@@ -44,6 +47,8 @@ class AbstractBaseNodeSettings(models.Model):
     user node settings."""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # Level is just a way to sort types on the front end
+    level = models.PositiveSmallIntegerField(default=0, blank=True, null=True, validators=LEVEL_VALIDATORS)
     shape_id = models.CharField(max_length=64, default="#square")
     type_text = models.CharField(max_length=64, default="")
     fill = ColorField(default="#ad560e")

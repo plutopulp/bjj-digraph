@@ -5,6 +5,8 @@ SCORE_TYPES = (
     "position",
     "submission",
     "transition",
+    "grip",
+    "sweep",
     "action",
 )
 SCORE_SUBTYPES = ("user", "opponent")
