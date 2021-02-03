@@ -1,8 +1,8 @@
 COMMON_NODE_PROPS = {
     "stroke": "#333333",
     "stroke_width": 2,
-    "user_opacity": 90,
-    "opponent_opacity": 60,
+    "user_opacity": 0.8,
+    "opponent_opacity": 0.5,
 }
 
 POSITION = {
@@ -16,7 +16,7 @@ POSITION = {
 SUBMISSION = {
     "shape_id": "complex-circle",
     "type_text": "New Submission",
-    "fill": "#f53337",
+    "fill": "#C62525",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
 }

@@ -24,7 +24,7 @@ class SiteSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
     form = SiteSettingsChangeForm
 
 
-class DefaultNodeSettingsAdmin(NoAddNoDeleteMixin, admin.ModelAdmin):
+class DefaultNodeSettingsAdmin(admin.ModelAdmin):
     model = DefaultNodeSettings
     form = NodeSettingsChangeForm
 
