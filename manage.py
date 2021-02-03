@@ -2,8 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import dotenv
+from dotenv import load_dotenv
 
+# Configure Django to use dotenv and source .env automatically
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'), verbose=True)
 
 def main():
     """Run administrative tasks."""
@@ -24,6 +26,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# Configure Django to use dotenv and source .env automatically
-dotenv.load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
