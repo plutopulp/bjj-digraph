@@ -26,6 +26,4 @@ if __name__ == "__main__":
     main()
 
 # Configure Django to use dotenv and source .env automatically
-dotenv.load_dotenv(
-    os.path.join(os.path.dirname(__file__), '.env')
-)
+dotenv.load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))

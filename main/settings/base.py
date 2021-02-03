@@ -1,14 +1,13 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(verbose=True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ["SECRET_KEY"]
-
-DEBUG = True
-
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 # Application definition
@@ -67,21 +66,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "main.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ["DB_NAME"],
-        "USER": os.environ["DB_USER"],
-        "PASSWORD": os.environ["DB_PASS"],
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    }
-}
 
 
 # Password validation
@@ -146,7 +130,7 @@ JWT_AUTH = {
     "JWT_PAYLOAD_GET_USERNAME_HANDLER": "accounts.utils.jwt_get_username_from_payload_handler",
     "JWT_DECODE_HANDLER": "accounts.utils.jwt_decode_token",
     "JWT_ALGORITHM": "RS256",
-    "JWT_AUDIENCE": os.environ["API_IDENTIFIER"],
-    "JWT_ISSUER": os.environ["AUTH0_DOMAIN"],
+    "JWT_AUDIENCE": os.getenv("API_IDENTIFIER"),
+    "JWT_ISSUER": os.getenv("AUTH0_DOMAIN"),
     "JWT_AUTH_HEADER_PREFIX": "Bearer",
 }
