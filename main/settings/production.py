@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["bjj-paths.com"]
+ALLOWED_HOSTS = ["http://localhost:3000", "bjj-paths.com"]
 
 DATABASES = {
     "default": {
@@ -15,12 +15,14 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_WHITELIST = []
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
 
-SECURE_SSL_REDIRECT = True
+# Will uncomment these after initial deployment
 
-SESSION_COOKIE_SECURE = True
-
-CSRF_COOKIE_SECURE = True
-
-SECURE_BROWSER_XSS_FILTER = True
+#SECURE_SSL_REDIRECT = True
+#
+#SESSION_COOKIE_SECURE = True
+#
+#CSRF_COOKIE_SECURE = True
+#
+#SECURE_BROWSER_XSS_FILTER = True
