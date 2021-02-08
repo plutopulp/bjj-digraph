@@ -1,20 +1,13 @@
-FROM python:3
+FROM python:3.6
 
-# Make sure logs are received in a timely manner
-ENV PYTHONBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
-# Install system packages
-RUN apt-get update && apt-get upgrade -y
+RUN python -m pip install --upgrade pip
 
-# Set working directory
-RUN mkdir /backend
-WORKDIR /backend
+WORKDIR /code
 
-COPY requirements.txt /backend/
+COPY requirements.txt ./
 
-# Make it accessible for the nginx container
-EXPOSE 8000
 RUN pip install -r requirements.txt
-COPY . /backend/
-RUN python manage.py makemigrations
-RUN python manage.py migrate
+
+COPY . .
