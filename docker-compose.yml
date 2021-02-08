@@ -4,9 +4,11 @@ services:
   django:
     build: .
     container_name: django
-    ports: 
-      - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+    expose: 
+      - 8000
+    command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/app/server/staticfiles
     depends_on: 
       - pgdb
 
@@ -19,5 +21,16 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
     volumes:
       - pgdata:/var/lib/postgresql/data/
+  
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/server/staticfiles
+    ports: 
+      - 1337:80
+    depends_on: 
+      - django
+
 volumes:
   pgdata:
+  static_volume:
