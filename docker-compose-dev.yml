@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+    nginx: 
+        container_name: nginx
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./docker/nginx/Dockerfile
+        ports:
+            - 3000:80
+        volumes:
+            - static_volume:/app/server/staticfiles
+            - ./docker/nginx/development:/etc/nginx/conf.d
+        depends_on: 
+            - server
+    server:
+        container_name: django
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./docker/server/Dockerfile
+        volumes:
+            
+        entrypoint: /app/docker/server/wsgi-entrypoint.sh
+        volumes:
+            - static_volume:/app/server/staticfiles
+        expose:
+            - 8000        
+
+    pgdb:
+        image: postgres
+        restart: unless-stopped
+        container_name: pgdb
+        environment:
+          - POSTGRES_DB=${DB_NAME}
+          - POSTGRES_USER=${DB_USER}
+          - POSTGRES_PASSWORD=${DB_PASS}
+        volumes:
+          - pgdata:/var/lib/postgresql/data/
+    
+volumes:
+    static_volume:
+    pgdata:

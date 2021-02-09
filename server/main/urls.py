@@ -4,8 +4,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path(getenv("SECRET_ADMIN_URL"), admin.site.urls),
-    path("settings/", include("settings.urls")),
-    path("user-settings/", include("user_settings.urls")),
-    path("accounts/", include("accounts.urls")),
-    path("graphs/", include("graphs.urls")),
+    path("api/settings/", include("settings.urls")),
+    path("api/user-settings/", include("user_settings.urls")),
+    path("api/accounts/", include("accounts.urls")),
+    path("api/graphs/", include("graphs.urls")),
 ]
