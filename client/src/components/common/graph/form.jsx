@@ -18,6 +18,7 @@ const GraphForm = ({
         name="title"
         value={fields.title}
         placeholder="Enter a title"
+        required
         onChange={handleChange}
       />
       <Form.TextArea

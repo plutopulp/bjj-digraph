@@ -1,9 +1,14 @@
 import React from "react";
+import styled from "styled-components";
 
 import { GraphsContext } from "../../../contexts/graphs";
 import Card from "./card/card";
 import { Card as UICard, Container } from "semantic-ui-react";
 import AppNavbar from "../../common/navbars/app/navbar";
+
+const StyledContainer = styled(Container)`
+  margin-top: 10em;
+`;
 
 const GraphCardList = () => {
   const { graphs } = React.useContext(GraphsContext);
@@ -11,7 +16,7 @@ const GraphCardList = () => {
   return (
     <React.Fragment>
       <AppNavbar fixed={true} />
-      <Container>
+      <StyledContainer>
         <UICard.Group>
           {graphs.map((graph) => (
             <Card
@@ -24,7 +29,7 @@ const GraphCardList = () => {
             />
           ))}
         </UICard.Group>
-      </Container>
+      </StyledContainer>
     </React.Fragment>
   );
 };
