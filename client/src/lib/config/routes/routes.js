@@ -1,5 +1,4 @@
-const serverUrl = process.env.REACT_APP_SERVER_URL;
-
+let serverUrl = "http://127.0.0.1:3000/api/";
 // list endpoints for list and create api views
 // detail endpoints for read, update and destroy api views
 
