@@ -1,0 +1,38 @@
+version: "3.9"
+   
+services:
+  django:
+    build: 
+      context: .
+      dockerfile: Dockerfile.django
+    container_name: django
+    expose: 
+      - 8000
+    command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/app/server/staticfiles
+    depends_on: 
+      - pgdb
+
+  pgdb:
+    image: postgres
+    container_name: pgdb
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+  
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/server/staticfiles
+    ports: 
+      - 1337:80
+    depends_on: 
+      - django
+
+volumes:
+  pgdata:
+  static_volume:
