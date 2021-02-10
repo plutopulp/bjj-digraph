@@ -9,12 +9,14 @@ services:
           dockerfile: ./docker/nginx/Dockerfile
       ports:
           - 80:80
+          - 443:443
       volumes:
           - static_volume:/app/server/staticfiles
           - web-root:/usr/share/nginx/html
           - ./docker/nginx/production:/etc/nginx/conf.d
           - certbot-etc:/etc/letsencrypt
           - certbot-var:/var/lib/letsencrypt
+          - dhparam:/etc/ssl/certs
       depends_on: 
         - server
       networks: 
@@ -70,6 +72,12 @@ volumes:
   certbot-var:
   web-root:
     driver: local
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/bjj-digraph/dhparam/
+      o: bind
 
 networks:
   bjjpaths-network:
