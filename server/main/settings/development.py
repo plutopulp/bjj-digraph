@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0", "68.183.6.51"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
 
 DATABASES = {
     "default": {
@@ -15,7 +15,4 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
+CORS_ORIGIN_WHITELIST = os.getenv("CORS_ORIGIN_WHITELIST").split(" ")
