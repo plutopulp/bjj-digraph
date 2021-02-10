@@ -2,31 +2,41 @@ version: '2'
 
 services:
     nginx: 
-        container_name: nginx
-        restart: unless-stopped
-        build:
-            context: .
-            dockerfile: ./docker/nginx/Dockerfile
-        ports:
-            - 80:80
-        volumes:
-            - static_volume:/app/server/staticfiles
-            - ./docker/nginx/production:/etc/nginx/conf.d
-        depends_on: 
-            - server
+      container_name: nginx
+      restart: unless-stopped
+      build:
+          context: .
+          dockerfile: ./docker/nginx/Dockerfile
+      ports:
+          - 80:80
+      volumes:
+          - static_volume:/app/server/staticfiles
+          - web-root:/usr/share/nginx/html
+          - ./docker/nginx/production:/etc/nginx/conf.d
+          - certbot-etc:/etc/letsencrypt
+          - certbot-var:/var/lib/letsencrypt
+      depends_on: 
+        - server
+      networks: 
+        - bjjpaths-network
+
     server:
-        container_name: django
-        restart: unless-stopped
-        build:
-            context: .
-            dockerfile: ./docker/server/Dockerfile
-        volumes:
-            
-        entrypoint: /app/docker/server/wsgi-entrypoint.sh
-        volumes:
-            - static_volume:/app/server/staticfiles
-        expose:
-            - 8000        
+      container_name: django
+      restart: unless-stopped
+      build:
+          context: .
+          dockerfile: ./docker/server/Dockerfile
+      volumes:
+          
+      entrypoint: /app/docker/server/wsgi-entrypoint.sh
+      volumes:
+          - static_volume:/app/server/staticfiles
+      expose:
+          - 8000        
+      networks: 
+      - bjjpaths-network
+      depends_on: 
+        - pgdb
 
     pgdb:
         image: postgres
@@ -38,7 +48,29 @@ services:
           - POSTGRES_PASSWORD=${DB_PASS}
         volumes:
           - pgdata:/var/lib/postgresql/data/
-    
+
+        networks: 
+         - bjjpaths-network
+
+    certbot:
+        image: certbot/certbot
+        container_name: certbot
+        volumes:
+        - certbot-etc:/etc/letsencrypt
+        - certbot-var:/var/lib/letsencrypt
+        - web-root:/var/www/html
+        depends_on:
+        - nginx
+        command: certonly --webroot --webroot-path=/var/www/html --email yvan@metatech.ie --agree-tos --no-eff-email --staging -d bjjpaths.com  -d www.bjjpaths.com 
+
 volumes:
-    static_volume:
-    pgdata:
+  static_volume:
+  pgdata:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+
+networks:
+  bjjpaths-network:
+    driver: bridge
