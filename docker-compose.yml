@@ -12,15 +12,11 @@ services:
           - 443:443
       volumes:
           - static_volume:/app/server/staticfiles
-          - web-root:/usr/share/nginx/html
           - ./docker/nginx/production:/etc/nginx/conf.d
-          - certbot-etc:/etc/letsencrypt
-          - certbot-var:/var/lib/letsencrypt
-          - dhparam:/etc/ssl/certs
+          - ./docker/nginx/certbot/conf:/etc/letsencrypt
+          - ./docker/nginx/certbot/www:/var/www/certbot
       depends_on: 
         - server
-      networks: 
-        - bjjpaths-network
 
     server:
       container_name: django
@@ -35,8 +31,6 @@ services:
           - static_volume:/app/server/staticfiles
       expose:
           - 8000        
-      networks: 
-      - bjjpaths-network
       depends_on: 
         - pgdb
 
@@ -51,34 +45,14 @@ services:
         volumes:
           - pgdata:/var/lib/postgresql/data/
 
-        networks: 
-         - bjjpaths-network
-
     certbot:
         image: certbot/certbot
         container_name: certbot
         volumes:
-        - certbot-etc:/etc/letsencrypt
-        - certbot-var:/var/lib/letsencrypt
-        - web-root:/var/www/html
-        depends_on:
-        - nginx
-        command: certonly --webroot --webroot-path=/var/www/html --email yvan@metatech.ie --agree-tos --no-eff-email --staging -d bjjpaths.com  -d www.bjjpaths.com 
+        - ./docker/nginx/certbot/conf:/etc/letsencrypt
+        - ./docker/nginx/certbot/www:/var/www/certbot
+        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
 volumes:
   static_volume:
   pgdata:
-  certbot-etc:
-  certbot-var:
-  web-root:
-    driver: local
-  dhparam:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/bjj-digraph/dhparam/
-      o: bind
-
-networks:
-  bjjpaths-network:
-    driver: bridge
