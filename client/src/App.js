@@ -20,10 +20,10 @@ import { NodeTypesProvider } from "./contexts/nodeTypes";
 const App = () => {
   return (
     <Auth0Provider
-      clientId="cyQujWKqQOG385QEJadhgWps1kv3HHTI"
-      domain="dev-3nvlzxev.eu.auth0.com"
-      redirectUri={window.location.origin}
-      audience="https://bjj-digraph-server"
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
+      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      redirectUri={process.env.REACT_APP_SITE_URL}
+      audience={process.env.REACT_APP_AUTH0_AUDIENCE}
       responseType="token id_token"
       scope="openid profile email"
       useRefreshTokens={true}

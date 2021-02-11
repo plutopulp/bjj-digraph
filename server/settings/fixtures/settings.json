@@ -1,0 +1,144 @@
+[
+{
+  "model": "settings.settings",
+  "pk": 1,
+  "fields": {}
+},
+{
+  "model": "settings.sitesettings",
+  "pk": 1,
+  "fields": {
+    "settings": 1,
+    "title": "BJJ digraph",
+    "site_url": ""
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "23029ffc-33ce-4dab-9a93-92b4080d499a",
+  "fields": {
+    "level": 0,
+    "shape_id": "skinny-rectangle",
+    "type_text": "New Transition",
+    "fill": "#8568D7",
+    "fill_opacity": 1.0,
+    "stroke": "#333333",
+    "stroke_opacity": 1.0,
+    "stroke_width": 2,
+    "node_type": "score-transition-user",
+    "settings": 10
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "3ea4efb9-e229-423a-beda-399492b76ebb",
+  "fields": {
+    "level": 2,
+    "shape_id": "square",
+    "type_text": "New Position",
+    "fill": "#AD561F",
+    "fill_opacity": 1.0,
+    "stroke": "#333333",
+    "stroke_opacity": 1.0,
+    "stroke_width": 2,
+    "node_type": "score-position-user",
+    "settings": 10
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "5cce236c-d784-4af9-b3ed-e69bca9a782c",
+  "fields": {
+    "level": 1,
+    "shape_id": "lozenge",
+    "type_text": "New Action",
+    "fill": "#F0A626",
+    "fill_opacity": 0.8,
+    "stroke": "#333333",
+    "stroke_opacity": 1.0,
+    "stroke_width": 0,
+    "node_type": "score-action-opponent",
+    "settings": 10
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "5d996048-340c-4261-8e20-04848aa328f9",
+  "fields": {
+    "level": 1,
+    "shape_id": "lozenge",
+    "type_text": "New Action",
+    "fill": "#338BF1",
+    "fill_opacity": 1.0,
+    "stroke": "#333333",
+    "stroke_opacity": 1.0,
+    "stroke_width": 2,
+    "node_type": "score-action-user",
+    "settings": 10
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "b7988ebd-dfa8-4f2f-9cac-9d29a8d70ad2",
+  "fields": {
+    "level": 3,
+    "shape_id": "hexagon-flat",
+    "type_text": "New Grip",
+    "fill": "#43AD7A",
+    "fill_opacity": 0.8,
+    "stroke": "#333333",
+    "stroke_opacity": 1.0,
+    "stroke_width": 2,
+    "node_type": "score-grip-user",
+    "settings": null
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "ca02651c-320f-45bb-ba0c-4de8de8ad156",
+  "fields": {
+    "level": 0,
+    "shape_id": "square",
+    "type_text": "New Text",
+    "fill": "transparent",
+    "fill_opacity": 0.0,
+    "stroke": "transparent",
+    "stroke_opacity": 1.0,
+    "stroke_width": 0,
+    "node_type": "meta-text",
+    "settings": 10
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "e78f3cd1-fd28-4d2c-b59c-088232b117f8",
+  "fields": {
+    "level": 0,
+    "shape_id": "square",
+    "type_text": "New Comment",
+    "fill": "#bbbbbb",
+    "fill_opacity": 90.0,
+    "stroke": "#333333",
+    "stroke_opacity": 1.0,
+    "stroke_width": 2,
+    "node_type": "meta-comment",
+    "settings": 10
+  }
+},
+{
+  "model": "settings.defaultnodesettings",
+  "pk": "fe7be069-5b71-4d29-bb08-508ef12b4007",
+  "fields": {
+    "level": 4,
+    "shape_id": "complex-circle",
+    "type_text": "New Submission",
+    "fill": "#C62525",
+    "fill_opacity": 0.9,
+    "stroke": "#333333",
+    "stroke_opacity": 1.0,
+    "stroke_width": 2,
+    "node_type": "score-submission-user",
+    "settings": 10
+  }
+}
+]
