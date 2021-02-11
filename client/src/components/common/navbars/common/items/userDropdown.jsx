@@ -14,7 +14,7 @@ const UserDropdown = () => {
   React.useEffect(() => console.log(user), [JSON.stringify(user)]);
 
   const handleLogout = () => {
-    logout({ returnTo: routes.pages.home });
+    logout({ returnTo: process.env.REACT_APP_SITE_URL });
   };
   return (
     <Wrapper>
