@@ -1,8 +1,8 @@
 COMMON_NODE_PROPS = {
     "stroke": "#333333",
     "stroke_width": 2,
-    "user_opacity": 0.8,
-    "opponent_opacity": 0.5,
+    "user_opacity": 0.9,
+    "opponent_opacity": 0.6,
 }
 
 POSITION = {
@@ -24,7 +24,7 @@ SUBMISSION = {
 TRANSITION = {
     "shape_id": "skinny-rectangle",
     "type_text": "New Transition",
-    "fill": "#9f4ae0",
+    "fill": "#8568D7",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
 }
@@ -40,7 +40,14 @@ ENTRY = {
 ACTION = {
     "shape_id": "lozenge",
     "type_text": "New Action",
-    "fill": "#86fade",
+    "fill": "#338BF1",
+    "stroke": COMMON_NODE_PROPS["stroke"],
+    "stroke_width": COMMON_NODE_PROPS["stroke_width"],
+}
+GRIP = {
+    "shape_id": "hexagon",
+    "type_text": "New Grip",
+    "fill": "#43AD7A",
     "stroke": COMMON_NODE_PROPS["stroke"],
     "stroke_width": COMMON_NODE_PROPS["stroke_width"],
 }
@@ -67,7 +74,7 @@ BASE_SCORE_NODE_SETTINGS = {
     "position": POSITION,
     "submission": SUBMISSION,
     "transition": TRANSITION,
-    "entry": ENTRY,
+    "grip": GRIP,
     "action": ACTION,
 }
 
@@ -85,7 +92,8 @@ SCORE_NODE_SETTINGS = [
         node_type=f"score-{k}-opponent",
         fill_opacity=COMMON_NODE_PROPS["opponent_opacity"],
     )
-    for k, v in BASE_SCORE_NODE_SETTINGS.items()
+    # for the moment only keeping action node for opponent
+    for k, v in BASE_SCORE_NODE_SETTINGS.items() if k == "action"
 ]
 
 META_NODE_SETTINGS = [
