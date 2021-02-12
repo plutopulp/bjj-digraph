@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Container } from "semantic-ui-react";
-
-import { NavFlexWrap, NavbarMenu } from "../common/styles";
+import { NavFlexWrap } from "../common/styles";
 import UserDropdown from "../common/items/userDropdown";
 import LandingItem from "../common/items/landingLink";
 import UserMapsItem from "../common/items/userMaps";
