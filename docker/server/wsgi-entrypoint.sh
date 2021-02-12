@@ -13,6 +13,9 @@ done
 
 ./manage.py collectstatic --noinput
 
+echo "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser('admin', 'admin@example.com', 'pass')" | ./manage.py shell
+
+
 gunicorn main.wsgi --bind 0.0.0.0:8000 --workers 4 --threads 4
 
 #####################################################################################
