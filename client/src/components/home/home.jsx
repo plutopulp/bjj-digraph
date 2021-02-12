@@ -4,11 +4,9 @@ import About from "./about";
 import Contact from "./contact";
 import Landing from "./landing";
 
-const Home = () => {
-  const [navbarFixed, setNavbarFixed] = React.useState(false);
+const Home = ({ setNavbarFixed }) => {
   return (
     <React.Fragment>
-      <Navbar fixed={navbarFixed} />
       <Landing setBottomPassed={setNavbarFixed} />
       <About />
       <Contact />

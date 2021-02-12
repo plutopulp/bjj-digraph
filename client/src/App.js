@@ -16,8 +16,10 @@ import Home from "./components/home/home";
 import { APIController } from "./components/APIController";
 import { SettingsProvider } from "./contexts/graph/settings";
 import { NodeTypesProvider } from "./contexts/nodeTypes";
+import Navbar from "./components/common/navbars/navbar";
 
 const App = () => {
+  const [navbarFixed, setNavbarFixed] = React.useState(false);
   return (
     <Auth0Provider
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
@@ -36,7 +38,14 @@ const App = () => {
                 <NodeTypesProvider>
                   <SettingsProvider>
                     <APIController />
-                    <Route exact path={routes.pages.home} component={Home} />
+                    <Navbar fixed={navbarFixed} />
+                    <Route
+                      exact
+                      path={routes.pages.home}
+                      render={(props) => (
+                        <Home {...props} setNavbarFixed={setNavbarFixed} />
+                      )}
+                    />
                     <Route
                       exact
                       path={routes.pages.graphs.list}
