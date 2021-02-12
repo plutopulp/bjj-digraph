@@ -6,7 +6,6 @@ import { routes } from "../../../lib/config/routes/routes";
 
 const Navbar = ({ fixed }) => {
   const location = useLocation();
-  React.useEffect(() => console.log(location), [location]);
   return location.pathname.startsWith(routes.pages.app) ? (
     <AppNavbar fixed={fixed} />
   ) : (

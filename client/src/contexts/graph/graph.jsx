@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
+import { routes } from "../../lib/config/routes/routes";
 
 export const GraphContext = React.createContext();
 
@@ -10,10 +11,14 @@ export const GraphProvider = ({ children }) => {
   const location = useLocation();
 
   // The graph detail view currently open in the browser
-  const [currentGraphId, setCurrentGraphId] = React.useState("");
+  const [currentGraphId, setCurrentGraphId] = React.useState(null);
   React.useEffect(() => {
-    if (location.pathname.includes("/graphs/") && location.state)
+    if (
+      location.pathname.startsWith(routes.pages.graphs.base) &&
+      location.state
+    )
       setCurrentGraphId(location.state.graphId);
+    else setCurrentGraphId(null);
   }, [location, location.pathname]);
 
   // All the nodes and edges of the current graph
