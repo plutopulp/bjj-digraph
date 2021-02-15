@@ -29,7 +29,7 @@ const Image = ({ id }) => {
   return (
     <Graph
       width="100%"
-      height="300px"
+      height="300"
       nodes={nodes}
       setNodes={setNodes}
       edges={edges}

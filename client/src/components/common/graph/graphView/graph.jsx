@@ -13,6 +13,7 @@ import {
   useGraphOps,
   useRenderNode,
   useRenderNodeText,
+  useWindowSize,
 } from "../../../../hooks";
 import { GraphContext } from "../../../../contexts/graph/graph";
 import ToolBox from "./toolBox/toolBox";
@@ -22,8 +23,8 @@ const { nodeSubtypes, edgeTypes } = graphConfig;
 
 const GraphWrapper = styled.div`
   position: relative;
-  width: ${({ width }) => (width ? width : "80%")};
-  height: ${({ height }) => (height ? height : "1000px")};
+  width: ${({ width }) => (width ? width : "100%")};
+  height: ${({ height }) => (height ? height : 1000)}px;
 `;
 const DropZone = styled.div`
   width: 100%;
@@ -73,17 +74,21 @@ const GraphViewContainer = ({
   const renderNodeText = useRenderNodeText();
   const { multiSelect, paths, showPathIndex } = React.useContext(GraphContext);
   const { nodeTypes } = React.useContext(NodeTypesContext);
+  const windowSize = useWindowSize();
 
   React.useEffect(() => graphRef.current.renderNodes(), [
     multiSelect,
     paths,
     showPathIndex,
   ]);
-  React.useEffect(() => console.log(nodes, edges));
-
   return (
     <React.Fragment>
-      <GraphWrapper ref={wrapperRef} width={width} height={height}>
+      <GraphWrapper
+        ref={wrapperRef}
+        width={width}
+        // To do: replace 60 below by navbar height
+        height={height ? height : windowSize.height - 60}
+      >
         <DropZone ref={dropRef}>
           <ToolBox show={showToolbox} />
           <GraphView

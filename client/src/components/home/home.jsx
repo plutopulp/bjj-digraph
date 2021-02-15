@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../common/navbars/home/navbar";
 import About from "./about";
 import Contact from "./contact";
 import Landing from "./landing/landing";

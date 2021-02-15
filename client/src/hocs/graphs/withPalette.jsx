@@ -4,7 +4,6 @@ import { Palette } from "../../components/palette/palette";
 
 const Wrapper = styled.div`
   display: flex;
-  flex-flow: row wrap;
 `;
 
 // A HOC which wraps a graphview component with a palette.
