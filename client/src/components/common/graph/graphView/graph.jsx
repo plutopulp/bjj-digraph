@@ -98,6 +98,7 @@ const GraphViewContainer = ({
             edges={edges}
             selected={selected}
             selectedNodes={selectedNodes}
+            showHelp={true}
             selectedEdges={selectedEdges}
             nodeTypes={nodeTypes}
             nodeSubtypes={nodeSubtypes}

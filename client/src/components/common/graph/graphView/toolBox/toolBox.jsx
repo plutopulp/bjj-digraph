@@ -8,6 +8,7 @@ import Lock from "./options/lock";
 import PathFinder from "./options/pathFinder";
 import CenterNode from "./options/centerNode";
 import Zoom from "./options/zoom";
+import HelpMenu from "./options/help/help";
 const Wrapper = styled.div`
   position: absolute;
   left: 0;
@@ -22,6 +23,7 @@ const ToolBoxContainer = ({ show }) => {
     show && (
       <Wrapper>
         <Button.Group>
+          <HelpMenu />
           <Layout />
           <Lock />
           <CenterNode />
