@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Dropdown, Image, Menu } from "semantic-ui-react";
-import { useAuth } from "../../../../../hooks";
+import { useAuth, useToggle } from "../../../../../hooks";
 import { routes } from "../../../../../lib/config/routes/routes";
+import Profile from "../../../profile";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,29 +12,35 @@ const Wrapper = styled.div`
 
 const UserDropdown = () => {
   const { user, logout } = useAuth();
+  const [showProfile, toggleProfile] = useToggle(false);
   React.useEffect(() => console.log(user), [JSON.stringify(user)]);
 
   const handleLogout = () => {
     logout({ returnTo: process.env.REACT_APP_SITE_URL });
   };
   return (
-    <Wrapper>
-      {user && user.picture && (
-        <Image size="mini" circular src={user.picture} />
-      )}
-      <Dropdown
-        item
-        simple
-        text={user && user.given_name ? `Hey ${user.given_name}` : `Hey there`}
-      >
-        <Dropdown.Menu>
-          <Dropdown.Item>Profile</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    </Wrapper>
+    <React.Fragment>
+      <Wrapper>
+        {user && user.picture && (
+          <Image size="mini" circular src={user.picture} />
+        )}
+        <Dropdown
+          item
+          simple
+          text={
+            user && user.given_name ? `Hey ${user.given_name}` : `Hey there`
+          }
+        >
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={toggleProfile}>Profile</Dropdown.Item>
+            <Dropdown.Item>Settings</Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Wrapper>
+      <Profile open={showProfile} handleClose={toggleProfile} />
+    </React.Fragment>
   );
 };
 

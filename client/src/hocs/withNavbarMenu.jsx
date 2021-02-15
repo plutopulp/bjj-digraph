@@ -26,7 +26,7 @@ const withNavbarMenuHOC = (InnerComp) => (props) => {
       inverted
       pointing
       secondary
-      size="huge"
+      size="large"
     >
       <Container>
         <InnerComp {...props} />
