@@ -36,6 +36,7 @@ const PathFinder = () => {
           compact
           onClick={handleConnectingPaths}
           disabled={!canGetConnectingPaths()}
+          style={{ marginLeft: "15px" }}
         >
           <Icon name="code branch" />
         </Button>
@@ -43,11 +44,12 @@ const PathFinder = () => {
       content={
         !canGetConnectingPaths() ? "Select 2 nodes" : "Find connecting paths"
       }
+      position="bottom center"
     />
   ) : (
     <Popup
       trigger={
-        <Menu compact icon>
+        <Menu compact icon style={{ marginLeft: "15px" }}>
           <Dropdown
             icon="code branch"
             button
@@ -60,6 +62,7 @@ const PathFinder = () => {
         </Menu>
       }
       content="Highlighted Path"
+      position="right center"
     />
   );
 };

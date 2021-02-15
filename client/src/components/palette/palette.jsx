@@ -9,7 +9,7 @@ const PaletteWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  background: #94858545;
+  background: #dedede;
 `;
 
 // NodeTypeList props

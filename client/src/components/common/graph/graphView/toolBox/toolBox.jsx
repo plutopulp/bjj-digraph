@@ -11,10 +11,8 @@ import Zoom from "./options/zoom";
 import HelpMenu from "./options/help/help";
 const Wrapper = styled.div`
   position: absolute;
-  left: 0;
+  left: 0px;
   top: 0;
-  height: 3em;
-  width: 20em;
   z-index: 1000;
 `;
 
@@ -22,11 +20,10 @@ const ToolBoxContainer = ({ show }) => {
   return (
     show && (
       <Wrapper>
-        <Button.Group>
+        <Button.Group size="medium">
           <HelpMenu />
-          <Layout />
           <Lock />
-          <CenterNode />
+          <Layout />
           <PathFinder />
         </Button.Group>
       </Wrapper>

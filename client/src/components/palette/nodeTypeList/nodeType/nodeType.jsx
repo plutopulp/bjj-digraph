@@ -1,5 +1,6 @@
 import React from "react";
 import { useDrag } from "react-dnd";
+import { Image } from "semantic-ui-react";
 import styled from "styled-components";
 
 import { dragTypes } from "../../../../lib/config/types/dragTypes";
