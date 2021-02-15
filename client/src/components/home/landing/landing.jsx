@@ -1,13 +1,15 @@
 import React from "react";
+import _ from "lodash";
 import { useContextRef } from "react-context-refs";
 
 import styled from "styled-components";
 import { Container, Segment, Header } from "semantic-ui-react";
 
-import { useWindowSize } from "../../hooks";
-import withBottomPassedHOC from "../../hocs/withBottomPassed";
-import Graph from "../common/graph/graphView/graph";
-import { NodeTypesContext } from "../../contexts/nodeTypes";
+import { useWindowSize } from "../../../hooks";
+import withBottomPassedHOC from "../../../hocs/withBottomPassed";
+import Graph from "../../common/graph/graphView/graph";
+import { NodeTypesContext } from "../../../contexts/nodeTypes";
+import graph from "./exampleGraph";
 
 const StyledSegment = styled(Segment)`
   &.ui.segment {
@@ -43,9 +45,9 @@ const graphSettings = {
   showControls: false,
   showToolbox: false,
   disableBackspace: true,
-  layoutEngine: "None",
-  minZoom: 0.75,
-  maxZoom: 0.75,
+  layoutEngine: "VerticalTree",
+  minZoom: 0.5,
+  maxZoom: 0.5,
 };
 
 const Landing = () => {
@@ -54,12 +56,17 @@ const Landing = () => {
   const windowSize = useWindowSize();
   const ref = useContextRef("section", { name: "landing" });
   const { nodeTypes } = React.useContext(NodeTypesContext);
+  React.useEffect(() => {
+    if (_.isEmpty(nodeTypes)) return;
+    setNodes(graph.nodes);
+    setEdges(graph.edges);
+  }, [_.isEmpty(nodeTypes)]);
   return (
     <div ref={ref} id="home">
       <Banner text>
         <StyledSegment circular compact>
           <Title size="huge">Connect your game</Title>
-          <Title size="large">with bjj-paths</Title>
+          <Title size="large">with bjjpaths</Title>
           <Spacer />
           <Subtitle size="medium">A mind-mapping tool for</Subtitle>
           <Subtitle size="medium">Brazilian Jiu-Jitsu</Subtitle>

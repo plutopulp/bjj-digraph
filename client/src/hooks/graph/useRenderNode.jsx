@@ -52,8 +52,10 @@ export const useRenderNode = () => {
 
   // Render method providing suitable svg symbol for input node
   const renderNode = (ref, node, id, selected, hovered) => {
+    console.log(nodeTypes);
     const nodeClassName = GraphUtils.classNames("node", { selected, hovered });
     const nodeType = nodeTypes[node.type] || nodeTypes["score-position-user"];
+    console.log(node);
     const svgProps = getSVGProps(node);
     return (
       <g>

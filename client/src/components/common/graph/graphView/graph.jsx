@@ -79,6 +79,7 @@ const GraphViewContainer = ({
     paths,
     showPathIndex,
   ]);
+  React.useEffect(() => console.log(nodes, edges));
 
   return (
     <React.Fragment>
