@@ -4,7 +4,7 @@ import { useContextRef } from "react-context-refs";
 import styled from "styled-components";
 import { Segment } from "semantic-ui-react";
 
-import { useWindowSize } from "../../hooks";
+import { useWindowSize } from "../../../hooks";
 
 const StyledSegment = styled(Segment)`
   min-height: ${({ height }) => height}px;

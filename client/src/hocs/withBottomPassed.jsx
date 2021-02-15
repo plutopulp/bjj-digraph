@@ -8,6 +8,7 @@ const withBottomPassedHOC = (InnerComp) => (props) => {
   return (
     <Visibility
       once={false}
+      offset={0}
       onBottomPassed={() => setBottomPassed(true)}
       onBottomPassedReverse={() => setBottomPassed(false)}
     >
