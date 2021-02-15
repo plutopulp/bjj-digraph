@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { Popup, Button, Icon } from "semantic-ui-react";
 import { SettingsContext } from "../../../../../../contexts/graph/settings";
 
@@ -17,7 +16,6 @@ const Lock = () => {
           <Icon name={readOnly ? "lock" : "unlock"} />
         </Button>
       }
-      position="bottom center"
       content={readOnly ? "Unlock" : "Lock"}
     />
   );

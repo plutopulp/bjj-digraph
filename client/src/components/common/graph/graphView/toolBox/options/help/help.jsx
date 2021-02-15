@@ -15,7 +15,6 @@ const HelpMenu = () => {
           </Button>
         }
         content="Help Menu"
-        position="bottom left"
       />
       <Menu open={helpMenu} handleClose={toggleHelpMenu} />
     </React.Fragment>

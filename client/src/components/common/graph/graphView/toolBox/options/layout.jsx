@@ -22,7 +22,7 @@ const Layout = () => {
   return (
     <Popup
       trigger={
-        <Menu compact icon style={{ marginLeft: "15px" }}>
+        <Menu compact icon>
           <Dropdown
             icon="grid layout"
             button
@@ -35,7 +35,6 @@ const Layout = () => {
         </Menu>
       }
       content="Layout"
-      position="right center"
     />
   );
 };
