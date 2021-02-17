@@ -6,6 +6,7 @@ export const routes = {
   pages: {
     home: "/",
     app: "/app/",
+    test: "/app/test/",
     graphs: {
       base: "/app/graphs/",
       get list() {

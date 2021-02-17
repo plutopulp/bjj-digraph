@@ -17,6 +17,7 @@ import { APIController } from "./components/APIController";
 import { SettingsProvider } from "./contexts/graph/settings";
 import { NodeTypesProvider } from "./contexts/nodeTypes";
 import Navbar from "./components/navbars/navbar";
+import StatefullGraphView from "./components/common/graph/detailViews/statefull";
 
 const App = () => {
   const [navbarFixed, setNavbarFixed] = React.useState(false);
@@ -45,6 +46,11 @@ const App = () => {
                       render={(props) => (
                         <Home {...props} setNavbarFixed={setNavbarFixed} />
                       )}
+                    />
+                    <Route
+                      exact
+                      path={routes.pages.test}
+                      component={StatefullGraphView}
                     />
                     <Route
                       exact

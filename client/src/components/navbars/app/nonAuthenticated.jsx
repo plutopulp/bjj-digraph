@@ -1,16 +1,17 @@
 import React from "react";
 
-import HomeItems from "../common/items/home";
-import LoginItem from "../common/items/login";
 import { NavWrapperInner, NavWrapperOuter } from "../common/styles";
+import LandingItem from "../common/items/landingLink";
 import withNavbarMenuHOC from "../../../hocs/withNavbarMenu";
+import LoginItem from "../common/items/login";
 import TestAppItem from "../common/items/testAppLink";
 
-const NonAuthNavbar = ({ fixed }) => {
+// The app navbar for non-authenticated users
+const AppNavbar = ({ fixed }) => {
   return (
     <NavWrapperOuter>
       <NavWrapperInner>
-        <HomeItems />
+        <LandingItem />
         <TestAppItem />
       </NavWrapperInner>
       <LoginItem />
@@ -18,4 +19,4 @@ const NonAuthNavbar = ({ fixed }) => {
   );
 };
 
-export default withNavbarMenuHOC(NonAuthNavbar);
+export default withNavbarMenuHOC(AppNavbar);

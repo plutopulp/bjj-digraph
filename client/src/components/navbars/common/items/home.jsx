@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { v4 as uuid } from "uuid";
 import { useRefs } from "react-context-refs";
 import AnchorLink from "react-anchor-link-smooth-scroll";
@@ -11,7 +10,6 @@ import { useActiveRef } from "../../../../hooks";
 const homeSections = [
   { name: "home", offset: 0 },
   { name: "about", offset: 0 },
-  { name: "test", offset: 80 },
   { name: "contact", offset: 0 },
 ];
 
