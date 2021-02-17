@@ -15,7 +15,6 @@ const NavbarMenu = styled(Menu)`
   }
   &.ui.menu {
     ${Color}
-    padding: 0.5em 0;
     z-index: 10000;
   }
 `;

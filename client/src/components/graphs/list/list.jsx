@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { GraphsContext } from "../../../contexts/graphs";
 import Card from "./card/card";
 import { Card as UICard, Container } from "semantic-ui-react";
-import AppNavbar from "../../common/navbars/app/navbar";
+import AppNavbar from "../../navbars/app/navbar";
 
 const StyledContainer = styled(Container)`
   margin-top: 10em;

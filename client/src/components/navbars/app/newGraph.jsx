@@ -1,10 +1,10 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 
-import { GraphsContext } from "../../../../contexts/graphs";
-import GraphForm from "../../graph/form";
-import { useFormFields } from "../../../../hooks";
-import withModalHOC from "../../../../hocs/withModal";
+import { GraphsContext } from "../../../contexts/graphs";
+import GraphForm from "../../common/graph/form";
+import { useFormFields } from "../../../hooks";
+import withModalHOC from "../../../hocs/withModal";
 
 const slugify = require("slugify");
 

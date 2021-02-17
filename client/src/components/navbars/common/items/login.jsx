@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Button, Menu } from "semantic-ui-react";
-import { useAuth } from "../../../../../hooks";
+import { useAuth } from "../../../../hooks";
 
 const LoginItem = () => {
   const { loginWithRedirect } = useAuth();

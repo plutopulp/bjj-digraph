@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon, Menu } from "semantic-ui-react";
-import { useToggle } from "../../../../../hooks";
+import { useToggle } from "../../../../hooks";
 import NewGraph from "../../app/newGraph";
 
 const NewMapItem = () => {

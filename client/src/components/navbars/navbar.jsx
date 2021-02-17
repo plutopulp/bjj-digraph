@@ -2,7 +2,7 @@ import React from "react";
 import HomeNavbar from "./home/navbar";
 import AppNavbar from "./app/navbar";
 import { useLocation } from "react-router-dom";
-import { routes } from "../../../lib/config/routes/routes";
+import { routes } from "../../lib/config/routes/routes";
 
 const Navbar = ({ fixed }) => {
   const location = useLocation();

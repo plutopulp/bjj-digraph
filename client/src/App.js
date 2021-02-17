@@ -16,7 +16,7 @@ import Home from "./components/home/home";
 import { APIController } from "./components/APIController";
 import { SettingsProvider } from "./contexts/graph/settings";
 import { NodeTypesProvider } from "./contexts/nodeTypes";
-import Navbar from "./components/common/navbars/navbar";
+import Navbar from "./components/navbars/navbar";
 
 const App = () => {
   const [navbarFixed, setNavbarFixed] = React.useState(false);

@@ -5,7 +5,7 @@ import { NavFlexWrap } from "../common/styles";
 import HomeItems from "../common/items/home";
 import AppItem from "../common/items/appLink";
 import UserDropdown from "../common/items/userDropdown";
-import withNavbarMenuHOC from "../../../../hocs/withNavbarMenu";
+import withNavbarMenuHOC from "../../../hocs/withNavbarMenu";
 
 const NavWrapper = styled.div`
   display: flex;

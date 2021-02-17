@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
-import { GraphContext } from "../../../../../contexts/graph/graph";
-import { GraphsContext } from "../../../../../contexts/graphs";
+import { GraphContext } from "../../../../contexts/graph/graph";
+import { GraphsContext } from "../../../../contexts/graphs";
 
 const CurrentMap = () => {
   const { currentGraphId } = React.useContext(GraphContext);

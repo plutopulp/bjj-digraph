@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import { Menu } from "semantic-ui-react";
-import { routes } from "../../../../../lib/config/routes/routes";
+import { routes } from "../../../../lib/config/routes/routes";
 
 const UserMapsItem = () => {
   const location = useLocation();

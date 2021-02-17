@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Dropdown, Image, Menu } from "semantic-ui-react";
-import { useAuth, useToggle } from "../../../../../hooks";
-import { routes } from "../../../../../lib/config/routes/routes";
-import Profile from "../../../profile";
+import { useAuth, useToggle } from "../../../../hooks";
+import { routes } from "../../../../lib/config/routes/routes";
+import Profile from "../../../common/profile";
 
 const Wrapper = styled.div`
   display: flex;
