@@ -22,9 +22,17 @@ export const SidebarMenu = styled(Menu)`
   }
 `;
 
-export const NavFlexWrap = styled.div`
+export const NavWrapperInner = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
+`;
+
+export const NavWrapperOuter = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;

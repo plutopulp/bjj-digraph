@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Dropdown, Image, Menu } from "semantic-ui-react";
+import { Dropdown, Icon, Image, Menu } from "semantic-ui-react";
 import { useAuth, useToggle } from "../../../../hooks";
 import { routes } from "../../../../lib/config/routes/routes";
 import Profile from "../../../common/profile";
@@ -32,10 +32,18 @@ const UserDropdown = () => {
           }
         >
           <Dropdown.Menu>
-            <Dropdown.Item onClick={toggleProfile}>Profile</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
+            <Dropdown.Item onClick={toggleProfile}>
+              <Icon name="user" />
+              Profile
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Icon name="cog" />
+              Settings
+            </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout}>
+              <Icon name="sign out" /> Logout
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </Wrapper>

@@ -1,28 +1,20 @@
 import React from "react";
-import styled from "styled-components";
 
-import { NavFlexWrap } from "../common/styles";
+import { NavWrapperInner, NavWrapperOuter } from "../common/styles";
 import HomeItems from "../common/items/home";
 import AppItem from "../common/items/appLink";
 import UserDropdown from "../common/items/userDropdown";
 import withNavbarMenuHOC from "../../../hocs/withNavbarMenu";
 
-const NavWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
 // fixed prop passed to AuthNavbar but only used in HOC
 const AuthNavbar = () => (
-  <NavWrapper>
-    <NavFlexWrap>
+  <NavWrapperOuter>
+    <NavWrapperInner>
       <HomeItems />
       <AppItem />
-    </NavFlexWrap>
+    </NavWrapperInner>
     <UserDropdown />
-  </NavWrapper>
+  </NavWrapperOuter>
 );
 
 export default withNavbarMenuHOC(AuthNavbar);
