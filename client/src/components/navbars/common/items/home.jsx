@@ -9,7 +9,6 @@ import { useActiveRef } from "../../../../hooks";
 
 const homeSections = [
   { name: "home", offset: 0 },
-  { name: "about", offset: 0 },
   { name: "contact", offset: 0 },
 ];
 

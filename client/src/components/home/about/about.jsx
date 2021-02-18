@@ -19,7 +19,12 @@ const About = () => {
   const ref = useContextRef("section", { name: "about" });
   return (
     <div ref={ref} id="about">
-      <StyledSegment vertical height={windowSize.height + 60} />
+      <StyledSegment vertical height={windowSize.height + 60}>
+        <p>
+          Jiu-Jitsu can be somewhat overwhelming. Using mind mapping software is
+          a great way to lay out your ideas
+        </p>
+      </StyledSegment>
     </div>
   );
 };
