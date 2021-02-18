@@ -93,7 +93,8 @@ SCORE_NODE_SETTINGS = [
         fill_opacity=COMMON_NODE_PROPS["opponent_opacity"],
     )
     # for the moment only keeping action node for opponent
-    for k, v in BASE_SCORE_NODE_SETTINGS.items() if k == "action"
+    for k, v in BASE_SCORE_NODE_SETTINGS.items()
+    if k == "action"
 ]
 
 META_NODE_SETTINGS = [
