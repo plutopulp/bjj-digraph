@@ -14,7 +14,7 @@ export const useFormValid = (fields, errors) => {
       return true;
     };
     setFormValid(isFormValid());
-  }, [JSON.stringify(errors), errors, fields]);
+  }, [JSON.stringify(errors)]);
 
   return formValid;
 };
