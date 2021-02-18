@@ -18,6 +18,7 @@ import { SettingsProvider } from "./contexts/graph/settings";
 import { NodeTypesProvider } from "./contexts/nodeTypes";
 import Navbar from "./components/navbars/navbar";
 import StatefullGraphView from "./components/common/graph/detailViews/statefull";
+import TestGraph from "./components/graphs/testGraph/testGraph";
 
 const App = () => {
   const [navbarFixed, setNavbarFixed] = React.useState(false);
@@ -50,7 +51,7 @@ const App = () => {
                     <Route
                       exact
                       path={routes.pages.test}
-                      component={StatefullGraphView}
+                      component={TestGraph}
                     />
                     <Route
                       exact

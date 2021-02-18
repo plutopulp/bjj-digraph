@@ -18,13 +18,19 @@ const Menu = () => {
           <List.Header>Create Node</List.Header>
           Drag a node from the palette on the left and drop it onto the map.
         </List.Item>
+
         <List.Item>
           <List.Header>Select Node</List.Header>
           Click on the node.
         </List.Item>
+
         <List.Item>
           <List.Header>Edit Node</List.Header>
           Double click on the node.
+        </List.Item>
+        <List.Item>
+          <List.Header>Delete Node</List.Header>
+          Select the node, then Backspace
         </List.Item>
         <List.Item>
           <List.Header>Copy Node</List.Header>
