@@ -7,12 +7,11 @@ import { Menu } from "semantic-ui-react";
 
 import { useActiveRef } from "../../../../hooks";
 
-const homeSections = [
-  { name: "home", offset: 0 },
-  { name: "contact", offset: 0 },
-];
+const homeSections = [{ name: "home", offset: 0 }];
 
 // The home page menu, with smooth-scrolling between sections
+// Initially had more sections, leaving it this way as will most
+// likely expand the home page into different sections
 const HomeItems = () => {
   // Get the section refs from context
   let sectionRefs = useRefs().filter((ref) => ref.type === "section");

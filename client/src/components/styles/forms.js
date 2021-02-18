@@ -15,3 +15,8 @@ export const FormTitle = styled.h2`
   padding-bottom: 0.25em;
   border-bottom: solid 1px #ddd;
 `;
+
+export const FormSubText = styled.p`
+  margin-top: 0.25em;
+  color: #777;
+`;
