@@ -64,6 +64,23 @@ const ContactForm = ({
           }
         />
         <Form.Field
+          control={Input}
+          label="Subject"
+          type="text"
+          name="subject"
+          error={!errors["subjectError"] ? false : errors["subjectError"]}
+          placeholder="Enter the subject of your message"
+          required
+          value={fields.subject}
+          onChange={(event) =>
+            handleChange(event, {
+              errorName: "subjectError",
+              errorType: "textError",
+              minChars: 5,
+            })
+          }
+        />
+        <Form.Field
           control={TextArea}
           label="Message"
           type="text"

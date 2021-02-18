@@ -7,11 +7,13 @@ import ContactForm from "./form/form";
 
 const initialFields = {
   name: "",
+  subject: "",
   email: "",
   message: "",
 };
 const initialFieldErrors = {
   nameError: "",
+  subjectError: "",
   emailError: "",
   messageError: "",
 };
@@ -27,18 +29,6 @@ const Contact = () => {
     setFormSubmitted
   );
   const formValid = useFormValid(fields, errors);
-  // Creates an instance of a resource type
-  const create = (endpoint, instance, successCallback, errorCallback) => {
-    Axios.post(endpoint, instance)
-      .then((response) => {
-        console.log(response);
-        if (successCallback) successCallback();
-      })
-      .catch((error) => {
-        console.log(error);
-        if (errorCallback) errorCallback();
-      });
-  };
 
   // Callback on successful contact creation
   const handleCreateSuccess = () => {
@@ -55,12 +45,13 @@ const Contact = () => {
     setFormSubmitted(true);
     event.preventDefault();
     if (formValid)
-      create(
-        routes.api.contacts,
-        fields,
-        handleCreateSuccess,
-        handleCreateError
-      );
+      Axios.post(routes.api.contacts, fields)
+        .then(() => {
+          handleCreateSuccess();
+        })
+        .catch(() => {
+          handleCreateError();
+        });
   };
 
   return (
