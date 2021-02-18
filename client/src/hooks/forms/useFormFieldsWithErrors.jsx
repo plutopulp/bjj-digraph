@@ -21,7 +21,6 @@ export const useFormFieldsWithErrors = (
   formSubmitted,
   setFormSubmitted
 ) => {
-  // sets field errors after validation on input changes
   const [fields, setFields] = React.useState(initialFields);
   const [errors, setErrors] = React.useState(initialErrors);
 

@@ -17,6 +17,7 @@ export const routes = {
   },
   api: {
     accounts: "",
+    contacts: serverUrl + "contacts/",
     settings: {
       base: serverUrl + "settings/",
       get site() {

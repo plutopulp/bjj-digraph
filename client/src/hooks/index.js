@@ -12,6 +12,7 @@ export { useRefPositions } from "./events/useRefPositions";
 export { useActiveRef } from "./events/useActiveRef";
 export { useFormFields } from "./forms/useFormFields";
 export { useFormFieldsWithErrors } from "./forms/useFormFieldsWithErrors";
+export { useFormValid } from "./forms/useFormValid";
 export { useGraphOps } from "./graph/useGraphOps";
 export { useNodeDrop } from "./graph/useNodeDrop";
 export { useRenderNode } from "./graph/useRenderNode";

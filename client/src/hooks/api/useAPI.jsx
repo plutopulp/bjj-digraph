@@ -17,10 +17,16 @@ export const useAPI = () => {
   };
 
   // Creates an instance of a resource type
-  const create = (endpoint, instance, callback) => {
+  const create = (endpoint, instance, successCallback, errorCallback) => {
     Axios.post(endpoint, instance, headers.current)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        console.log(response);
+        if (successCallback) successCallback();
+      })
+      .catch((error) => {
+        console.log(error);
+        if (errorCallback) errorCallback();
+      });
   };
 
   // Updates an instance of a resource type
