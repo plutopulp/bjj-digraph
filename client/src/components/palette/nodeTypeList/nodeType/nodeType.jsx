@@ -39,12 +39,12 @@ const NodeTypeContainer = ({ nodeType }) => {
     <NodeTypeWrapper>
       <SVGWithShadow ref={ref} isDragging={isDragging}>
         {" "}
-        <svg width="50" height="50">
+        <svg width="40" height="40">
           {nodeType.shape}
           <use
             xlinkHref={nodeType.shapeId}
-            width="50"
-            height="50"
+            width="40"
+            height="40"
             {...svgProps}
           />
         </svg>

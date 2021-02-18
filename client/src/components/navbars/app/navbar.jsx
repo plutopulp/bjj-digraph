@@ -5,12 +5,12 @@ import NonAuthNavbar from "./nonAuthenticated";
 import AuthNavbar from "./authenticated";
 
 // The navbar for the app portion of the site
-const AppNavbar = ({ fixed }) => {
+const AppNavbar = () => {
   const { isAuthenticated } = useAuth();
   return isAuthenticated ? (
-    <AuthNavbar fixed={fixed} />
+    <AuthNavbar fixed={false} />
   ) : (
-    <NonAuthNavbar fixed={fixed} />
+    <NonAuthNavbar fixed={false} />
   );
 };
 
