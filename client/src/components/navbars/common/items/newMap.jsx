@@ -11,7 +11,7 @@ const NewMapItem = () => {
         <Icon name="plus" /> Map
       </Menu.Item>
 
-      <NewGraph open={openModal} handleClose={toggleModal} />
+      <NewGraph open={openModal} handleClose={toggleModal} size="small" />
     </React.Fragment>
   );
 };

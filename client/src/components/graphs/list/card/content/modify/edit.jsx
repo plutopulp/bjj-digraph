@@ -43,4 +43,4 @@ const EditGraph = ({ id, handleClose }) => {
   );
 };
 
-export default withModalHOC(EditGraph);
+export default EditGraph;

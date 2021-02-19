@@ -133,6 +133,7 @@ const GraphViewContainer = ({
         node={doubleClicked}
         open={!_.isEmpty(doubleClicked)}
         handleClose={handleResetDoubleClicked}
+        size="small"
       />
     </React.Fragment>
   );

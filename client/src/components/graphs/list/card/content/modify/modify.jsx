@@ -1,9 +1,13 @@
 import React from "react";
 import { Popup, Button } from "semantic-ui-react";
+import withModalHOC from "../../../../../../hocs/withModal";
 import { useToggle } from "../../../../../../hooks";
 import { HeaderWrapper } from "../../styles";
 import DeleteGraph from "./delete";
 import EditGraph from "./edit";
+
+const EditGraphModal = withModalHOC(EditGraph);
+const DeleteGraphModal = withModalHOC(DeleteGraph);
 
 const ModifyGraph = ({ id, title }) => {
   const [deleteModal, toggleDeleteModal] = useToggle(false);
@@ -38,13 +42,19 @@ const ModifyGraph = ({ id, title }) => {
           content="Delete Map"
         />
       </HeaderWrapper>
-      <DeleteGraph
+      <DeleteGraphModal
         title={title}
         id={id}
         open={deleteModal}
         handleClose={toggleDeleteModal}
+        size="small"
       />
-      <EditGraph id={id} open={editModal} handleClose={toggleEditModal} />
+      <EditGraphModal
+        id={id}
+        open={editModal}
+        handleClose={toggleEditModal}
+        size="small"
+      />
     </React.Fragment>
   );
 };

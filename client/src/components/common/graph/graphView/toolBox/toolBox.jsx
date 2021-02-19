@@ -26,7 +26,6 @@ const ToolBoxContainer = ({ show }) => {
           <HelpMenu />
           <Layout />
           <Lock />
-          <CenterNode />
           <PathFinder />
         </Button.Group>
       </Wrapper>

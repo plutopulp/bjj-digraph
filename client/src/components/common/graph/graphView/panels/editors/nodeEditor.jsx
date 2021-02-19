@@ -103,7 +103,9 @@ const NodeEditor = ({ node, handleChange, handleSubmit }) => (
         placeholder="The rationale behind the chosen score"
         onChange={handleChange}
       />
-      <Button type="submit">Save</Button>
+      <Button type="submit" primary>
+        Save
+      </Button>
     </Form>
   </FormContainer>
 );

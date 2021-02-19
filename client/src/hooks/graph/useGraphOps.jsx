@@ -129,6 +129,7 @@ export const useGraphOps = () => {
       title: nodeType.typeText,
       type: nodeType.name,
       nodeType: nodeType.name,
+      score: 0,
       x,
       y,
     };

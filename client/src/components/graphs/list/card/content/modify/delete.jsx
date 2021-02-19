@@ -31,4 +31,4 @@ const DeleteGraph = ({ title, id, handleClose }) => {
     </React.Fragment>
   );
 };
-export default withModalHOC(DeleteGraph);
+export default DeleteGraph;
