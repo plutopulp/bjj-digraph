@@ -3,6 +3,7 @@ from rest_framework import mixins, generics, permissions
 from .models import Contact
 from .serializers import ContactSerializer
 
+
 class ContactCreate(mixins.CreateModelMixin, generics.GenericAPIView):
     """ An API view for creating contact messages """
 

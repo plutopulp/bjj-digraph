@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, mixins, permissions
 from rest_framework.response import Response
 
 from .serializers import GraphSerializer
@@ -8,7 +8,7 @@ from utils.views.permissions import IsOwnerOrReadOnly
 
 
 class GraphList(generics.ListCreateAPIView):
-    """ An API view for listing and creating bjj digraphs """
+    """ An API view for a given user for listing and creating bjj digraphs """
 
     queryset = Graph.objects.all()
     serializer_class = GraphSerializer
@@ -38,3 +38,5 @@ class GraphDetail(generics.RetrieveUpdateDestroyAPIView):
 
     lookup_field = "id"
     lookup_url_kwarg = "graph_id"
+
+
