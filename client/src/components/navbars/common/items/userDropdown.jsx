@@ -32,15 +32,6 @@ const UserDropdown = () => {
           }
         >
           <Dropdown.Menu>
-            <Dropdown.Item onClick={toggleProfile}>
-              <Icon name="user" />
-              Profile
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Icon name="cog" />
-              Settings
-            </Dropdown.Item>
-            <Dropdown.Divider />
             <Dropdown.Item onClick={handleLogout}>
               <Icon name="sign out" /> Logout
             </Dropdown.Item>
@@ -53,3 +44,15 @@ const UserDropdown = () => {
 };
 
 export default UserDropdown;
+
+// Removed from dropdown until components written properly
+
+//<Dropdown.Item onClick={toggleProfile}>
+//  <Icon name="user" />
+//  Profile
+//</Dropdown.Item>
+//<Dropdown.Item>
+//  <Icon name="cog" />
+//  Settings
+//</Dropdown.Item>
+//<Dropdown.Divider />
