@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
 
-import { useHovered } from "../../../../hooks/";
+import { useHovered } from "../../../../../hooks";
 
 import { CardWrapper, HeaderWrapper } from "./styles";
 import Image from "./image/image";

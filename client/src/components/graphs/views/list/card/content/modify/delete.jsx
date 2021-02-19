@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Modal } from "semantic-ui-react";
-import { GraphsContext } from "../../../../../../contexts/graphs";
+import { GraphsContext } from "../../../../../../../contexts/graphs";
 
-import withModalHOC from "../../../../../../hocs/withModal";
-import { toTitle } from "../../../../../../lib/utils/strings";
+import withModalHOC from "../../../../../../../hocs/withModal";
+import { toTitle } from "../../../../../../../lib/utils/strings";
 
 const DeleteGraph = ({ title, id, handleClose }) => {
   const { graphs, setGraphs } = React.useContext(GraphsContext);

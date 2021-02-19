@@ -1,9 +1,9 @@
 import React from "react";
 
-import { GraphsContext } from "../../../../../../contexts/graphs";
-import withModalHOC from "../../../../../../hocs/withModal";
-import { useFormFields } from "../../../../../../hooks";
-import GraphForm from "../../../../../common/graph/form";
+import { GraphsContext } from "../../../../../../../contexts/graphs";
+import withModalHOC from "../../../../../../../hocs/withModal";
+import { useFormFields } from "../../../../../../../hooks";
+import GraphForm from "../../../../../../common/graph/form";
 
 const slugify = require("slugify");
 

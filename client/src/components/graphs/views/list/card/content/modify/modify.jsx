@@ -1,7 +1,7 @@
 import React from "react";
 import { Popup, Button } from "semantic-ui-react";
-import withModalHOC from "../../../../../../hocs/withModal";
-import { useToggle } from "../../../../../../hooks";
+import withModalHOC from "../../../../../../../hocs/withModal";
+import { useToggle } from "../../../../../../../hooks";
 import { HeaderWrapper } from "../../styles";
 import DeleteGraph from "./delete";
 import EditGraph from "./edit";

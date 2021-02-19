@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { routes } from "../../../../../lib/config/routes/routes";
+import { routes } from "../../../../../../lib/config/routes/routes";
 
 const Title = ({ id, slug, title }) => {
   return (

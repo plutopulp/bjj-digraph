@@ -10,15 +10,14 @@ import "semantic-ui-css/semantic.min.css";
 import { GraphProvider } from "./contexts/graph/graph";
 import { GraphsProvider } from "./contexts/graphs";
 import { routes } from "./lib/config/routes/routes";
-import GraphCardList from "./components/graphs/list/list";
 import AuthenticatedGraphView from "./components/common/graph/detailViews/authenticated";
 import Home from "./components/home/home";
 import { APIController } from "./components/APIController";
 import { SettingsProvider } from "./contexts/graph/settings";
 import { NodeTypesProvider } from "./contexts/nodeTypes";
 import Navbar from "./components/navbars/navbar";
-import StatefullGraphView from "./components/common/graph/detailViews/statefull";
 import TestGraph from "./components/graphs/testGraph/testGraph";
+import GraphListView from "./components/graphs/views/list/listView";
 
 const App = () => {
   const [navbarFixed, setNavbarFixed] = React.useState(false);
@@ -56,7 +55,7 @@ const App = () => {
                     <Route
                       exact
                       path={routes.pages.graphs.list}
-                      component={GraphCardList}
+                      component={GraphListView}
                     />
                     <Route
                       exact

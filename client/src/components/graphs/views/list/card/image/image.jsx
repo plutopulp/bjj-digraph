@@ -1,7 +1,7 @@
 import React from "react";
-import { useAPI, useMountedEffect } from "../../../../../hooks";
-import { routes } from "../../../../../lib/config/routes/routes";
-import Graph from "../../../../common/graph/graphView/graph";
+import { useAPI, useMountedEffect } from "../../../../../../hooks";
+import { routes } from "../../../../../../lib/config/routes/routes";
+import Graph from "../../../../../common/graph/graphView/graph";
 
 // The Graph Image displayed in a BJJ map card
 const Image = ({ id }) => {
