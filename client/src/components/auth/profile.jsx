@@ -7,7 +7,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getUserMetadata = async () => {
-      const domain = "dev-3nvlzxev.eu.auth0.com";
+      const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 
       try {
         const accessToken = await getAccessTokenSilently({

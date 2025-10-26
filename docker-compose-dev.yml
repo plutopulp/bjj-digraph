@@ -1,18 +1,24 @@
-version: '2'
+version: "2"
 
 services:
-    nginx: 
+    nginx:
         container_name: nginx
         restart: unless-stopped
         build:
             context: .
             dockerfile: ./docker/nginx/Dockerfile
+            args:
+                REACT_APP_SERVER_URL: ${REACT_APP_SERVER_URL}
+                REACT_APP_AUTH0_CLIENT_ID: ${REACT_APP_AUTH0_CLIENT_ID}
+                REACT_APP_AUTH0_DOMAIN: ${REACT_APP_AUTH0_DOMAIN}
+                REACT_APP_AUTH0_AUDIENCE: ${REACT_APP_AUTH0_AUDIENCE}
+                REACT_APP_SITE_URL: ${REACT_APP_SITE_URL}
         ports:
             - 3000:80
         volumes:
             - static_volume:/app/server/staticfiles
             - ./docker/nginx/development:/etc/nginx/conf.d
-        depends_on: 
+        depends_on:
             - server
     server:
         container_name: django
@@ -20,25 +26,25 @@ services:
         build:
             context: .
             dockerfile: ./docker/server/Dockerfile
-        volumes:
-            
         entrypoint: /app/docker/server/wsgi-entrypoint.sh
+        env_file:
+            - ./server/.env
         volumes:
             - static_volume:/app/server/staticfiles
         expose:
-            - 8000        
+            - 8000
+        depends_on:
+            - pgdb
 
     pgdb:
-        image: postgres
+        image: postgres:13-alpine
         restart: unless-stopped
         container_name: pgdb
-        environment:
-          - POSTGRES_DB=${DB_NAME}
-          - POSTGRES_USER=${DB_USER}
-          - POSTGRES_PASSWORD=${DB_PASS}
+        env_file:
+            - ./server/.env
         volumes:
-          - pgdata:/var/lib/postgresql/data/
-    
+            - pgdata:/var/lib/postgresql/data/
+
 volumes:
     static_volume:
     pgdata:

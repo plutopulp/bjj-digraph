@@ -23,11 +23,26 @@ def strip_url(url):
     return strip_url(url[1:])
 
 
+def _issuer_from_env() -> str:
+    """Build the expected issuer URL from AUTH0_DOMAIN env var.
+
+    Ensures the URL includes scheme and trailing slash, e.g. https://tenant.auth0.com/
+    """
+    issuer = os.environ.get("AUTH0_DOMAIN", "").strip()
+    if not issuer:
+        raise EnvironmentError("AUTH0_DOMAIN must be set")
+    if not issuer.startswith("http"):
+        issuer = f"https://{issuer}"
+    if not issuer.endswith("/"):
+        issuer = issuer + "/"
+    return issuer
+
+
 def jwt_decode_token(token):
     header = jwt.get_unverified_header(token)
-    jwks = requests.get(
-        "https://{}/.well-known/jwks.json".format("dev-3nvlzxev.eu.auth0.com")
-    ).json()
+    issuer = _issuer_from_env()
+    jwks_url = issuer.rstrip("/") + "/.well-known/jwks.json"
+    jwks = requests.get(jwks_url).json()
     public_key = None
     for jwk in jwks["keys"]:
         if jwk["kid"] == header["kid"]:
@@ -36,7 +51,6 @@ def jwt_decode_token(token):
     if public_key is None:
         raise Exception("Public key not found.")
 
-    issuer = "https://{}/".format("dev-3nvlzxev.eu.auth0.com")
     return jwt.decode(
         token,
         public_key,

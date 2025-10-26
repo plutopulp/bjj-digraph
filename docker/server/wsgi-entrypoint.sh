@@ -11,6 +11,9 @@ do
     sleep 2
 done
 
+# Ensure Settings singleton exists to trigger default data via signals
+echo "from settings.models import Settings; s=Settings.load(); s.save()" | ./manage.py shell
+
 ./manage.py collectstatic --noinput
 
 echo "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser('admin', 'admin@example.com', 'pass')" | ./manage.py shell
